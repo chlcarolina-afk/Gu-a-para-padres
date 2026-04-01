@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía para Familias — UCI Quemados</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --naranja: #e8773a;
+    --naranja-claro: #fdf0e8;
+    --naranja-oscuro: #c45e22;
+    --azul: #3a7ec4;
+    --azul-claro: #e8f2fd;
+    --verde: #3aaa6a;
+    --verde-claro: #e8f8ee;
+    --rojo-claro: #fdecea;
+    --rojo: #c43a2a;
+    --gris: #f5f5f5;
+    --texto: #222;
+    --texto-suave: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f7f7f7;
+    color: var(--texto);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--naranja);
+    padding: 1.5rem 1.2rem 1.2rem;
+    text-align: center;
+  }
+  .header .osito { font-size: 3rem; margin-bottom: 0.3rem; }
+  .header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .header p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+  }
+
+  /* BIENVENIDA */
+  .bienvenida {
+    background: #fff;
+    margin: 0.8rem 0.8rem 0;
+    border-radius: 16px;
+    padding: 1.2rem;
+    border-left: 5px solid var(--naranja);
+    font-size: 0.98rem;
+    color: var(--texto-suave);
+    line-height: 1.6;
+  }
+  .bienvenida strong { color: var(--naranja-oscuro); }
+
+  /* MENU PRINCIPAL — botones grandes */
+  .menu-titulo {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--texto-suave);
+    padding: 1.2rem 0.8rem 0.5rem;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0 0.8rem 0.8rem;
+  }
+
+  .menu-btn {
+    background: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 1.1rem 0.6rem;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .menu-btn:active { transform: scale(0.96); }
+  .menu-btn.activo { background: var(--naranja); }
+  .menu-btn.activo .menu-icon { background: rgba(255,255,255,0.2); }
+  .menu-btn.activo .menu-label { color: #fff; }
+
+  .menu-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--naranja-claro);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+  }
+  .menu-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.2;
+  }
+
+  /* CONTENIDO */
+  .contenido { padding: 0 0.8rem 5rem; }
+  .pantalla { display: none; }
+  .pantalla.activa { display: block; animation: aparecer 0.25s ease; }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .pantalla-titulo {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--naranja-oscuro);
+    margin: 1rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* TARJETAS */
+  .tarjeta {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .tarjeta-titulo {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--naranja-oscuro);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .tarjeta p {
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+    line-height: 1.65;
+    margin-bottom: 0.5rem;
+  }
+  .tarjeta p:last-child { margin-bottom: 0; }
+
+  /* AVISO */
+  .aviso {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .aviso-icono { font-size: 1.4rem; flex-shrink: 0; }
+  .aviso-texto { font-size: 0.93rem; line-height: 1.6; color: var(--texto-suave); }
+  .aviso-texto b { display: block; font-size: 0.9rem; color: var(--texto); margin-bottom: 0.2rem; }
+
+  .aviso-naranja { background: var(--naranja-claro); }
+  .aviso-verde { background: var(--verde-claro); color: #1a5c3a; }
+  .aviso-azul { background: var(--azul-claro); }
+  .aviso-rojo { background: var(--rojo-claro); }
+
+  /* DISPOSITIVO */
+  .dispositivo {
+    background: var(--gris);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .dispositivo-icono {
+    font-size: 1.6rem; flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .dispositivo-nombre {
+    font-size: 0.95rem; font-weight: 800;
+    color: var(--naranja-oscuro); margin-bottom: 0.2rem;
+  }
+  .dispositivo-texto { font-size: 0.9rem; color: var(--texto-suave); line-height: 1.55; }
+
+  /* PASO */
+  .paso {
+    display: flex; gap: 0.8rem;
+    margin-bottom: 0.9rem; align-items: flex-start;
+  }
+  .paso-num {
+    background: var(--naranja); color: #fff;
+    min-width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 800; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .paso-texto { font-size: 0.93rem; line-height: 1.6; color: var(--texto-suave); }
+  .paso-texto b { color: var(--texto); }
+
+  /* CHECKLIST */
+  .check-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    padding: 0.85rem 0; border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-caja {
+    width: 26px; height: 26px; border-radius: 8px;
+    border: 2.5px solid var(--naranja);
+    flex-shrink: 0; display: flex;
+    align-items: center; justify-content: center;
+    transition: all 0.2s; margin-top: 1px;
+    font-size: 1rem; color: transparent;
+  }
+  .check-caja.listo { background: var(--naranja); color: #fff; border-color: var(--naranja); }
+  .check-texto { font-size: 0.93rem; line-height: 1.5; color: var(--texto-suave); }
+  .check-texto.listo { text-decoration: line-through; opacity: 0.5; }
+
+  /* FAQ */
+  .pregunta-item {
+    border-bottom: 2px solid #f0f0f0;
+    padding: 1rem 0;
+  }
+  .pregunta-item:last-child { border-bottom: none; }
+  .pregunta-q {
+    font-size: 0.97rem; font-weight: 700;
+    color: var(--texto); cursor: pointer;
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 0.8rem;
+    line-height: 1.4;
+  }
+  .pregunta-flecha {
+    font-size: 1rem; color: var(--naranja);
+    flex-shrink: 0; transition: transform 0.2s;
+    font-weight: 800;
+  }
+  .pregunta-flecha.abierto { transform: rotate(45deg); }
+  .pregunta-a {
+    font-size: 0.92rem; line-height: 1.65;
+    color: var(--texto-suave); margin-top: 0.7rem;
+    display: none; background: var(--gris);
+    border-radius: 10px; padding: 0.8rem;
+  }
+  .pregunta-a.abierto { display: block; animation: aparecer 0.2s ease; }
+
+  /* ALARMA */
+  .alarma {
+    background: var(--rojo-claro);
+    border-radius: 14px; padding: 1rem;
+    margin-bottom: 0.6rem;
+    display: flex; gap: 0.7rem; align-items: center;
+  }
+  .alarma-icono { font-size: 1.5rem; flex-shrink: 0; }
+  .alarma-texto { font-size: 0.93rem; color: #7a1010; font-weight: 600; line-height: 1.4; }
+
+  /* TELEFONO */
+  .telefono-btn {
+    background: var(--verde);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: #fff;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 4px 12px rgba(58,170,106,0.3);
+  }
+  .telefono-btn .tel-icono { font-size: 2rem; }
+  .telefono-btn .tel-info { }
+  .telefono-btn .tel-label { font-size: 0.82rem; opacity: 0.85; font-weight: 600; }
+  .telefono-btn .tel-numero { font-size: 1.2rem; font-weight: 800; }
+
+  /* EMOCION GRID */
+  .emocion-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+    margin: 0.6rem 0;
+  }
+  .emocion-item {
+    background: var(--naranja-claro);
+    border-radius: 10px; padding: 0.6rem 0.4rem;
+    text-align: center; font-size: 0.82rem;
+    font-weight: 700; color: var(--naranja-oscuro);
+  }
+  .emocion-item span { display: block; font-size: 1.5rem; margin-bottom: 0.2rem; }
+
+  /* BARRA INFERIOR */
+  .barra-inferior {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-top: 2px solid #eee;
+    display: flex;
+    padding: 0.3rem 0 0.5rem;
+    z-index: 100;
+  }
+  .barra-btn {
+    flex: 1; border: none; background: none;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.1rem;
+    padding: 0.4rem 0;
+    cursor: pointer; font-family: 'Nunito', sans-serif;
+  }
+  .barra-btn .b-icono { font-size: 1.3rem; }
+  .barra-btn .b-label {
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--texto-suave); line-height: 1;
+  }
+  .barra-btn.activo .b-label { color: var(--naranja); }
+  .barra-btn.activo .b-icono { filter: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="osito">🧸</div>
+  <h1>Guía para familias</h1>
+  <p>UCI de Pacientes Quemados — Hospital del Niño</p>
+</div>
+
+<!-- BIENVENIDA -->
+<div class="bienvenida">
+  Sabemos que este momento es muy difícil. <strong>Estamos aquí para acompañarte y responder tus preguntas.</strong> Esta guía tiene la información más importante sobre el cuidado de tu hijo o hija.
+</div>
+
+<!-- MENU -->
+<div class="menu-titulo">¿Qué quieres saber?</div>
+<div class="menu-grid">
+  <button class="menu-btn activo" id="btn-primeros" onclick="mostrar('primeros', this)">
+    <div class="menu-icon">🏥</div>
+    <div class="menu-label">Primeros días</div>
+  </button>
+  <button class="menu-btn" id="btn-aparatos" onclick="mostrar('aparatos', this)">
+    <div class="menu-icon">🩺</div>
+    <div class="menu-label">Aparatos y tubos</div>
+  </button>
+  <button class="menu-btn" id="btn-cirugias" onclick="mostrar('cirugias', this)">
+    <div class="menu-icon">🔬</div>
+    <div class="menu-label">Operaciones</div>
+  </button>
+  <button class="menu-btn" id="btn-emociones" onclick="mostrar('emociones', this)">
+    <div class="menu-icon">💚</div>
+    <div class="menu-label">Emociones</div>
+  </button>
+  <button class="menu-btn" id="btn-alta" onclick="mostrar('alta', this)">
+    <div class="menu-icon">🏠</div>
+    <div class="menu-label">Volver a casa</div>
+  </button>
+  <button class="menu-btn" id="btn-preguntas" onclick="mostrar('preguntas', this)">
+    <div class="menu-icon">❓</div>
+    <div class="menu-label">Preguntas frecuentes</div>
+  </button>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+
+  <!-- PRIMEROS DÍAS -->
+  <div class="pantalla activa" id="primeros">
+    <div class="pantalla-titulo">🏥 Los primeros días</div>
+
+    <div class="aviso aviso-naranja">
+      <div class="aviso-icono">🤍</div>
+      <div class="aviso-texto">
+        <b>Tu presencia importa mucho</b>
+        Tu calma y tu cariño son muy importantes para que tu hijo o hija se recupere. No estás solo/a.
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">👁️ Lo que vas a ver</div>
+      <p>Es normal ver <strong>tubos, cables y aparatos</strong> conectados a tu hijo o hija. Pueden dar miedo al principio, pero cada uno tiene una función importante para cuidarlo mejor.</p>
+      <p>El equipo de salud estará vigilando muy de cerca a tu hijo o hija todo el tiempo.</p>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📅 ¿Qué pasa cada día?</div>
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-texto"><b>En la mañana:</b> los médicos hacen la ronda. Revisan a cada paciente y deciden el plan del día. Es el mejor momento para hacer preguntas.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-texto"><b>Las curaciones:</b> se limpian y cambian los vendajes de las heridas. Esto se hace seguido porque es muy importante para que la piel sane bien y no haya infecciones.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-texto"><b>La alimentación:</b> comer bien ayuda mucho a que la piel se cure. Si tu hijo o hija no quiere comer, avisa a la enfermera.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-texto"><b>La rehabilitación:</b> los terapistas ayudan con el movimiento para que las cicatrices no se pongan duras.</div>
+      </div>
+    </div>
+
+    <div class="aviso aviso-azul">
+      <div class="aviso-icono">💬</div>
+      <div class="aviso-texto">
+        <b>¿Tienes alguna duda?</b>
+        Puedes preguntar a la enfermera en cualquier momento. Anota tus preguntas para hacerlas al médico en la mañana. No hay preguntas tontas.
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📋 Lista del día</div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">¿Hablé con el médico hoy?</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">¿Entendí lo que me dijeron del tratamiento?</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">¿Mi hijo o hija comió bien hoy?</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">¿Tuve un momento de abrazo o conversación con mi hijo o hija?</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">¿Yo también comí y descansé un poco? (¡Tú también importas!)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APARATOS Y TUBOS -->
+  <div class="pantalla" id="aparatos">
+    <div class="pantalla-titulo">🩺 Aparatos y tubos</div>
+
+    <div class="aviso aviso-naranja">
+      <div class="aviso-icono">ℹ️</div>
+      <div class="aviso-texto">Tu hijo o hija puede necesitar algunos de estos aparatos. Cada uno tiene una función específica y se usa solo cuando es necesario.</div>
+    </div>
+
+    <div class="dispositivo">
+      <div class="dispositivo-icono">🍼</div>
+      <div>
+        <div class="dispositivo-nombre">Sondita para alimentación</div>
+        <div class="dispositivo-texto">Es un tubito fino que entra por la nariz y llega al estómago. Se usa para darle alimento y medicamentos cuando no puede comer por la boca. <strong>Comer bien ayuda mucho a que la piel sane.</strong></div>
+      </div>
+    </div>
+
+    <div class="dispositivo">
+      <div class="dispositivo-icono">💉</div>
+      <div>
+        <div class="dispositivo-nombre">Catéter (vía central)</div>
+        <div class="dispositivo-texto">Es una vía especial puesta en una vena grande, generalmente en el cuello. Sirve para darle suero, antibióticos y otros medicamentos. También se usa para sacar muestras de sangre sin pincharlo/a muchas veces.</div>
+      </div>
+    </div>
+
+    <div class="dispositivo">
+      <div class="dispositivo-icono">🚰</div>
+      <div>
+        <div class="dispositivo-nombre">Sondita para hacer pipi</div>
+        <div class="dispositivo-texto">Mide exactamente cuánta orina produce el cuerpo. Eso nos ayuda a saber cómo están funcionando los riñones.</div>
+      </div>
+    </div>
+
+    <div class="dispositivo">
+      <div class="dispositivo-icono">💨</div>
+      <div>
+        <div class="dispositivo-nombre">Cánula de oxígeno</div>
+        <div class="dispositivo-texto">Es un tubito delgado con dos puntitas que entran suavemente por la nariz. Da oxígeno extra cuando el niño o niña puede respirar solo/a pero necesita un poco de ayuda.</div>
+      </div>
+    </div>
+
+    <div class="dispositivo">
+      <div class="dispositivo-icono">🫁</div>
+      <div>
+        <div class="dispositivo-nombre">Respirador (ventilador)</div>
+        <div class="dispositivo-texto">Cuando el niño no puede respirar bien solo, se pone un tubito por la boca que llega a los pulmones. Una máquina lo ayuda a respirar de forma segura. <em>Esto se usa para cuidarlo mejor.</em></div>
+      </div>
+    </div>
+
+    <div class="aviso aviso-azul">
+      <div class="aviso-icono">💬</div>
+      <div class="aviso-texto">Si algo te preocupa o no entiendes para qué sirve algún aparato, pregunta a la enfermera. Estamos para explicarte.</div>
+    </div>
+  </div>
+
+  <!-- CIRUGÍAS -->
+  <div class="pantalla" id="cirugias">
+    <div class="pantalla-titulo">🔬 Operaciones</div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">¿Por qué se hacen operaciones?</div>
+      <p>A veces las heridas de la quemadura no pueden curarse solo con cremas o medicamentos. La operación ayuda a <strong>limpiar y reparar</strong> las zonas afectadas para que sanen mejor.</p>
+    </div>
+
+    <div class="aviso aviso-naranja">
+      <div class="aviso-icono">😴</div>
+      <div class="aviso-texto">
+        <b>Tranquilo/a</b>
+        Tu hijo o hija estará dormido/a durante la operación y no va a sentir nada. El equipo médico lo/la va a cuidar muy bien.
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">🧹 Limpieza quirúrgica</div>
+      <p>Se quita la piel dañada que ya no puede sanar. Esto es necesario porque la piel muerta no se cura sola y puede infectarse. El equipo limpia la herida con mucho cuidado.</p>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">🩹 Injerto de piel</div>
+      <p>Cuando la quemadura es grande o profunda, se toma un pedacito de piel sana del propio cuerpo de tu hijo/a y se pone sobre la zona quemada para cubrirla y ayudar a que cicatrice mejor.</p>
+      <div class="aviso aviso-azul" style="margin-top:0.8rem; margin-bottom:0.5rem">
+        <div class="aviso-icono">✂️</div>
+        <div class="aviso-texto">
+          <b>¿Por qué le cortan el cabello?</b>
+          Muchas veces la piel sana se toma del cuero cabelludo porque crece rápido y al salir el cabello la cicatriz queda cubierta. Es necesario cortar y afeitar para hacerlo de forma segura. <strong>El cabello vuelve a crecer desde la 3ra o 4ta semana.</strong> No se daña la raíz.
+        </div>
+      </div>
+      <div class="aviso aviso-verde" style="margin-bottom:0">
+        <div class="aviso-icono">✅</div>
+        <div class="aviso-texto">La zona de donde se tomó la piel también sana sola. En 10 a 14 días está recuperada.</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📈 ¿Cómo evoluciona el injerto?</div>
+      <div class="paso">
+        <div class="paso-num" style="background:var(--azul)">3d</div>
+        <div class="paso-texto">El injerto empieza a pegarse. Está cubierto y protegido con vendas.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num" style="background:var(--naranja)">10d</div>
+        <div class="paso-texto">El injerto se va integrando a la piel. Se siguen haciendo curaciones con cuidado.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num" style="background:var(--verde)">4s</div>
+        <div class="paso-texto">La piel empieza a verse más integrada. El proceso de cicatrización continúa.</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📋 Lo que debes saber</div>
+      <div class="aviso aviso-verde" style="margin-bottom:0.5rem">
+        <div class="aviso-icono">✅</div>
+        <div class="aviso-texto">Con los cuidados después del alta (fisioterapia, prendas elásticas, protección solar) las cicatrices mejoran mucho.</div>
+      </div>
+      <div class="aviso aviso-azul" style="margin-bottom:0.5rem">
+        <div class="aviso-icono">ℹ️</div>
+        <div class="aviso-texto">La piel no vuelve a ser exactamente igual. Siempre van a quedar cicatrices, pero con cuidado el resultado mejora.</div>
+      </div>
+      <div class="aviso aviso-naranja" style="margin-bottom:0">
+        <div class="aviso-icono">🔄</div>
+        <div class="aviso-texto">Mientras el niño/a crece, es posible que necesite nuevas cirugías para acompañar su desarrollo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMOCIONES -->
+  <div class="pantalla" id="emociones">
+    <div class="pantalla-titulo">💚 Las emociones</div>
+
+    <div class="aviso aviso-naranja">
+      <div class="aviso-icono">🤍</div>
+      <div class="aviso-texto">
+        <b>Lo que sientes es normal</b>
+        Estar en el hospital con tu hijo o hija es muy difícil. Es normal sentir todo esto a la vez:
+      </div>
+    </div>
+
+    <div class="emocion-grid">
+      <div class="emocion-item"><span>😰</span>Angustia</div>
+      <div class="emocion-item"><span>😨</span>Miedo</div>
+      <div class="emocion-item"><span>😕</span>Confusión</div>
+      <div class="emocion-item"><span>😔</span>Cansancio</div>
+      <div class="emocion-item"><span>😢</span>Tristeza</div>
+      <div class="emocion-item"><span>😤</span>Enojo</div>
+    </div>
+
+    <div class="tarjeta" style="margin-top:0.8rem">
+      <div class="tarjeta-titulo">💪 ¿Qué puedes hacer?</div>
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-texto"><b>Respira profundo</b> cuando te sientas muy agobiado/a. Inhala despacio por la nariz, suelta por la boca. Hazlo varias veces.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-texto"><b>Descansa cuando puedas</b> — cuando tu hijo o hija descansa, tú también descansa. Necesitas fuerzas.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-texto"><b>Come y toma agua</b> — cuidar a alguien requiere energía. Si tú no estás bien, es más difícil ayudar.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-texto"><b>Pide ayuda</b> — a familiares, amigos. No tienes que cargar todo solo/a.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">5</div>
+        <div class="paso-texto"><b>Anota tus dudas</b> — escribir lo que te preocupa ayuda a ordenar los pensamientos y no olvidar preguntas para el médico.</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">🧸 Cómo ayudar a tu hijo o hija</div>
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-texto"><b>Estar presente</b> — tu cercanía, tus abrazos, tu voz tranquila son el mejor remedio.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-texto"><b>Validar lo que siente</b> — "Es normal que te duela", "Entiendo que estés asustado/a". No decirle que no llore.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-texto"><b>Crear rutinas</b> — un momento para cuentos, música favorita, un juego. La rutina da seguridad.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-texto"><b>Darle pequeñas decisiones</b> — "¿Qué canción quieres escuchar?" Eso le da control sobre algo en un momento donde siente que no controla nada.</div>
+      </div>
+    </div>
+
+    <div class="aviso aviso-azul">
+      <div class="aviso-icono">🧠</div>
+      <div class="aviso-texto">
+        <b>Apoyo psicológico</b>
+        Si tú o tu hijo o hija necesitan apoyo emocional, pregunta al equipo de salud. Hay psicólogos disponibles para ayudarles.
+      </div>
+    </div>
+  </div>
+
+  <!-- ALTA -->
+  <div class="pantalla" id="alta">
+    <div class="pantalla-titulo">🏠 Volver a casa</div>
+
+    <div class="aviso aviso-verde">
+      <div class="aviso-icono">🎉</div>
+      <div class="aviso-texto">
+        <b>¡El alta es una buena noticia!</b>
+        Significa que tu hijo o hija está lo suficientemente bien para seguir recuperándose en casa.
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📋 Antes de salir del hospital</div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Me dieron las instrucciones de curación por escrito</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Entendí cómo y cuándo dar los medicamentos</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Tengo la fecha de mi próxima cita agendada</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Sé a qué número llamar si hay una emergencia</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Me explicaron cómo cuidar las cicatrices en casa</div>
+      </div>
+      <div class="check-item" onclick="marcar(this)">
+        <div class="check-caja">✓</div>
+        <div class="check-texto">Sé qué señales debo vigilar para volver urgente</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">🚨 Vuelve urgente al hospital si...</div>
+      <div class="alarma">
+        <div class="alarma-icono">🌡️</div>
+        <div class="alarma-texto">Tiene fiebre mayor a 38°C</div>
+      </div>
+      <div class="alarma">
+        <div class="alarma-icono">🔴</div>
+        <div class="alarma-texto">La herida tiene pus, huele mal, se pone muy roja o se abre</div>
+      </div>
+      <div class="alarma">
+        <div class="alarma-icono">😰</div>
+        <div class="alarma-texto">Tiene mucho dolor que no se calma con el medicamento</div>
+      </div>
+      <div class="alarma">
+        <div class="alarma-icono">😴</div>
+        <div class="alarma-texto">Está muy decaído/a, no quiere comer ni despertar</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">📞 Contacto de emergencia</div>
+      <a class="telefono-btn" href="tel:+5116000000">
+        <div class="tel-icono">📞</div>
+        <div class="tel-info">
+          <div class="tel-label">Hospital del Niño de San Borja — Lima</div>
+          <div class="tel-numero">(01) 600-0000</div>
+        </div>
+      </a>
+      <p style="font-size:0.85rem; color:var(--texto-suave); text-align:center">Las consultas de seguimiento se realizan por citas programadas.</p>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-titulo">💚 Las emociones al llegar a casa</div>
+      <p>El regreso a casa trae alegría, pero también puede ser difícil. Es normal que tu hijo o hija esté irritable, triste o con pesadillas durante un tiempo. Lo vivido fue muy fuerte para él o ella.</p>
+      <p>También puede que quiera jugar a "ser médico o enfermera" — eso es una forma de procesar lo que vivió. <strong>Todo eso es parte de la recuperación.</strong></p>
+      <p>Si los síntomas duran mucho tiempo, consulta con su médico pediatra o pide ayuda psicológica.</p>
+    </div>
+  </div>
+
+  <!-- PREGUNTAS FRECUENTES -->
+  <div class="pantalla" id="preguntas">
+    <div class="pantalla-titulo">❓ Preguntas frecuentes</div>
+
+    <div class="tarjeta">
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Cuánto tiempo va a estar internado/a?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">Depende de qué tan grande o profunda fue la quemadura. El médico te puede dar una idea, pero puede cambiar según cómo evolucione. Cada día de mejoría nos acerca al alta.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Va a quedar cicatriz?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">La piel no vuelve a ser exactamente igual. Siempre van a quedar cicatrices. Pero con los cuidados correctos después del alta — fisioterapia, prendas elásticas y protección solar — el resultado mejora mucho con el tiempo.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Por qué le cortaron el cabello?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">Cuando se necesita un injerto de piel, muchas veces se toma del cuero cabelludo porque es una zona que sana rápido y cuando el cabello crece cubre la cicatriz. Es necesario cortar y afeitar para hacer el procedimiento de forma segura y limpia. El cabello vuelve a crecer desde la 3ra o 4ta semana. No se daña la raíz.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Por qué llora tanto cuando le hacen las curaciones?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">Las curaciones pueden doler o ser incómodas aunque se use medicación para el dolor. Eso es normal. El equipo hace todo lo posible para que sea rápido y lo más cómodo posible. Si te genera mucha angustia, puedes pedir hablar con el equipo de psicología.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          Dijeron que usarían "piel de chancho". ¿Por qué?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">A veces la quemadura aún no está lista para recibir el injerto definitivo. En esos casos se usa piel de chancho o piel humana para proteger y cubrir la herida por un tiempo. No es definitiva — es solo una protección temporal mientras la herida se prepara.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Cómo sé si está mejorando?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">Señales de que va bien: menos fiebre, tiene más apetito, está más activo/a y con más energía, las heridas se ven más pequeñas y rosadas. Si tienes dudas, pregunta al médico en la ronda de la mañana.</div>
+      </div>
+
+      <div class="pregunta-item">
+        <div class="pregunta-q" onclick="abrirPregunta(this)">
+          ¿Puedo quedarme a dormir?
+          <span class="pregunta-flecha">+</span>
+        </div>
+        <div class="pregunta-a">Depende del estado de tu hijo o hija y de las normas de la unidad. Pregunta a la enfermera cuáles son las posibilidades en cada momento. El equipo hará lo posible para que puedas acompañarlo/a.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- fin contenido -->
+
+<script>
+  function mostrar(id, btn) {
+    document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('activo'));
+    document.getElementById(id).classList.add('activa');
+    btn.classList.add('activo');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function marcar(el) {
+    const caja = el.querySelector('.check-caja');
+    const texto = el.querySelector('.check-texto');
+    caja.classList.toggle('listo');
+    texto.classList.toggle('listo');
+  }
+
+  function abrirPregunta(el) {
+    const respuesta = el.nextElementSibling;
+    const flecha = el.querySelector('.pregunta-flecha');
+    const estaAbierta = respuesta.classList.contains('abierto');
+    // Cerrar todas
+    document.querySelectorAll('.pregunta-a').forEach(r => r.classList.remove('abierto'));
+    document.querySelectorAll('.pregunta-flecha').forEach(f => { f.classList.remove('abierto'); f.textContent = '+'; });
+    // Abrir esta si estaba cerrada
+    if (!estaAbierta) {
+      respuesta.classList.add('abierto');
+      flecha.classList.add('abierto');
+      flecha.textContent = '+';
+    }
+  }
+</script>
+
+</body>
+</html>
