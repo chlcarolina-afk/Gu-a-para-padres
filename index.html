@@ -292,6 +292,149 @@
   }
   .osito-mensaje img { width: 60px; height: auto; flex-shrink: 0; }
   .osito-mensaje p { font-size: 0.92rem; color: var(--naranja-oscuro); font-weight: 700; font-style: italic; line-height: 1.5; }
+
+  /* ==========================================
+     PARA LOS NIÑOS — SECCIÓN ANIMADA
+     ========================================== */
+  .menu-btn-ninos {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #3a7ec4 100%);
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.85rem 1rem;
+  }
+  .menu-btn-ninos .menu-label { color: #fff; font-size: 0.95rem; }
+  .menu-btn-ninos .menu-icon { background: rgba(255,255,255,0.2); }
+  .menu-btn-ninos.activo {
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #2563c4 100%);
+    box-shadow: 0 3px 14px rgba(124,58,237,0.45);
+  }
+  .menu-btn-ninos.activo .menu-label { color: #fff; }
+  .menu-btn-ninos.activo .menu-icon { background: rgba(255,255,255,0.2); }
+
+  .ninos-escenario {
+    position: relative;
+    min-height: 520px;
+    background: linear-gradient(180deg, #87CEEB 0%, #b8e4f7 40%, #d4f1c4 75%, #c8f0a8 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0.5rem 0 1rem;
+    padding: 1rem 1rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .ninos-bg {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .flotante {
+    position: absolute;
+    font-size: 1.8rem;
+    left: var(--x, 50%);
+    bottom: -60px;
+    animation: flotar var(--dur, 7s) var(--delay, 0s) infinite ease-in-out;
+    opacity: 0.75;
+    will-change: transform, opacity;
+  }
+  @keyframes flotar {
+    0%   { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.8; }
+    50%  { transform: translateY(-220px) translateX(18px) scale(1.1); opacity: 0.7; }
+    75%  { transform: translateY(-380px) translateX(-12px) scale(0.95); opacity: 0.5; }
+    100% { transform: translateY(-550px) translateX(5px) scale(0.7); opacity: 0; }
+  }
+  .estrella { animation-name: flotar-estrella; }
+  @keyframes flotar-estrella {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.9; }
+    40%  { transform: translateY(-180px) rotate(45deg) scale(1.2); opacity: 0.8; }
+    80%  { transform: translateY(-400px) rotate(-20deg) scale(0.9); opacity: 0.4; }
+    100% { transform: translateY(-560px) rotate(10deg) scale(0.6); opacity: 0; }
+  }
+  .nube { font-size: 2.2rem; animation-name: flotar-nube; }
+  @keyframes flotar-nube {
+    0%   { transform: translateX(-40px) translateY(0); opacity: 0; }
+    15%  { opacity: 0.65; }
+    50%  { transform: translateX(60px) translateY(-100px); opacity: 0.55; }
+    100% { transform: translateX(120px) translateY(-200px); opacity: 0; }
+  }
+  .mariposa { animation-name: flotar-mariposa; }
+  @keyframes flotar-mariposa {
+    0%   { transform: translateY(0) translateX(0) scaleX(1); opacity: 0; }
+    10%  { opacity: 0.85; }
+    30%  { transform: translateY(-120px) translateX(25px) scaleX(-1); }
+    50%  { transform: translateY(-220px) translateX(-15px) scaleX(1); }
+    70%  { transform: translateY(-340px) translateX(20px) scaleX(-1); }
+    100% { transform: translateY(-500px) translateX(0) scaleX(1); opacity: 0; }
+  }
+
+  .ninos-mascota {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 1rem; position: relative; z-index: 2;
+  }
+  .ninos-osito {
+    width: 72px; height: 72px; object-fit: contain;
+    background: rgba(255,255,255,0.85); border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.7); padding: 4px; flex-shrink: 0;
+    animation: osito-respira 3s ease-in-out infinite;
+  }
+  @keyframes osito-respira {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.06); }
+  }
+  .ninos-burbuja {
+    background: #fff; border-radius: 18px 18px 18px 4px;
+    padding: 0.7rem 1rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    max-width: calc(100% - 90px); position: relative;
+  }
+  .ninos-burbuja::before {
+    content: ""; position: absolute; left: -10px; bottom: 12px;
+    border-width: 8px 12px 8px 0; border-style: solid;
+    border-color: transparent #fff transparent transparent;
+  }
+  .ninos-burbuja span {
+    font-size: 0.92rem; font-weight: 700; color: #5b21b6; line-height: 1.5;
+  }
+
+  .ninos-slides-contenedor { position: relative; z-index: 2; }
+  .ninos-slides { display: flex; overflow: hidden; border-radius: 16px; }
+  .ninos-slide {
+    min-width: 100%; background: rgba(255,255,255,0.88); border-radius: 16px;
+    padding: 1.4rem 1.2rem; text-align: center; display: flex;
+    flex-direction: column; align-items: center; gap: 0.6rem;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .ninos-slide-icono { font-size: 3.2rem; animation: icono-pulsa 2s ease-in-out infinite; }
+  @keyframes icono-pulsa {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.12); }
+  }
+  .ninos-slide-titulo { font-size: 1.15rem; font-weight: 800; color: #5b21b6; line-height: 1.3; margin: 0; }
+  .ninos-slide-texto { font-size: 0.97rem; color: var(--texto-suave); line-height: 1.7; font-weight: 600; margin: 0; }
+
+  .ninos-dots { display: flex; justify-content: center; gap: 0.5rem; margin: 0.8rem 0; }
+  .ninos-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.5); border: 2px solid rgba(255,255,255,0.8);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .ninos-dot.activo { background: #fff; transform: scale(1.3); box-shadow: 0 0 6px rgba(255,255,255,0.9); }
+
+  .ninos-nav { display: flex; justify-content: space-between; gap: 0.6rem; margin-top: 0.4rem; }
+  .ninos-btn-nav {
+    flex: 1; background: rgba(255,255,255,0.75); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 12px; padding: 0.65rem 0.8rem;
+    font-family: "Nunito", Arial, sans-serif; font-size: 0.88rem; font-weight: 800;
+    color: #5b21b6; cursor: pointer; transition: all 0.2s;
+  }
+  .ninos-btn-nav:active { transform: scale(0.96); }
+  .ninos-btn-siguiente { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+
+  .ninos-progreso-barra {
+    position: absolute; bottom: 0; left: 0; height: 4px;
+    background: rgba(124,58,237,0.7); border-radius: 0 0 0 20px; width: 0;
+  }
+  .ninos-progreso-barra.animando { animation: progreso-slide 5s linear forwards; }
+  @keyframes progreso-slide { from { width: 0; } to { width: 100%; } }
 </style>
 </head>
 <body>
@@ -334,6 +477,10 @@
   <button class="menu-btn" onclick="mostrar('preguntas', this)">
     <div class="menu-icon">❓</div>
     <div class="menu-label">Preguntas frecuentes</div>
+  </button>
+  <button class="menu-btn menu-btn-ninos" onclick="mostrar('ninos', this)">
+    <div class="menu-icon">⭐</div>
+    <div class="menu-label">Para los Niños</div>
   </button>
 </div>
 
@@ -699,6 +846,83 @@
     </div>
   </div>
 
+  <!-- PARA LOS NIÑOS -->
+  <div class="pantalla" id="ninos">
+    <div class="ninos-escenario">
+      <!-- Fondo animado con elementos flotantes -->
+      <div class="ninos-bg">
+        <span class="flotante estrella" style="--x:8%;--delay:0s;--dur:6s">⭐</span>
+        <span class="flotante estrella" style="--x:28%;--delay:1.5s;--dur:8s">🌟</span>
+        <span class="flotante flotante" style="--x:52%;--delay:0.8s;--dur:7s">💛</span>
+        <span class="flotante nube" style="--x:68%;--delay:2s;--dur:9s">☁️</span>
+        <span class="flotante estrella" style="--x:85%;--delay:0.3s;--dur:5s">✨</span>
+        <span class="flotante flotante" style="--x:18%;--delay:3s;--dur:7.5s">🌈</span>
+        <span class="flotante nube" style="--x:40%;--delay:1.2s;--dur:10s">☁️</span>
+        <span class="flotante estrella" style="--x:62%;--delay:4s;--dur:6.5s">⭐</span>
+        <span class="flotante mariposa" style="--x:78%;--delay:2.5s;--dur:8.5s">🦋</span>
+        <span class="flotante mariposa" style="--x:4%;--delay:1s;--dur:7s">🌸</span>
+      </div>
+      <!-- Osito mascota + burbuja de diálogo -->
+      <div class="ninos-mascota">
+        <img class="ninos-osito" src="" alt="Osito amigo">
+        <div class="ninos-burbuja">
+          <span id="ninos-burbuja-texto">¡Hola! Soy tu amigo el osito. ¡Te voy a contar todo!</span>
+        </div>
+      </div>
+      <!-- Carrusel de diapositivas -->
+      <div class="ninos-slides-contenedor">
+        <div class="ninos-slides" id="ninos-slides">
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">🏥</div>
+            <h2 class="ninos-slide-titulo">Estás en el hospital</h2>
+            <p class="ninos-slide-texto">El hospital es un lugar especial donde los médicos y enfermeras cuidan muy bien de ti. ¡Aquí estás seguro o segura!</p>
+          </div>
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">🩹</div>
+            <h2 class="ninos-slide-titulo">Tu piel está sanando</h2>
+            <p class="ninos-slide-texto">Tu cuerpo es muy valiente. Cada día que pasa, tu piel va sanando poquito a poco. Los médicos te ayudan a mejorar más rápido.</p>
+          </div>
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">💉</div>
+            <h2 class="ninos-slide-titulo">Los tubos y aparatos</h2>
+            <p class="ninos-slide-texto">Quizás tienes algún tubito pegado a ti. ¡No te asustes! Son como pequeños ayudantes que le dan a tu cuerpo todo lo que necesita.</p>
+          </div>
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">👨‍👩‍👧</div>
+            <h2 class="ninos-slide-titulo">Tu familia está contigo</h2>
+            <p class="ninos-slide-texto">Mamá, papá o quien te cuida están cerca siempre. Te quieren muchísimo y van a venir a verte todo lo que puedan.</p>
+          </div>
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">😢</div>
+            <h2 class="ninos-slide-titulo">Es normal sentir miedo</h2>
+            <p class="ninos-slide-texto">Si tienes miedo, si te duele o si estás triste, díselo a la enfermera o al médico. Ellos te escuchan. ¡No tienes que aguantarlo solo!</p>
+          </div>
+          <div class="ninos-slide">
+            <div class="ninos-slide-icono">🏠</div>
+            <h2 class="ninos-slide-titulo">Pronto vas a casa</h2>
+            <p class="ninos-slide-texto">Cuando tu piel esté más sanita, vas a poder volver a casa. ¡Sigue siendo valiente! Cada día estás más cerca de tu familia. 🎉</p>
+          </div>
+        </div>
+        <!-- Puntos de progreso -->
+        <div class="ninos-dots" id="ninos-dots">
+          <span class="ninos-dot activo" onclick="irSlide(0)"></span>
+          <span class="ninos-dot" onclick="irSlide(1)"></span>
+          <span class="ninos-dot" onclick="irSlide(2)"></span>
+          <span class="ninos-dot" onclick="irSlide(3)"></span>
+          <span class="ninos-dot" onclick="irSlide(4)"></span>
+          <span class="ninos-dot" onclick="irSlide(5)"></span>
+        </div>
+        <!-- Botones de navegación -->
+        <div class="ninos-nav">
+          <button class="ninos-btn-nav" onclick="ninosAnterior()">&#8592; Anterior</button>
+          <button class="ninos-btn-nav ninos-btn-siguiente" id="ninos-btn-sig" onclick="ninosSiguiente()">Siguiente &#8594;</button>
+        </div>
+      </div>
+      <!-- Barra de progreso del auto-avance -->
+      <div class="ninos-progreso-barra" id="ninos-barra"></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -721,6 +945,84 @@
     document.querySelectorAll(".pregunta-flecha").forEach(f => { f.classList.remove("abierto"); f.textContent = "+"; });
     if (!estaAbierta) { resp.classList.add("abierto"); flecha.classList.add("abierto"); }
   }
+
+  // ===== PARA LOS NIÑOS — SISTEMA DE DIAPOSITIVAS =====
+  (function() {
+    var TOTAL = 6;
+    var actual = 0;
+    var timer = null;
+    var DELAY = 5000;
+    var mensajes = [
+      "¡Hola! Soy tu amigo el osito. ¡Te voy a contar todo!",
+      "Tu piel está trabajando muy duro para mejorar. ¡Eres muy valiente!",
+      "Los tubitos son tus amigos secretos. No duelen tanto como parecen.",
+      "Tu familia piensa en ti todo el tiempo. ¡Te quieren un montón!",
+      "Está bien decir que tienes miedo. ¡Aquí todos te ayudan!",
+      "¡Ánimo! Muy pronto estarás en casa jugando otra vez. 🎉"
+    ];
+
+    function irSlide(n) {
+      var track = document.getElementById('ninos-slides');
+      if (!track) return;
+      actual = ((n % TOTAL) + TOTAL) % TOTAL;
+      track.querySelectorAll('.ninos-slide').forEach(function(s, i) {
+        s.style.transform = 'translateX(' + ((i - actual) * 100) + '%)';
+      });
+      document.querySelectorAll('.ninos-dot').forEach(function(d, i) {
+        d.classList.toggle('activo', i === actual);
+      });
+      var burbuja = document.getElementById('ninos-burbuja-texto');
+      if (burbuja) {
+        burbuja.style.opacity = '0';
+        setTimeout(function() {
+          burbuja.textContent = mensajes[actual];
+          burbuja.style.transition = 'opacity 0.4s';
+          burbuja.style.opacity = '1';
+        }, 200);
+      }
+      var btnSig = document.getElementById('ninos-btn-sig');
+      if (btnSig) btnSig.textContent = actual === TOTAL - 1 ? '¡Volver al inicio! ↺' : 'Siguiente →';
+      reiniciarBarra();
+    }
+
+    function reiniciarBarra() {
+      var barra = document.getElementById('ninos-barra');
+      if (!barra) return;
+      barra.classList.remove('animando');
+      void barra.offsetWidth;
+      barra.classList.add('animando');
+    }
+
+    function pausar() { if (timer) { clearInterval(timer); timer = null; } }
+    function reanudar() { timer = setInterval(function() { irSlide(actual + 1); }, DELAY); }
+
+    function iniciar() {
+      var osito = document.querySelector('.header-osito');
+      if (osito) document.querySelectorAll('.ninos-osito').forEach(function(img) { img.src = osito.src; });
+      irSlide(0);
+      reanudar();
+    }
+
+    window.irSlide = irSlide;
+    window.ninosSiguiente = function() { pausar(); irSlide(actual + 1); reanudar(); };
+    window.ninosAnterior = function() { pausar(); irSlide(actual - 1); reanudar(); };
+
+    var _mostrar = window.mostrar;
+    window.mostrar = function(id, btn) {
+      _mostrar(id, btn);
+      if (id === 'ninos') { setTimeout(iniciar, 300); }
+      else { pausar(); }
+    };
+
+    var touchX = 0;
+    document.addEventListener('touchstart', function(e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function(e) {
+      var tab = document.getElementById('ninos');
+      if (!tab || !tab.classList.contains('activa')) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) { dx < 0 ? window.ninosSiguiente() : window.ninosAnterior(); }
+    }, { passive: true });
+  })();
 </script>
 </body>
 </html>
