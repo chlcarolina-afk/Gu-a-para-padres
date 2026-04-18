@@ -299,10 +299,7 @@
   .menu-btn-ninos {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #3a7ec4 100%);
-    flex-direction: row;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 0.85rem 1rem;
+    flex-direction: row; justify-content: center; gap: 0.8rem; padding: 0.85rem 1rem;
   }
   .menu-btn-ninos .menu-label { color: #fff; font-size: 0.95rem; }
   .menu-btn-ninos .menu-icon { background: rgba(255,255,255,0.2); }
@@ -315,25 +312,15 @@
 
   .ninos-escenario {
     position: relative;
-    min-height: 520px;
     background: linear-gradient(180deg, #87CEEB 0%, #b8e4f7 40%, #d4f1c4 75%, #c8f0a8 100%);
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 0.5rem 0 1rem;
-    padding: 1rem 1rem 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    border-radius: 20px; overflow: hidden; margin: 0.5rem 0 1rem;
+    padding: 1rem 1rem 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   }
-  .ninos-bg {
-    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-  }
+  .ninos-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
   .flotante {
-    position: absolute;
-    font-size: 1.8rem;
-    left: var(--x, 50%);
-    bottom: -60px;
+    position: absolute; font-size: 1.8rem; left: var(--x, 50%); bottom: -60px;
     animation: flotar var(--dur, 7s) var(--delay, 0s) infinite ease-in-out;
-    opacity: 0.75;
-    will-change: transform, opacity;
+    opacity: 0.75; will-change: transform, opacity;
   }
   @keyframes flotar {
     0%   { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
@@ -369,10 +356,10 @@
 
   .ninos-mascota {
     display: flex; align-items: flex-start; gap: 0.8rem;
-    margin-bottom: 1rem; position: relative; z-index: 2;
+    margin-bottom: 0.8rem; position: relative; z-index: 2;
   }
   .ninos-osito {
-    width: 72px; height: 72px; object-fit: contain;
+    width: 64px; height: 64px; object-fit: contain;
     background: rgba(255,255,255,0.85); border-radius: 50%;
     border: 3px solid rgba(255,255,255,0.7); padding: 4px; flex-shrink: 0;
     animation: osito-respira 3s ease-in-out infinite;
@@ -383,58 +370,207 @@
   }
   .ninos-burbuja {
     background: #fff; border-radius: 18px 18px 18px 4px;
-    padding: 0.7rem 1rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    max-width: calc(100% - 90px); position: relative;
+    padding: 0.6rem 0.9rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    max-width: calc(100% - 80px); position: relative;
   }
   .ninos-burbuja::before {
     content: ""; position: absolute; left: -10px; bottom: 12px;
     border-width: 8px 12px 8px 0; border-style: solid;
     border-color: transparent #fff transparent transparent;
   }
-  .ninos-burbuja span {
-    font-size: 0.92rem; font-weight: 700; color: #5b21b6; line-height: 1.5;
-  }
+  .ninos-burbuja span { font-size: 0.88rem; font-weight: 700; color: #5b21b6; line-height: 1.5; }
 
+  /* Sub-navegación */
+  .ninos-subnav {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem;
+    margin-bottom: 0.8rem; position: relative; z-index: 2;
+  }
+  .ninos-subbtn {
+    background: rgba(255,255,255,0.7); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 14px; padding: 0.55rem 0.4rem; text-align: center;
+    cursor: pointer; font-family: "Nunito", Arial, sans-serif;
+    font-size: 0.78rem; font-weight: 800; color: #5b21b6; transition: all 0.2s; line-height: 1.3;
+  }
+  .ninos-subbtn-icon { font-size: 1.3rem; display: block; margin-bottom: 0.15rem; }
+  .ninos-subbtn.activo { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .ninos-subbtn:active { transform: scale(0.96); }
+
+  .ninos-subseccion { display: none; }
+  .ninos-subseccion.activa { display: block; animation: aparecer 0.3s ease; }
+
+  /* Pre-escolar (slides) */
   .ninos-slides-contenedor { position: relative; z-index: 2; }
   .ninos-slides { display: flex; overflow: hidden; border-radius: 16px; }
   .ninos-slide {
     min-width: 100%; background: rgba(255,255,255,0.88); border-radius: 16px;
-    padding: 1.4rem 1.2rem; text-align: center; display: flex;
-    flex-direction: column; align-items: center; gap: 0.6rem;
+    padding: 1.3rem 1.1rem; text-align: center; display: flex;
+    flex-direction: column; align-items: center; gap: 0.55rem;
     transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
   }
-  .ninos-slide-icono { font-size: 3.2rem; animation: icono-pulsa 2s ease-in-out infinite; }
+  .ninos-slide-icono { font-size: 3rem; animation: icono-pulsa 2s ease-in-out infinite; }
   @keyframes icono-pulsa {
     0%, 100% { transform: scale(1); }
     50%       { transform: scale(1.12); }
   }
-  .ninos-slide-titulo { font-size: 1.15rem; font-weight: 800; color: #5b21b6; line-height: 1.3; margin: 0; }
-  .ninos-slide-texto { font-size: 0.97rem; color: var(--texto-suave); line-height: 1.7; font-weight: 600; margin: 0; }
-
-  .ninos-dots { display: flex; justify-content: center; gap: 0.5rem; margin: 0.8rem 0; }
+  .ninos-slide-titulo { font-size: 1.1rem; font-weight: 800; color: #5b21b6; line-height: 1.3; margin: 0; }
+  .ninos-slide-texto { font-size: 0.95rem; color: var(--texto-suave); line-height: 1.7; font-weight: 600; margin: 0; }
+  .ninos-dots { display: flex; justify-content: center; gap: 0.5rem; margin: 0.7rem 0; }
   .ninos-dot {
     width: 10px; height: 10px; border-radius: 50%;
     background: rgba(255,255,255,0.5); border: 2px solid rgba(255,255,255,0.8);
     cursor: pointer; transition: all 0.3s;
   }
   .ninos-dot.activo { background: #fff; transform: scale(1.3); box-shadow: 0 0 6px rgba(255,255,255,0.9); }
-
   .ninos-nav { display: flex; justify-content: space-between; gap: 0.6rem; margin-top: 0.4rem; }
   .ninos-btn-nav {
     flex: 1; background: rgba(255,255,255,0.75); border: 2px solid rgba(255,255,255,0.9);
-    border-radius: 12px; padding: 0.65rem 0.8rem;
-    font-family: "Nunito", Arial, sans-serif; font-size: 0.88rem; font-weight: 800;
+    border-radius: 12px; padding: 0.6rem 0.8rem;
+    font-family: "Nunito", Arial, sans-serif; font-size: 0.85rem; font-weight: 800;
     color: #5b21b6; cursor: pointer; transition: all 0.2s;
   }
   .ninos-btn-nav:active { transform: scale(0.96); }
   .ninos-btn-siguiente { background: #7c3aed; border-color: #7c3aed; color: #fff; }
-
   .ninos-progreso-barra {
     position: absolute; bottom: 0; left: 0; height: 4px;
     background: rgba(124,58,237,0.7); border-radius: 0 0 0 20px; width: 0;
   }
   .ninos-progreso-barra.animando { animation: progreso-slide 5s linear forwards; }
   @keyframes progreso-slide { from { width: 0; } to { width: 100%; } }
+
+  /* Bebés */
+  .sub-titulo {
+    font-size: 0.95rem; font-weight: 800; color: #5b21b6; text-align: center;
+    margin-bottom: 0.7rem; background: rgba(255,255,255,0.7);
+    border-radius: 12px; padding: 0.45rem;
+  }
+  .bebes-card {
+    background: rgba(255,255,255,0.88); border-radius: 14px;
+    padding: 0.85rem 0.9rem; margin-bottom: 0.5rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .bebes-icono { font-size: 1.9rem; flex-shrink: 0; }
+  .bebes-titulo { font-size: 0.9rem; font-weight: 800; color: #5b21b6; margin-bottom: 0.2rem; }
+  .bebes-texto { font-size: 0.84rem; color: var(--texto-suave); line-height: 1.6; font-weight: 600; }
+  .bebes-patron {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 3px; border-radius: 10px; overflow: hidden; margin: 0.4rem 0 0.2rem;
+  }
+  .patron-cuadro { height: 36px; background: #fff; }
+  .patron-cuadro.negro { background: #111; }
+  .bebes-patron-label {
+    font-size: 0.75rem; color: rgba(255,255,255,0.88); font-weight: 700;
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  .bebes-nota {
+    background: rgba(255,255,255,0.7); border-radius: 10px; padding: 0.6rem 0.9rem;
+    font-size: 0.8rem; font-weight: 700; color: #5b21b6; text-align: center; margin-top: 0.3rem;
+  }
+
+  /* Respiración */
+  .resp-selector {
+    display: flex; gap: 0.4rem; margin-bottom: 0.6rem;
+  }
+  .resp-tipo-btn {
+    flex: 1; background: rgba(255,255,255,0.7); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 10px; padding: 0.42rem;
+    font-family: "Nunito", Arial, sans-serif; font-size: 0.8rem; font-weight: 800;
+    color: #5b21b6; cursor: pointer; transition: all 0.2s;
+  }
+  .resp-tipo-btn.activo { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .resp-descripcion {
+    background: rgba(255,255,255,0.75); border-radius: 12px;
+    padding: 0.55rem 0.8rem; font-size: 0.85rem; font-weight: 600;
+    color: #5b21b6; text-align: center; margin-bottom: 0.7rem; line-height: 1.5;
+  }
+  .resp-circulo-wrap {
+    position: relative; width: 150px; height: 150px; margin: 0 auto 0.4rem;
+  }
+  .resp-circulo {
+    width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(circle, #a78bfa, #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 0 20px rgba(124,58,237,0.5);
+    position: relative; z-index: 2;
+  }
+  .resp-circulo-texto {
+    font-size: 0.8rem; font-weight: 800; color: #fff; text-align: center; padding: 0.5rem;
+  }
+  .resp-ondas { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .resp-onda {
+    position: absolute; width: 150px; height: 150px; border-radius: 50%;
+    border: 3px solid rgba(124,58,237,0.35);
+    animation: onda-pulso 3s ease-out infinite; opacity: 0;
+  }
+  .resp-onda:nth-child(2) { animation-delay: 1s; }
+  .resp-onda:nth-child(3) { animation-delay: 2s; }
+  @keyframes onda-pulso {
+    0%   { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+  .resp-fase {
+    text-align: center; font-size: 1.05rem; font-weight: 800; color: #fff;
+    min-height: 1.4rem; margin-bottom: 0.1rem; text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .resp-contador {
+    text-align: center; font-size: 2.2rem; font-weight: 800; color: #fff;
+    min-height: 2.8rem; text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .resp-controles { text-align: center; margin: 0.4rem 0; }
+  .resp-btn {
+    background: rgba(255,255,255,0.85); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 50px; padding: 0.55rem 1.4rem;
+    font-family: "Nunito", Arial, sans-serif; font-size: 0.92rem; font-weight: 800;
+    color: #7c3aed; cursor: pointer; transition: all 0.2s;
+  }
+  .resp-btn:active { transform: scale(0.96); }
+  .resp-ayuda {
+    text-align: center; font-size: 0.8rem; font-weight: 600;
+    color: rgba(255,255,255,0.9); margin-top: 0.45rem; line-height: 1.5;
+    background: rgba(0,0,0,0.1); border-radius: 10px; padding: 0.45rem;
+  }
+
+  /* Música */
+  .musica-reproductor {
+    background: rgba(255,255,255,0.88); border-radius: 16px;
+    padding: 0.9rem; display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;
+  }
+  .musica-portada {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #3a7ec4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem; flex-shrink: 0;
+  }
+  .musica-info { flex: 1; min-width: 0; }
+  .musica-titulo-actual { font-size: 0.9rem; font-weight: 800; color: #5b21b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .musica-subtitulo { font-size: 0.75rem; color: var(--texto-suave); font-weight: 600; }
+  .musica-play-btn {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: #7c3aed; border: none; color: #fff;
+    font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; box-shadow: 0 3px 10px rgba(124,58,237,0.4);
+  }
+  .musica-play-btn:active { transform: scale(0.94); }
+  .musica-lista { margin-bottom: 0.5rem; }
+  .musica-item {
+    background: rgba(255,255,255,0.7); border-radius: 10px;
+    padding: 0.6rem 0.85rem; margin-bottom: 0.3rem;
+    display: flex; align-items: center; gap: 0.65rem;
+    cursor: pointer; font-size: 0.88rem; font-weight: 700; color: #5b21b6;
+    transition: all 0.15s; border-left: 3px solid transparent;
+  }
+  .musica-item.activo { background: rgba(124,58,237,0.12); border-left-color: #7c3aed; }
+  .musica-item-icon { font-size: 1.15rem; }
+  .musica-letra {
+    background: rgba(255,255,255,0.75); border-radius: 12px;
+    padding: 0.8rem 0.9rem; margin-bottom: 0.4rem;
+  }
+  .musica-letra-titulo {
+    font-size: 0.75rem; font-weight: 800; color: #7c3aed; margin-bottom: 0.4rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .musica-letra-texto { font-size: 0.88rem; color: var(--texto); font-weight: 600; line-height: 1.85; }
+  .musica-nota { font-size: 0.78rem; color: rgba(255,255,255,0.88); font-weight: 700; text-align: center; }
 </style>
 </head>
 <body>
@@ -849,7 +985,7 @@
   <!-- PARA LOS NIÑOS -->
   <div class="pantalla" id="ninos">
     <div class="ninos-escenario">
-      <!-- Fondo animado con elementos flotantes -->
+      <!-- Fondo animado -->
       <div class="ninos-bg">
         <span class="flotante estrella" style="--x:8%;--delay:0s;--dur:6s">⭐</span>
         <span class="flotante estrella" style="--x:28%;--delay:1.5s;--dur:8s">🌟</span>
@@ -862,64 +998,194 @@
         <span class="flotante mariposa" style="--x:78%;--delay:2.5s;--dur:8.5s">🦋</span>
         <span class="flotante mariposa" style="--x:4%;--delay:1s;--dur:7s">🌸</span>
       </div>
-      <!-- Osito mascota + burbuja de diálogo -->
+      <!-- Osito mascota -->
       <div class="ninos-mascota">
         <img class="ninos-osito" src="" alt="Osito amigo">
         <div class="ninos-burbuja">
-          <span id="ninos-burbuja-texto">¡Hola! Soy tu amigo el osito. ¡Te voy a contar todo!</span>
+          <span id="ninos-burbuja-texto">¡Hola! ¿Qué quieres hacer hoy?</span>
         </div>
       </div>
-      <!-- Carrusel de diapositivas -->
-      <div class="ninos-slides-contenedor">
-        <div class="ninos-slides" id="ninos-slides">
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">🏥</div>
-            <h2 class="ninos-slide-titulo">Estás en el hospital</h2>
-            <p class="ninos-slide-texto">El hospital es un lugar especial donde los médicos y enfermeras cuidan muy bien de ti. ¡Aquí estás seguro o segura!</p>
-          </div>
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">🩹</div>
-            <h2 class="ninos-slide-titulo">Tu piel está sanando</h2>
-            <p class="ninos-slide-texto">Tu cuerpo es muy valiente. Cada día que pasa, tu piel va sanando poquito a poco. Los médicos te ayudan a mejorar más rápido.</p>
-          </div>
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">💉</div>
-            <h2 class="ninos-slide-titulo">Los tubos y aparatos</h2>
-            <p class="ninos-slide-texto">Quizás tienes algún tubito pegado a ti. ¡No te asustes! Son como pequeños ayudantes que le dan a tu cuerpo todo lo que necesita.</p>
-          </div>
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">👨‍👩‍👧</div>
-            <h2 class="ninos-slide-titulo">Tu familia está contigo</h2>
-            <p class="ninos-slide-texto">Mamá, papá o quien te cuida están cerca siempre. Te quieren muchísimo y van a venir a verte todo lo que puedan.</p>
-          </div>
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">😢</div>
-            <h2 class="ninos-slide-titulo">Es normal sentir miedo</h2>
-            <p class="ninos-slide-texto">Si tienes miedo, si te duele o si estás triste, díselo a la enfermera o al médico. Ellos te escuchan. ¡No tienes que aguantarlo solo!</p>
-          </div>
-          <div class="ninos-slide">
-            <div class="ninos-slide-icono">🏠</div>
-            <h2 class="ninos-slide-titulo">Pronto vas a casa</h2>
-            <p class="ninos-slide-texto">Cuando tu piel esté más sanita, vas a poder volver a casa. ¡Sigue siendo valiente! Cada día estás más cerca de tu familia. 🎉</p>
-          </div>
-        </div>
-        <!-- Puntos de progreso -->
-        <div class="ninos-dots" id="ninos-dots">
-          <span class="ninos-dot activo" onclick="irSlide(0)"></span>
-          <span class="ninos-dot" onclick="irSlide(1)"></span>
-          <span class="ninos-dot" onclick="irSlide(2)"></span>
-          <span class="ninos-dot" onclick="irSlide(3)"></span>
-          <span class="ninos-dot" onclick="irSlide(4)"></span>
-          <span class="ninos-dot" onclick="irSlide(5)"></span>
-        </div>
-        <!-- Botones de navegación -->
-        <div class="ninos-nav">
-          <button class="ninos-btn-nav" onclick="ninosAnterior()">&#8592; Anterior</button>
-          <button class="ninos-btn-nav ninos-btn-siguiente" id="ninos-btn-sig" onclick="ninosSiguiente()">Siguiente &#8594;</button>
-        </div>
+      <!-- Sub-navegación -->
+      <div class="ninos-subnav">
+        <button class="ninos-subbtn activo" onclick="verSub('preescolar', this)">
+          <span class="ninos-subbtn-icon">🎨</span>Pre-escolar
+        </button>
+        <button class="ninos-subbtn" onclick="verSub('bebes', this)">
+          <span class="ninos-subbtn-icon">👶</span>Bebés
+        </button>
+        <button class="ninos-subbtn" onclick="verSub('respiracion', this)">
+          <span class="ninos-subbtn-icon">🌬️</span>Respiración
+        </button>
+        <button class="ninos-subbtn" onclick="verSub('musica', this)">
+          <span class="ninos-subbtn-icon">🎵</span>Música
+        </button>
       </div>
-      <!-- Barra de progreso del auto-avance -->
-      <div class="ninos-progreso-barra" id="ninos-barra"></div>
+
+      <!-- SUB-SECCIÓN: PRE-ESCOLAR (3-6 años) -->
+      <div class="ninos-subseccion activa" id="sub-preescolar">
+        <div class="ninos-slides-contenedor">
+          <div class="ninos-slides" id="ninos-slides">
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">🏥</div>
+              <h2 class="ninos-slide-titulo">¡Estás en el hospital!</h2>
+              <p class="ninos-slide-texto">Los médicos y enfermeras cuidan muy bien de ti. ¡Aquí estás seguro o segura!</p>
+            </div>
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">🩹</div>
+              <h2 class="ninos-slide-titulo">Tu piel sana poquito a poco</h2>
+              <p class="ninos-slide-texto">¡Tu cuerpo es muy valiente! Cada día que pasa, mejoras más.</p>
+            </div>
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">🤍</div>
+              <h2 class="ninos-slide-titulo">Los tubitos son tus amigos</h2>
+              <p class="ninos-slide-texto">Te dan todo lo que tu cuerpo necesita para sanar. ¡No te asusten!</p>
+            </div>
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">👨‍👩‍👧</div>
+              <h2 class="ninos-slide-titulo">¡Mamá y papá te quieren!</h2>
+              <p class="ninos-slide-texto">Están pensando en ti todo el tiempo. ¡Pronto te visitan!</p>
+            </div>
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">😢</div>
+              <h2 class="ninos-slide-titulo">Puedes decir cómo te sientes</h2>
+              <p class="ninos-slide-texto">Si tienes miedo o te duele, díselo a la enfermera. ¡Ella siempre te ayuda!</p>
+            </div>
+            <div class="ninos-slide">
+              <div class="ninos-slide-icono">🏠</div>
+              <h2 class="ninos-slide-titulo">¡Pronto a casa!</h2>
+              <p class="ninos-slide-texto">¡Sigue siendo muy valiente! Cada día estás más cerca de volver. 🎉</p>
+            </div>
+          </div>
+          <div class="ninos-dots" id="ninos-dots">
+            <span class="ninos-dot activo" onclick="irSlide(0)"></span>
+            <span class="ninos-dot" onclick="irSlide(1)"></span>
+            <span class="ninos-dot" onclick="irSlide(2)"></span>
+            <span class="ninos-dot" onclick="irSlide(3)"></span>
+            <span class="ninos-dot" onclick="irSlide(4)"></span>
+            <span class="ninos-dot" onclick="irSlide(5)"></span>
+          </div>
+          <div class="ninos-nav">
+            <button class="ninos-btn-nav" onclick="ninosAnterior()">&#8592; Anterior</button>
+            <button class="ninos-btn-nav ninos-btn-siguiente" id="ninos-btn-sig" onclick="ninosSiguiente()">Siguiente &#8594;</button>
+          </div>
+        </div>
+        <div class="ninos-progreso-barra" id="ninos-barra"></div>
+      </div>
+
+      <!-- SUB-SECCIÓN: BEBÉS (< 1 año) -->
+      <div class="ninos-subseccion" id="sub-bebes">
+        <div class="sub-titulo">👶 Actividades para tu bebé</div>
+        <div class="bebes-card">
+          <div class="bebes-icono">🗣️</div>
+          <div>
+            <div class="bebes-titulo">Habla y canta</div>
+            <p class="bebes-texto">Tu voz es lo más reconfortante para tu bebé. Habla, canta o lee en voz alta aunque parezca que no entiende. Cada palabra lo estimula.</p>
+          </div>
+        </div>
+        <div class="bebes-card">
+          <div class="bebes-icono">👀</div>
+          <div>
+            <div class="bebes-titulo">Seguimiento visual</div>
+            <p class="bebes-texto">Los bebés ven mejor los contrastes. Mueve lentamente un objeto brillante a unos 25 cm. También puedes acercar tu cara y hacer expresiones.</p>
+          </div>
+        </div>
+        <div class="bebes-patron">
+          <div class="patron-cuadro"></div><div class="patron-cuadro negro"></div>
+          <div class="patron-cuadro negro"></div><div class="patron-cuadro"></div>
+          <div class="patron-cuadro negro"></div><div class="patron-cuadro"></div>
+          <div class="patron-cuadro"></div><div class="patron-cuadro negro"></div>
+        </div>
+        <p class="bebes-patron-label">↑ Patrón blanco y negro — ponlo cerca de la vista del bebé</p>
+        <div class="bebes-card">
+          <div class="bebes-icono">🎶</div>
+          <div>
+            <div class="bebes-titulo">Música y ritmo</div>
+            <p class="bebes-texto">Tararea canciones suaves. El ritmo del corazón de mamá es la primera música que escuchó. Canciones lentas y repetitivas calman y estimulan.</p>
+          </div>
+        </div>
+        <div class="bebes-card">
+          <div class="bebes-icono">🤲</div>
+          <div>
+            <div class="bebes-titulo">Tacto suave</div>
+            <p class="bebes-texto">Toca con suavidad las zonas sanas. El contacto afectuoso libera oxitocina y acelera la recuperación. Pregunta al equipo qué zonas puedes tocar.</p>
+          </div>
+        </div>
+        <div class="bebes-card">
+          <div class="bebes-icono">😴</div>
+          <div>
+            <div class="bebes-titulo">Rutina de sueño</div>
+            <p class="bebes-texto">Mantén horarios similares a los de casa. Una rutina predecible (canción, silencio, penumbra) regula el sueño y reduce el estrés del bebé.</p>
+          </div>
+        </div>
+        <div class="bebes-nota">⚕️ Consulta siempre al equipo médico antes de iniciar cualquier actividad</div>
+      </div>
+
+      <!-- SUB-SECCIÓN: RESPIRACIÓN (niños más grandes) -->
+      <div class="ninos-subseccion" id="sub-respiracion">
+        <div class="sub-titulo">🌬️ Respiración para relajarse</div>
+        <div class="resp-selector">
+          <button class="resp-tipo-btn activo" onclick="seleccionarRespiracion('barriga', this)">Barriga</button>
+          <button class="resp-tipo-btn" onclick="seleccionarRespiracion('cuadrada', this)">Cuadrada</button>
+          <button class="resp-tipo-btn" onclick="seleccionarRespiracion('burbuja', this)">Burbuja</button>
+        </div>
+        <div class="resp-descripcion" id="resp-descripcion">Pon una mano en la barriga. Cuando inhales, tu barriga sube. Cuando exhales, baja.</div>
+        <div class="resp-circulo-wrap">
+          <div class="resp-circulo" id="resp-circulo">
+            <span class="resp-circulo-texto" id="resp-texto">Toca para empezar</span>
+          </div>
+          <div class="resp-ondas">
+            <div class="resp-onda"></div>
+            <div class="resp-onda"></div>
+            <div class="resp-onda"></div>
+          </div>
+        </div>
+        <div class="resp-fase" id="resp-fase"></div>
+        <div class="resp-contador" id="resp-contador"></div>
+        <div class="resp-controles">
+          <button class="resp-btn" id="resp-btn-inicio" onclick="toggleRespiracion()">&#9654; Empezar</button>
+        </div>
+        <p class="resp-ayuda">Haz este ejercicio 3 veces cuando sientas miedo o dolor. El osito lo hace contigo.</p>
+      </div>
+
+      <!-- SUB-SECCIÓN: MÚSICA -->
+      <div class="ninos-subseccion" id="sub-musica">
+        <div class="sub-titulo">🎵 Música para calmar</div>
+        <div class="musica-reproductor">
+          <div class="musica-portada" id="musica-portada">⭐</div>
+          <div class="musica-info">
+            <div class="musica-titulo-actual" id="musica-titulo-actual">Estrellita ¿dónde estás?</div>
+            <div class="musica-subtitulo">Canción de cuna</div>
+          </div>
+          <button class="musica-play-btn" id="musica-play-btn" onclick="toggleMusica()">&#9654;</button>
+        </div>
+        <div class="musica-lista">
+          <div class="musica-item activo" onclick="seleccionarCancion(0, this)">
+            <span class="musica-item-icon">⭐</span><span>Estrellita ¿dónde estás?</span>
+          </div>
+          <div class="musica-item" onclick="seleccionarCancion(1, this)">
+            <span class="musica-item-icon">🐣</span><span>Los pollitos dicen</span>
+          </div>
+          <div class="musica-item" onclick="seleccionarCancion(2, this)">
+            <span class="musica-item-icon">🌙</span><span>Duérmete mi niño</span>
+          </div>
+          <div class="musica-item" onclick="seleccionarCancion(3, this)">
+            <span class="musica-item-icon">🌊</span><span>Tonos de relajación</span>
+          </div>
+        </div>
+        <div class="musica-letra">
+          <div class="musica-letra-titulo">Letra</div>
+          <div class="musica-letra-texto" id="musica-letra-texto">
+            Estrellita, ¿dónde estás?<br>
+            Me pregunto qué serás.<br>
+            En el cielo o en el mar,<br>
+            un diamante de verdad.<br>
+            Estrellita, ¿dónde estás?<br>
+            Me pregunto qué serás.
+          </div>
+        </div>
+        <p class="musica-nota">🎧 Usa auriculares a volumen bajo para no molestar a otros pacientes</p>
+      </div>
+
     </div>
   </div>
 
@@ -946,19 +1212,17 @@
     if (!estaAbierta) { resp.classList.add("abierto"); flecha.classList.add("abierto"); }
   }
 
-  // ===== PARA LOS NIÑOS — SISTEMA DE DIAPOSITIVAS =====
+  // ===== PARA LOS NIÑOS — SISTEMA COMPLETO =====
   (function() {
-    var TOTAL = 6;
-    var actual = 0;
-    var timer = null;
-    var DELAY = 5000;
+    // --- Slides (Pre-escolar) ---
+    var TOTAL = 6, actual = 0, timer = null, DELAY = 5000;
     var mensajes = [
-      "¡Hola! Soy tu amigo el osito. ¡Te voy a contar todo!",
-      "Tu piel está trabajando muy duro para mejorar. ¡Eres muy valiente!",
-      "Los tubitos son tus amigos secretos. No duelen tanto como parecen.",
-      "Tu familia piensa en ti todo el tiempo. ¡Te quieren un montón!",
-      "Está bien decir que tienes miedo. ¡Aquí todos te ayudan!",
-      "¡Ánimo! Muy pronto estarás en casa jugando otra vez. 🎉"
+      '¡Mira estas diapositivas! Avanzan solas.',
+      '¡Tu cuerpo es muy valiente! Cada día mejoras.',
+      'Los tubitos son tus amigos secretos.',
+      '¡Tu familia te quiere muchísimo!',
+      'Aquí todos te escuchan y te ayudan.',
+      '¡Ánimo! Muy pronto estarás en casa. 🎉'
     ];
 
     function irSlide(n) {
@@ -968,57 +1232,224 @@
       track.querySelectorAll('.ninos-slide').forEach(function(s, i) {
         s.style.transform = 'translateX(' + ((i - actual) * 100) + '%)';
       });
-      document.querySelectorAll('.ninos-dot').forEach(function(d, i) {
-        d.classList.toggle('activo', i === actual);
-      });
+      document.querySelectorAll('.ninos-dot').forEach(function(d, i) { d.classList.toggle('activo', i === actual); });
       var burbuja = document.getElementById('ninos-burbuja-texto');
       if (burbuja) {
         burbuja.style.opacity = '0';
-        setTimeout(function() {
-          burbuja.textContent = mensajes[actual];
-          burbuja.style.transition = 'opacity 0.4s';
-          burbuja.style.opacity = '1';
-        }, 200);
+        setTimeout(function() { burbuja.textContent = mensajes[actual]; burbuja.style.transition = 'opacity 0.4s'; burbuja.style.opacity = '1'; }, 200);
       }
       var btnSig = document.getElementById('ninos-btn-sig');
       if (btnSig) btnSig.textContent = actual === TOTAL - 1 ? '¡Volver al inicio! ↺' : 'Siguiente →';
       reiniciarBarra();
     }
-
     function reiniciarBarra() {
       var barra = document.getElementById('ninos-barra');
       if (!barra) return;
-      barra.classList.remove('animando');
-      void barra.offsetWidth;
-      barra.classList.add('animando');
+      barra.classList.remove('animando'); void barra.offsetWidth; barra.classList.add('animando');
     }
-
     function pausar() { if (timer) { clearInterval(timer); timer = null; } }
     function reanudar() { timer = setInterval(function() { irSlide(actual + 1); }, DELAY); }
-
-    function iniciar() {
-      var osito = document.querySelector('.header-osito');
-      if (osito) document.querySelectorAll('.ninos-osito').forEach(function(img) { img.src = osito.src; });
-      irSlide(0);
-      reanudar();
-    }
 
     window.irSlide = irSlide;
     window.ninosSiguiente = function() { pausar(); irSlide(actual + 1); reanudar(); };
     window.ninosAnterior = function() { pausar(); irSlide(actual - 1); reanudar(); };
 
+    // --- Sub-navegación ---
+    var subMsgs = {
+      preescolar: '¡Mira estas diapositivas! Avanzan solas.',
+      bebes: 'Actividades para hacer con tu bebé. ¡Pregunta al médico antes!',
+      respiracion: '¡Respira conmigo despacio. Así te sentirás mejor!',
+      musica: '¡Escucha música suave con tu bebé!'
+    };
+    window.verSub = function(id, btn) {
+      document.querySelectorAll('.ninos-subseccion').forEach(function(s) { s.classList.remove('activa'); });
+      document.querySelectorAll('.ninos-subbtn').forEach(function(b) { b.classList.remove('activo'); });
+      var sec = document.getElementById('sub-' + id);
+      if (sec) sec.classList.add('activa');
+      if (btn) btn.classList.add('activo');
+      var burbuja = document.getElementById('ninos-burbuja-texto');
+      if (burbuja) { burbuja.textContent = subMsgs[id] || '¡Hola!'; }
+      if (id === 'preescolar') { irSlide(0); reanudar(); } else { pausar(); }
+      if (id !== 'respiracion') detenerRespiracion();
+      if (id !== 'musica' && musicaActiva) toggleMusica();
+    };
+
+    function iniciar() {
+      var osito = document.querySelector('.header-osito');
+      if (osito) document.querySelectorAll('.ninos-osito').forEach(function(img) { img.src = osito.src; });
+      window.verSub('preescolar', document.querySelector('.ninos-subbtn'));
+    }
+
+    // --- Respiración ---
+    var respActivo = false, respTimeout = null, respTipo = 'barriga', respStep = 0, respCiclo = 0;
+    var respSecuencias = {
+      barriga: [
+        { texto: 'Inhala...', dur: 4, c: ['#93c5fd','#3b82f6'], escala: 1.55 },
+        { texto: 'Exhala...', dur: 6, c: ['#86efac','#22c55e'], escala: 1 }
+      ],
+      cuadrada: [
+        { texto: 'Inhala', dur: 4, c: ['#93c5fd','#3b82f6'], escala: 1.55 },
+        { texto: 'Aguanta', dur: 4, c: ['#fde68a','#f59e0b'], escala: 1.55 },
+        { texto: 'Exhala', dur: 4, c: ['#86efac','#22c55e'], escala: 1 },
+        { texto: 'Aguanta', dur: 4, c: ['#fde68a','#f59e0b'], escala: 1 }
+      ],
+      burbuja: [
+        { texto: 'Inhala por la nariz', dur: 3, c: ['#c4b5fd','#8b5cf6'], escala: 1.55 },
+        { texto: '¡Sopla la burbuja!', dur: 5, c: ['#fbcfe8','#ec4899'], escala: 1 }
+      ]
+    };
+    var respDesc = {
+      barriga: 'Pon una mano en la barriga. Cuando inhales, tu barriga sube. Cuando exhales, baja.',
+      cuadrada: 'Inhala 4 segundos, aguanta 4, exhala 4, aguanta 4. Es como dibujar un cuadrado.',
+      burbuja: 'Imagina una varita de burbujas. Inhala fuerte y sopla muy, muy despacio.'
+    };
+
+    function ejecutarPaso() {
+      if (!respActivo) return;
+      var seq = respSecuencias[respTipo];
+      var paso = seq[respStep % seq.length];
+      var circ = document.getElementById('resp-circulo');
+      if (circ) {
+        circ.style.transition = 'transform ' + paso.dur + 's ease-in-out, background ' + paso.dur + 's ease-in-out';
+        circ.style.transform = 'scale(' + paso.escala + ')';
+        circ.style.background = 'radial-gradient(circle, ' + paso.c[0] + ', ' + paso.c[1] + ')';
+      }
+      var textoEl = document.getElementById('resp-texto');
+      var faseEl = document.getElementById('resp-fase');
+      var contEl = document.getElementById('resp-contador');
+      if (textoEl) textoEl.textContent = paso.texto;
+      if (faseEl) faseEl.textContent = paso.texto;
+      var cuenta = paso.dur;
+      if (contEl) contEl.textContent = cuenta;
+      var cuentaTimer = setInterval(function() {
+        if (!respActivo) { clearInterval(cuentaTimer); return; }
+        cuenta--;
+        if (contEl) contEl.textContent = cuenta > 0 ? cuenta : '';
+        if (cuenta <= 0) clearInterval(cuentaTimer);
+      }, 1000);
+      respTimeout = setTimeout(function() {
+        respStep++;
+        if (respStep % seq.length === 0) {
+          respCiclo++;
+          if (respCiclo >= 3) {
+            detenerRespiracion();
+            if (faseEl) faseEl.textContent = '¡Muy bien! 3 ciclos completos 🌟';
+            return;
+          }
+        }
+        ejecutarPaso();
+      }, paso.dur * 1000);
+    }
+
+    function detenerRespiracion() {
+      respActivo = false;
+      if (respTimeout) { clearTimeout(respTimeout); respTimeout = null; }
+      var circ = document.getElementById('resp-circulo');
+      if (circ) { circ.style.transition = 'transform 1s ease, background 1s ease'; circ.style.transform = 'scale(1)'; circ.style.background = 'radial-gradient(circle, #a78bfa, #7c3aed)'; }
+      var textoEl = document.getElementById('resp-texto'); if (textoEl) textoEl.textContent = 'Toca para empezar';
+      var btn = document.getElementById('resp-btn-inicio'); if (btn) btn.innerHTML = '&#9654; Empezar';
+      var contEl = document.getElementById('resp-contador'); if (contEl) contEl.textContent = '';
+    }
+
+    window.toggleRespiracion = function() {
+      if (respActivo) { detenerRespiracion(); return; }
+      respActivo = true; respStep = 0; respCiclo = 0;
+      var btn = document.getElementById('resp-btn-inicio'); if (btn) btn.textContent = '■ Parar';
+      var faseEl = document.getElementById('resp-fase'); if (faseEl) faseEl.textContent = '';
+      ejecutarPaso();
+    };
+    window.seleccionarRespiracion = function(tipo, btn) {
+      detenerRespiracion(); respTipo = tipo;
+      document.querySelectorAll('.resp-tipo-btn').forEach(function(b) { b.classList.remove('activo'); });
+      if (btn) btn.classList.add('activo');
+      var descEl = document.getElementById('resp-descripcion'); if (descEl) descEl.textContent = respDesc[tipo];
+      var faseEl = document.getElementById('resp-fase'); if (faseEl) faseEl.textContent = '';
+    };
+
+    // --- Música (Web Audio API) ---
+    var audioCtx = null, musicaActiva = false, musicaIdx = 0, musicaLoopTimer = null;
+    var canciones = [
+      { nombre: 'Estrellita ¿dónde estás?', icono: '⭐', tipo: 'triangle',
+        notas:    [523,523,784,784,880,880,784,698,698,659,659,587,587,523],
+        durs:     [0.4,0.4,0.4,0.4,0.4,0.4,0.8,0.4,0.4,0.4,0.4,0.4,0.4,0.8],
+        letra: 'Estrellita, ¿dónde estás?\nMe pregunto qué serás.\nEn el cielo o en el mar,\nun diamante de verdad.\nEstrellita, ¿dónde estás?\nMe pregunto qué serás.' },
+      { nombre: 'Los pollitos dicen', icono: '🐣', tipo: 'triangle',
+        notas:    [392,392,440,440,392,392,349,349,330,330,294,294,262],
+        durs:     [0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.7],
+        letra: 'Los pollitos dicen pío pío pío\ncuando tienen hambre,\ncuando tienen frío.\nLa gallina busca el maíz y el trigo,\nles da la comida\ny les presta abrigo.' },
+      { nombre: 'Duérmete mi niño', icono: '🌙', tipo: 'sine',
+        notas:    [262,294,330,349,330,294,262,262,294,330,349,349],
+        durs:     [0.55,0.55,0.55,0.55,0.55,0.55,1.1,0.55,0.55,0.55,0.55,1.1],
+        letra: 'Duérmete mi niño,\nduérmete sonriendo,\nque las estrellas\nte están mirando.\nCierra tus ojitos,\nduerme en paz,\nmañana el sol\nvolverá.' },
+      { nombre: 'Tonos de relajación', icono: '🌊', tipo: 'sine',
+        notas:    [220,246,262,294,330,294,262,246,220],
+        durs:     [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,1.8],
+        letra: '♪ Tonos suaves y repetitivos\npara calmar y relajar.\nIdeal para bebés y niños pequeños.\nPuedes tararear junto a los tonos.' }
+    ];
+
+    function getCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+    function reproducirLoop(idx) {
+      var c = canciones[idx];
+      var ctx = getCtx();
+      var t = ctx.currentTime + 0.1;
+      c.notas.forEach(function(freq, i) {
+        var dur = c.durs[i] || 0.4;
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = c.tipo; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.22, t + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + dur * 0.85);
+        osc.start(t); osc.stop(t + dur);
+        t += dur;
+      });
+      var totalMs = (t - ctx.currentTime) * 1000;
+      musicaLoopTimer = setTimeout(function() { if (musicaActiva) reproducirLoop(idx); }, totalMs + 400);
+    }
+
+    window.toggleMusica = function() {
+      if (musicaActiva) {
+        musicaActiva = false;
+        if (musicaLoopTimer) { clearTimeout(musicaLoopTimer); musicaLoopTimer = null; }
+        var btn = document.getElementById('musica-play-btn'); if (btn) btn.innerHTML = '&#9654;';
+      } else {
+        musicaActiva = true;
+        var btn = document.getElementById('musica-play-btn'); if (btn) btn.textContent = '⏸';
+        reproducirLoop(musicaIdx);
+      }
+    };
+    window.seleccionarCancion = function(idx, el) {
+      if (musicaActiva) window.toggleMusica();
+      musicaIdx = idx;
+      document.querySelectorAll('.musica-item').forEach(function(item) { item.classList.remove('activo'); });
+      if (el) el.classList.add('activo');
+      var c = canciones[idx];
+      var t = document.getElementById('musica-titulo-actual'); if (t) t.textContent = c.nombre;
+      var p = document.getElementById('musica-portada'); if (p) p.textContent = c.icono;
+      var l = document.getElementById('musica-letra-texto'); if (l) l.innerHTML = c.letra.replace(/\n/g, '<br>');
+      var btn = document.getElementById('musica-play-btn'); if (btn) btn.innerHTML = '&#9654;';
+    };
+
+    // --- Hook mostrar() ---
     var _mostrar = window.mostrar;
     window.mostrar = function(id, btn) {
       _mostrar(id, btn);
       if (id === 'ninos') { setTimeout(iniciar, 300); }
-      else { pausar(); }
+      else { pausar(); detenerRespiracion(); if (musicaActiva) window.toggleMusica(); }
     };
 
+    // --- Swipe táctil (solo pre-escolar activo) ---
     var touchX = 0;
     document.addEventListener('touchstart', function(e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', function(e) {
       var tab = document.getElementById('ninos');
       if (!tab || !tab.classList.contains('activa')) return;
+      var subP = document.getElementById('sub-preescolar');
+      if (!subP || !subP.classList.contains('activa')) return;
       var dx = e.changedTouches[0].clientX - touchX;
       if (Math.abs(dx) > 40) { dx < 0 ? window.ninosSiguiente() : window.ninosAnterior(); }
     }, { passive: true });
