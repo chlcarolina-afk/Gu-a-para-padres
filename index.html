@@ -571,6 +571,113 @@
   }
   .musica-letra-texto { font-size: 0.88rem; color: var(--texto); font-weight: 600; line-height: 1.85; }
   .musica-nota { font-size: 0.78rem; color: rgba(255,255,255,0.88); font-weight: 700; text-align: center; }
+
+  /* Juegos */
+  .juegos-selector { display: flex; gap: 0.45rem; margin-bottom: 0.6rem; }
+  .juego-btn {
+    flex: 1; background: rgba(255,255,255,0.7); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 10px; padding: 0.5rem 0.3rem; text-align: center;
+    cursor: pointer; font-family: "Nunito", Arial, sans-serif;
+    font-size: 0.8rem; font-weight: 800; color: #5b21b6; transition: all 0.2s;
+  }
+  .juego-btn.activo { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .juego-btn:active { transform: scale(0.96); }
+  .juego-panel { display: none; }
+  .juego-panel.activo { display: block; animation: aparecer 0.25s ease; }
+
+  /* Burbujas */
+  .burbuja-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .burbuja-marcador {
+    background: rgba(255,255,255,0.88); border-radius: 12px; padding: 0.5rem 0.9rem;
+    font-size: 1rem; font-weight: 800; color: #5b21b6;
+  }
+  .burbuja-tiempo {
+    background: rgba(255,255,255,0.88); border-radius: 12px; padding: 0.5rem 0.9rem;
+    font-size: 1rem; font-weight: 800; color: #e8773a;
+  }
+  .burbuja-arena {
+    position: relative; height: 260px;
+    background: rgba(135,206,235,0.3); border-radius: 16px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.5); margin-bottom: 0.5rem;
+    user-select: none; -webkit-user-select: none;
+  }
+  .burbuja-obj {
+    position: absolute; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; cursor: pointer;
+    animation: burbuja-sube linear forwards;
+    font-size: 1.4rem; box-shadow: inset -4px -4px 8px rgba(0,0,0,0.1), 0 0 0 3px rgba(255,255,255,0.4);
+    will-change: transform;
+  }
+  @keyframes burbuja-sube {
+    from { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(-320px); opacity: 0.3; }
+  }
+  .burbuja-pop {
+    position: absolute; font-size: 1.6rem; pointer-events: none;
+    animation: pop-out 0.5s ease forwards;
+  }
+  @keyframes pop-out {
+    0%   { transform: scale(0.5); opacity: 1; }
+    60%  { transform: scale(1.4); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+  .burbuja-start-btn, .burbuja-replay-btn {
+    display: block; width: 100%; background: #7c3aed; border: none; border-radius: 14px;
+    padding: 0.7rem; font-family: "Nunito", Arial, sans-serif;
+    font-size: 1rem; font-weight: 800; color: #fff; cursor: pointer; transition: all 0.2s;
+  }
+  .burbuja-start-btn:active, .burbuja-replay-btn:active { transform: scale(0.97); }
+  .burbuja-resultado {
+    background: rgba(255,255,255,0.88); border-radius: 14px; padding: 1rem;
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  .burbuja-resultado-icono { font-size: 2.5rem; display: block; margin-bottom: 0.3rem; }
+  .burbuja-resultado-titulo { font-size: 1.1rem; font-weight: 800; color: #5b21b6; }
+  .burbuja-resultado-sub { font-size: 0.88rem; color: var(--texto-suave); font-weight: 600; }
+
+  /* Memoria */
+  .memoria-stats { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+  .memoria-stat {
+    background: rgba(255,255,255,0.88); border-radius: 10px;
+    padding: 0.4rem 0.75rem; font-size: 0.85rem; font-weight: 800; color: #5b21b6;
+  }
+  .memoria-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-bottom: 0.5rem;
+  }
+  .carta {
+    aspect-ratio: 1; border-radius: 10px; cursor: pointer;
+    position: relative; transform-style: preserve-3d; transition: transform 0.4s;
+  }
+  .carta.volteada { transform: rotateY(180deg); }
+  .carta.emparejada { transform: rotateY(180deg); cursor: default; }
+  .carta-frente, .carta-dorso {
+    position: absolute; inset: 0; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    backface-visibility: hidden; font-size: 1.4rem;
+  }
+  .carta-dorso {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    font-size: 1.1rem; color: rgba(255,255,255,0.7);
+  }
+  .carta-frente {
+    background: rgba(255,255,255,0.92); transform: rotateY(180deg);
+  }
+  .carta.emparejada .carta-frente { background: rgba(134,239,172,0.7); }
+  .memoria-btn {
+    display: block; width: 100%; background: rgba(255,255,255,0.75);
+    border: 2px solid rgba(255,255,255,0.9); border-radius: 12px;
+    padding: 0.6rem; font-family: "Nunito", Arial, sans-serif;
+    font-size: 0.9rem; font-weight: 800; color: #5b21b6; cursor: pointer; transition: all 0.2s;
+  }
+  .memoria-btn:active { transform: scale(0.97); }
+  .memoria-ganaste {
+    background: rgba(255,255,255,0.9); border-radius: 14px; padding: 1rem;
+    text-align: center; margin-bottom: 0.5rem; display: none;
+  }
+  .memoria-ganaste.visible { display: block; animation: aparecer 0.4s ease; }
+  .memoria-ganaste-icono { font-size: 3rem; display: block; }
+  .memoria-ganaste-titulo { font-size: 1.1rem; font-weight: 800; color: #5b21b6; margin: 0.3rem 0 0.15rem; }
+  .memoria-ganaste-sub { font-size: 0.88rem; color: var(--texto-suave); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -1019,6 +1126,9 @@
         <button class="ninos-subbtn" onclick="verSub('musica', this)">
           <span class="ninos-subbtn-icon">🎵</span>Música
         </button>
+        <button class="ninos-subbtn" onclick="verSub('juegos', this)" style="grid-column:1/-1">
+          <span class="ninos-subbtn-icon">🎮</span>Juegos
+        </button>
       </div>
 
       <!-- SUB-SECCIÓN: PRE-ESCOLAR (3-6 años) -->
@@ -1184,6 +1294,47 @@
           </div>
         </div>
         <p class="musica-nota">🎧 Usa auriculares a volumen bajo para no molestar a otros pacientes</p>
+      </div>
+
+      <!-- SUB-SECCIÓN: JUEGOS -->
+      <div class="ninos-subseccion" id="sub-juegos">
+        <div class="sub-titulo">🎮 Juegos para divertirse</div>
+
+        <!-- Selector de juego -->
+        <div class="juegos-selector">
+          <button class="juego-btn activo" onclick="verJuego('burbujas', this)">🫧 Burbujas</button>
+          <button class="juego-btn" onclick="verJuego('memoria', this)">🃏 Memoria</button>
+        </div>
+
+        <!-- JUEGO 1: Burbujas -->
+        <div class="juego-panel activo" id="juego-burbujas">
+          <div class="burbuja-info">
+            <div class="burbuja-marcador">⭐ <span id="burbuja-pts">0</span></div>
+            <div class="burbuja-tiempo">⏱ <span id="burbuja-seg">30</span>s</div>
+          </div>
+          <div class="burbuja-arena" id="burbuja-arena"></div>
+          <div class="burbuja-resultado" id="burbuja-resultado" style="display:none">
+            <span class="burbuja-resultado-icono" id="burbuja-res-icono">🌟</span>
+            <div class="burbuja-resultado-titulo" id="burbuja-res-titulo">¡Bien hecho!</div>
+            <div class="burbuja-resultado-sub" id="burbuja-res-sub">Tocaste muchas burbujas</div>
+          </div>
+          <button class="burbuja-start-btn" id="burbuja-start-btn" onclick="iniciarBurbujas()">▶ ¡Jugar!</button>
+        </div>
+
+        <!-- JUEGO 2: Memoria -->
+        <div class="juego-panel" id="juego-memoria">
+          <div class="memoria-stats">
+            <div class="memoria-stat">🔄 Intentos: <span id="mem-intentos">0</span></div>
+            <div class="memoria-stat">✅ Parejas: <span id="mem-parejas">0</span>/8</div>
+          </div>
+          <div class="memoria-ganaste" id="mem-ganaste">
+            <span class="memoria-ganaste-icono">🏆</span>
+            <div class="memoria-ganaste-titulo">¡Ganaste!</div>
+            <div class="memoria-ganaste-sub" id="mem-ganaste-sub">Lo lograste en <span id="mem-fin-intentos">0</span> intentos</div>
+          </div>
+          <div class="memoria-grid" id="memoria-grid"></div>
+          <button class="memoria-btn" onclick="iniciarMemoria()">🔀 Nueva partida</button>
+        </div>
       </div>
 
     </div>
@@ -1433,6 +1584,161 @@
       var l = document.getElementById('musica-letra-texto'); if (l) l.innerHTML = c.letra.replace(/\n/g, '<br>');
       var btn = document.getElementById('musica-play-btn'); if (btn) btn.innerHTML = '&#9654;';
     };
+
+    // --- Selector de juego ---
+    window.verJuego = function(id, btn) {
+      document.querySelectorAll('.juego-panel').forEach(function(p) { p.classList.remove('activo'); });
+      document.querySelectorAll('.juego-btn').forEach(function(b) { b.classList.remove('activo'); });
+      var panel = document.getElementById('juego-' + id);
+      if (panel) panel.classList.add('activo');
+      if (btn) btn.classList.add('activo');
+      if (id === 'memoria') iniciarMemoria();
+      else detenerBurbujas();
+    };
+
+    // --- Juego: Burbujas ---
+    var bTimers = [], bSpawn = null, bCountdown = null, bPts = 0, bSeg = 30, bActivo = false;
+    var bEmojis = ['🌟','⭐','💛','🌈','🦋','🌸','💜','🐻','🎈','🍭','🐰','🐸'];
+    var bColores = ['rgba(147,197,253,0.7)','rgba(196,181,253,0.7)','rgba(253,186,116,0.7)',
+                    'rgba(167,243,208,0.7)','rgba(249,168,212,0.7)','rgba(134,239,172,0.7)'];
+
+    function detenerBurbujas() {
+      bActivo = false;
+      clearInterval(bSpawn); clearInterval(bCountdown);
+      bTimers.forEach(clearTimeout); bTimers = [];
+    }
+
+    window.iniciarBurbujas = function() {
+      detenerBurbujas();
+      bPts = 0; bSeg = 30; bActivo = true;
+      var arena = document.getElementById('burbuja-arena');
+      var res = document.getElementById('burbuja-resultado');
+      var startBtn = document.getElementById('burbuja-start-btn');
+      if (!arena) return;
+      arena.innerHTML = '';
+      if (res) res.style.display = 'none';
+      if (startBtn) startBtn.style.display = 'none';
+      actualizarBurbujaMarcador();
+
+      function spawnBurbuja() {
+        if (!bActivo) return;
+        var size = 44 + Math.floor(Math.random() * 28);
+        var left = Math.floor(Math.random() * (arena.offsetWidth - size - 10));
+        var dur = 2.5 + Math.random() * 2;
+        var emoji = bEmojis[Math.floor(Math.random() * bEmojis.length)];
+        var color = bColores[Math.floor(Math.random() * bColores.length)];
+        var b = document.createElement('div');
+        b.className = 'burbuja-obj';
+        b.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + left + 'px;bottom:0;background:' + color + ';animation-duration:' + dur + 's;';
+        b.textContent = emoji;
+        b.addEventListener('click', function(e) {
+          if (!bActivo) return;
+          e.stopPropagation();
+          bPts++;
+          actualizarBurbujaMarcador();
+          // Pop effect
+          var pop = document.createElement('div');
+          pop.className = 'burbuja-pop'; pop.textContent = emoji;
+          pop.style.left = b.style.left; pop.style.bottom = b.style.bottom;
+          arena.appendChild(pop);
+          setTimeout(function() { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 500);
+          if (b.parentNode) b.parentNode.removeChild(b);
+        });
+        arena.appendChild(b);
+        var t = setTimeout(function() { if (b.parentNode) b.parentNode.removeChild(b); }, dur * 1000);
+        bTimers.push(t);
+      }
+
+      bSpawn = setInterval(spawnBurbuja, 700);
+      spawnBurbuja();
+
+      bCountdown = setInterval(function() {
+        bSeg--;
+        var segEl = document.getElementById('burbuja-seg'); if (segEl) segEl.textContent = bSeg;
+        if (bSeg <= 0) {
+          detenerBurbujas();
+          if (arena) arena.innerHTML = '';
+          if (startBtn) startBtn.style.display = 'block';
+          if (startBtn) startBtn.textContent = '🔄 Jugar otra vez';
+          var icono = bPts >= 20 ? '🏆' : bPts >= 10 ? '🌟' : '😊';
+          var titulo = bPts >= 20 ? '¡Increíble! Eres muy rápido/a' : bPts >= 10 ? '¡Muy bien hecho!' : '¡Buen intento, sigue practicando!';
+          var sub = 'Tocaste ' + bPts + ' burbujas en 30 segundos';
+          var resIcono = document.getElementById('burbuja-res-icono');
+          var resTitulo = document.getElementById('burbuja-res-titulo');
+          var resSub = document.getElementById('burbuja-res-sub');
+          if (resIcono) resIcono.textContent = icono;
+          if (resTitulo) resTitulo.textContent = titulo;
+          if (resSub) resSub.textContent = sub;
+          if (res) res.style.display = 'block';
+        }
+      }, 1000);
+    };
+
+    function actualizarBurbujaMarcador() {
+      var el = document.getElementById('burbuja-pts'); if (el) el.textContent = bPts;
+    }
+
+    // --- Juego: Memoria ---
+    var mFlipped = [], mBloqueado = false, mIntentos = 0, mParejas = 0;
+    var mEmojis = ['🌟','⭐','💛','🌈','🦋','🌸','❤️','🐻'];
+
+    window.iniciarMemoria = function() {
+      mFlipped = []; mBloqueado = false; mIntentos = 0; mParejas = 0;
+      var grid = document.getElementById('memoria-grid');
+      var ganaste = document.getElementById('mem-ganaste');
+      if (!grid) return;
+      if (ganaste) ganaste.classList.remove('visible');
+      var items = mEmojis.concat(mEmojis);
+      for (var i = items.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = items[i]; items[i] = items[j]; items[j] = tmp;
+      }
+      grid.innerHTML = '';
+      items.forEach(function(emoji, idx) {
+        var carta = document.createElement('div');
+        carta.className = 'carta';
+        carta.dataset.emoji = emoji;
+        carta.dataset.idx = idx;
+        carta.innerHTML = '<div class="carta-dorso">?</div><div class="carta-frente">' + emoji + '</div>';
+        carta.addEventListener('click', function() { voltearCarta(carta); });
+        grid.appendChild(carta);
+      });
+      actualizarMemStats();
+    };
+
+    function voltearCarta(carta) {
+      if (mBloqueado || carta.classList.contains('volteada') || carta.classList.contains('emparejada')) return;
+      carta.classList.add('volteada');
+      mFlipped.push(carta);
+      if (mFlipped.length === 2) {
+        mIntentos++;
+        mBloqueado = true;
+        if (mFlipped[0].dataset.emoji === mFlipped[1].dataset.emoji) {
+          mFlipped[0].classList.add('emparejada'); mFlipped[1].classList.add('emparejada');
+          mFlipped = []; mBloqueado = false; mParejas++;
+          actualizarMemStats();
+          if (mParejas === 8) mostrarGanasteMemoria();
+        } else {
+          setTimeout(function() {
+            mFlipped[0].classList.remove('volteada'); mFlipped[1].classList.remove('volteada');
+            mFlipped = []; mBloqueado = false;
+          }, 900);
+          actualizarMemStats();
+        }
+      }
+    }
+
+    function actualizarMemStats() {
+      var i = document.getElementById('mem-intentos'); if (i) i.textContent = mIntentos;
+      var p = document.getElementById('mem-parejas'); if (p) p.textContent = mParejas;
+    }
+
+    function mostrarGanasteMemoria() {
+      var el = document.getElementById('mem-ganaste');
+      var sub = document.getElementById('mem-fin-intentos');
+      if (sub) sub.textContent = mIntentos;
+      if (el) el.classList.add('visible');
+    }
 
     // --- Hook mostrar() ---
     var _mostrar = window.mostrar;
