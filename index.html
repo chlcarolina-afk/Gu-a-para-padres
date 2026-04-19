@@ -571,6 +571,66 @@
   }
   .musica-letra-texto { font-size: 0.88rem; color: var(--texto); font-weight: 600; line-height: 1.85; }
   .musica-nota { font-size: 0.78rem; color: rgba(255,255,255,0.88); font-weight: 700; text-align: center; }
+  .musica-cantar {
+    background: rgba(255,255,255,0.88); border-radius: 14px; padding: 0.85rem 1rem; margin-bottom: 0.5rem;
+  }
+  .musica-cantar-titulo {
+    font-size: 0.78rem; font-weight: 800; color: #7c3aed; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .musica-cantar-nota { font-size: 1rem; }
+  .musica-cantar-versos { font-size: 0.92rem; color: var(--texto); font-weight: 600; line-height: 2; }
+  .musica-cantar-acento { color: #7c3aed; font-weight: 800; }
+
+  /* Tarjetas visuales bebés */
+  .tarjetas-visuales {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.4rem 0 0.3rem;
+  }
+  .tarjeta-visual {
+    border-radius: 14px; aspect-ratio: 1; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; transition: transform 0.2s;
+  }
+  .tarjeta-visual:active { transform: scale(0.95); }
+  .tarjeta-visual.expandida {
+    position: fixed; inset: 10%; z-index: 999; border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .tv-bn { background: #fff; border: 4px solid #000; }
+  .tv-circulo { width: 60%; aspect-ratio: 1; border-radius: 50%; background: #000; }
+  .tv-rojo { background: #ef4444; }
+  .tv-estrella { font-size: 3rem; color: #fff; font-weight: 900; }
+  .tv-azul { background: #1d4ed8; }
+  .tv-ondas { font-size: 1.6rem; color: #fff; letter-spacing: -2px; }
+  .tv-amarillo { background: #fbbf24; }
+  .tv-cara { font-size: 3rem; }
+  .tarjeta-visual-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998; display: none;
+  }
+  .tarjeta-visual-overlay.visible { display: block; }
+
+  /* Cuento */
+  .cuento-portada {
+    background: linear-gradient(135deg, #f9a8d4, #c084fc, #818cf8);
+    border-radius: 16px; padding: 1.5rem 1rem; text-align: center; margin-bottom: 0.8rem;
+  }
+  .cuento-portada-icono { font-size: 3.5rem; display: block; margin-bottom: 0.5rem; }
+  .cuento-portada-titulo { font-size: 1.1rem; font-weight: 800; color: #fff; line-height: 1.3; }
+  .cuento-pagina {
+    background: rgba(255,255,255,0.9); border-radius: 16px; padding: 1.2rem;
+    margin-bottom: 0.5rem; display: none;
+  }
+  .cuento-pagina.activa { display: block; animation: aparecer 0.3s ease; }
+  .cuento-pagina-texto { font-size: 1rem; color: var(--texto); line-height: 1.9; font-weight: 600; }
+  .cuento-pagina-icono { font-size: 2.5rem; text-align: center; display: block; margin-bottom: 0.6rem; }
+  .cuento-nav { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.4rem; }
+  .cuento-btn {
+    flex: 1; background: rgba(255,255,255,0.75); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 12px; padding: 0.6rem; font-family: "Nunito", Arial, sans-serif;
+    font-size: 0.88rem; font-weight: 800; color: #5b21b6; cursor: pointer; transition: all 0.2s;
+  }
+  .cuento-btn:active { transform: scale(0.96); }
+  .cuento-btn-sig { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+  .cuento-pagina-num { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.8); }
 
   /* Juegos */
   .juegos-selector { display: flex; gap: 0.45rem; margin-bottom: 0.6rem; }
@@ -678,6 +738,53 @@
   .memoria-ganaste-icono { font-size: 3rem; display: block; }
   .memoria-ganaste-titulo { font-size: 1.1rem; font-weight: 800; color: #5b21b6; margin: 0.3rem 0 0.15rem; }
   .memoria-ganaste-sub { font-size: 0.88rem; color: var(--texto-suave); font-weight: 600; }
+
+  /* Colorear */
+  .colorear-paleta {
+    display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center;
+    margin-bottom: 0.7rem;
+  }
+  .color-btn {
+    width: 36px; height: 36px; border-radius: 50%; border: 3px solid transparent;
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .color-btn.activo { border-color: #fff; transform: scale(1.2); box-shadow: 0 0 8px rgba(0,0,0,0.3); }
+  .color-btn:active { transform: scale(0.9); }
+
+  /* Puzzle */
+  .puzzle-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .puzzle-stat { background: rgba(255,255,255,0.88); border-radius: 10px; padding: 0.4rem 0.75rem; font-size: 0.85rem; font-weight: 800; color: #5b21b6; }
+  .puzzle-reset-btn {
+    background: rgba(255,255,255,0.75); border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 10px; padding: 0.4rem 0.75rem;
+    font-family: "Nunito", Arial, sans-serif; font-size: 0.82rem; font-weight: 800;
+    color: #5b21b6; cursor: pointer;
+  }
+  .puzzle-ganaste {
+    background: rgba(255,255,255,0.9); border-radius: 12px; padding: 0.7rem;
+    text-align: center; font-size: 1rem; font-weight: 800; color: #5b21b6; margin-bottom: 0.5rem;
+  }
+  .puzzle-escena {
+    position: relative; width: 200px; height: 220px; margin: 0 auto 0.7rem;
+    background: rgba(255,255,255,0.25); border-radius: 16px; border: 2px dashed rgba(255,255,255,0.6);
+  }
+  .puzzle-slot {
+    position: absolute; border-radius: 8px; border: 2px dashed rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
+    color: rgba(255,255,255,0.6); font-weight: 700;
+  }
+  .puzzle-slot.lleno { border-color: transparent; }
+  .puzzle-piezas {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+    background: rgba(255,255,255,0.15); border-radius: 14px; padding: 0.7rem;
+    min-height: 80px;
+  }
+  .puzzle-pieza {
+    border-radius: 10px; cursor: grab; transition: transform 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2); user-select: none;
+  }
+  .puzzle-pieza:active { transform: scale(1.1); cursor: grabbing; }
 </style>
 </head>
 <body>
@@ -1126,8 +1233,11 @@
         <button class="ninos-subbtn" onclick="verSub('musica', this)">
           <span class="ninos-subbtn-icon">🎵</span>Música
         </button>
-        <button class="ninos-subbtn" onclick="verSub('juegos', this)" style="grid-column:1/-1">
+        <button class="ninos-subbtn" onclick="verSub('juegos', this)">
           <span class="ninos-subbtn-icon">🎮</span>Juegos
+        </button>
+        <button class="ninos-subbtn" onclick="verSub('cuento', this)">
+          <span class="ninos-subbtn-icon">📖</span>Cuento
         </button>
       </div>
 
@@ -1148,7 +1258,7 @@
             <div class="ninos-slide">
               <div class="ninos-slide-icono">🤍</div>
               <h2 class="ninos-slide-titulo">Los tubitos son tus amigos</h2>
-              <p class="ninos-slide-texto">Te dan todo lo que tu cuerpo necesita para sanar. ¡No te asusten!</p>
+              <p class="ninos-slide-texto">Te dan todo lo que tu cuerpo necesita para sanar. ¡No te asuste!</p>
             </div>
             <div class="ninos-slide">
               <div class="ninos-slide-icono">👨‍👩‍👧</div>
@@ -1195,17 +1305,25 @@
         <div class="bebes-card">
           <div class="bebes-icono">👀</div>
           <div>
-            <div class="bebes-titulo">Seguimiento visual</div>
-            <p class="bebes-texto">Los bebés ven mejor los contrastes. Mueve lentamente un objeto brillante a unos 25 cm. También puedes acercar tu cara y hacer expresiones.</p>
+            <div class="bebes-titulo">Tarjetas visuales</div>
+            <p class="bebes-texto">Los bebés ven mejor los contrastes fuertes. Muestra estas tarjetas lentamente, a unos 20-25 cm de sus ojos. Cambia de tarjeta cada 30 segundos.</p>
           </div>
         </div>
-        <div class="bebes-patron">
-          <div class="patron-cuadro"></div><div class="patron-cuadro negro"></div>
-          <div class="patron-cuadro negro"></div><div class="patron-cuadro"></div>
-          <div class="patron-cuadro negro"></div><div class="patron-cuadro"></div>
-          <div class="patron-cuadro"></div><div class="patron-cuadro negro"></div>
+        <div class="tarjetas-visuales">
+          <div class="tarjeta-visual tv-bn">
+            <div class="tv-circulo"></div>
+          </div>
+          <div class="tarjeta-visual tv-rojo">
+            <div class="tv-estrella">★</div>
+          </div>
+          <div class="tarjeta-visual tv-azul">
+            <div class="tv-ondas">〰〰〰</div>
+          </div>
+          <div class="tarjeta-visual tv-amarillo">
+            <div class="tv-cara">😊</div>
+          </div>
         </div>
-        <p class="bebes-patron-label">↑ Patrón blanco y negro — ponlo cerca de la vista del bebé</p>
+        <p class="bebes-patron-label">↑ Toca cada tarjeta para agrandarla y mostrársela al bebé</p>
         <div class="bebes-card">
           <div class="bebes-icono">🎶</div>
           <div>
@@ -1234,13 +1352,12 @@
       <div class="ninos-subseccion" id="sub-respiracion">
         <div class="sub-titulo">🌬️ Respiración para relajarse</div>
         <div class="resp-selector">
-          <button class="resp-tipo-btn activo" onclick="seleccionarRespiracion('barriga', this)">Barriga</button>
-          <button class="resp-tipo-btn" onclick="seleccionarRespiracion('cuadrada', this)">Cuadrada</button>
-          <button class="resp-tipo-btn" onclick="seleccionarRespiracion('burbuja', this)">Burbuja</button>
+          <button class="resp-tipo-btn activo" onclick="seleccionarRespiracion('barriga', this)">🌬️ Barriga</button>
+          <button class="resp-tipo-btn" onclick="seleccionarRespiracion('burbuja', this)">🫧 Burbuja</button>
         </div>
         <div class="resp-descripcion" id="resp-descripcion">Pon una mano en la barriga. Cuando inhales, tu barriga sube. Cuando exhales, baja.</div>
         <div class="resp-circulo-wrap">
-          <div class="resp-circulo" id="resp-circulo">
+          <div class="resp-circulo" id="resp-circulo" onclick="toggleRespiracion()">
             <span class="resp-circulo-texto" id="resp-texto">Toca para empezar</span>
           </div>
           <div class="resp-ondas">
@@ -1279,21 +1396,23 @@
             <span class="musica-item-icon">🌙</span><span>Duérmete mi niño</span>
           </div>
           <div class="musica-item" onclick="seleccionarCancion(3, this)">
-            <span class="musica-item-icon">🌊</span><span>Tonos de relajación</span>
+            <span class="musica-item-icon">🎼</span><span>Tonos suaves (Mozart)</span>
           </div>
         </div>
-        <div class="musica-letra">
-          <div class="musica-letra-titulo">Letra</div>
-          <div class="musica-letra-texto" id="musica-letra-texto">
-            Estrellita, ¿dónde estás?<br>
+        <div class="musica-cantar">
+          <div class="musica-cantar-titulo">
+            <span class="musica-cantar-nota">🎤</span> Canta con tu bebé
+          </div>
+          <div class="musica-cantar-versos" id="musica-letra-texto">
+            <span class="musica-cantar-acento">Estrellita,</span> ¿dónde estás?<br>
             Me pregunto qué serás.<br>
-            En el cielo o en el mar,<br>
+            <span class="musica-cantar-acento">En el cielo</span> o en el mar,<br>
             un diamante de verdad.<br>
-            Estrellita, ¿dónde estás?<br>
+            <span class="musica-cantar-acento">Estrellita,</span> ¿dónde estás?<br>
             Me pregunto qué serás.
           </div>
         </div>
-        <p class="musica-nota">🎧 Usa auriculares a volumen bajo para no molestar a otros pacientes</p>
+        <p class="musica-nota">♪ Toca ▶ para escuchar la melodía de fondo mientras cantas</p>
       </div>
 
       <!-- SUB-SECCIÓN: JUEGOS -->
@@ -1301,9 +1420,11 @@
         <div class="sub-titulo">🎮 Juegos para divertirse</div>
 
         <!-- Selector de juego -->
-        <div class="juegos-selector">
+        <div class="juegos-selector" style="flex-wrap:wrap">
           <button class="juego-btn activo" onclick="verJuego('burbujas', this)">🫧 Burbujas</button>
           <button class="juego-btn" onclick="verJuego('memoria', this)">🃏 Memoria</button>
+          <button class="juego-btn" onclick="verJuego('colorear', this)">🎨 Colorear</button>
+          <button class="juego-btn" onclick="verJuego('puzzle', this)">🧩 Puzzle</button>
         </div>
 
         <!-- JUEGO 1: Burbujas -->
@@ -1334,6 +1455,85 @@
           </div>
           <div class="memoria-grid" id="memoria-grid"></div>
           <button class="memoria-btn" onclick="iniciarMemoria()">🔀 Nueva partida</button>
+        </div>
+
+        <!-- JUEGO 3: Colorear al osito -->
+        <div class="juego-panel" id="juego-colorear">
+          <div class="colorear-paleta" id="colorear-paleta">
+            <button class="color-btn activo" style="background:#ef4444" onclick="elegirColor('#ef4444',this)"></button>
+            <button class="color-btn" style="background:#f97316" onclick="elegirColor('#f97316',this)"></button>
+            <button class="color-btn" style="background:#eab308" onclick="elegirColor('#eab308',this)"></button>
+            <button class="color-btn" style="background:#22c55e" onclick="elegirColor('#22c55e',this)"></button>
+            <button class="color-btn" style="background:#3b82f6" onclick="elegirColor('#3b82f6',this)"></button>
+            <button class="color-btn" style="background:#a855f7" onclick="elegirColor('#a855f7',this)"></button>
+            <button class="color-btn" style="background:#f9a8d4" onclick="elegirColor('#f9a8d4',this)"></button>
+            <button class="color-btn" style="background:#fff;border:2px solid #ccc" onclick="elegirColor('#ffffff',this)">✕</button>
+          </div>
+          <svg id="osito-colorear" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block;margin:0 auto;cursor:pointer;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))">
+            <!-- Cuerpo -->
+            <ellipse id="cc-cuerpo" cx="100" cy="145" rx="55" ry="65" fill="#c8a97e" stroke="#8b6343" stroke-width="2.5" onclick="colorear(this)"/>
+            <!-- Barriga -->
+            <ellipse id="cc-barriga" cx="100" cy="155" rx="32" ry="38" fill="#e8d5b0" stroke="#c8a97e" stroke-width="1.5" onclick="colorear(this)"/>
+            <!-- Cabeza -->
+            <circle id="cc-cabeza" cx="100" cy="78" r="42" fill="#c8a97e" stroke="#8b6343" stroke-width="2.5" onclick="colorear(this)"/>
+            <!-- Oreja izq -->
+            <circle id="cc-oreja-iz" cx="62" cy="44" r="18" fill="#c8a97e" stroke="#8b6343" stroke-width="2" onclick="colorear(this)"/>
+            <circle cx="62" cy="44" r="10" fill="#e8a090" stroke="none" onclick="colorear(document.getElementById('cc-oreja-iz'))"/>
+            <!-- Oreja der -->
+            <circle id="cc-oreja-de" cx="138" cy="44" r="18" fill="#c8a97e" stroke="#8b6343" stroke-width="2" onclick="colorear(this)"/>
+            <circle cx="138" cy="44" r="10" fill="#e8a090" stroke="none" onclick="colorear(document.getElementById('cc-oreja-de'))"/>
+            <!-- Brazos -->
+            <ellipse id="cc-brazo-iz" cx="48" cy="148" rx="16" ry="32" fill="#c8a97e" stroke="#8b6343" stroke-width="2" transform="rotate(-15,48,148)" onclick="colorear(this)"/>
+            <ellipse id="cc-brazo-de" cx="152" cy="148" rx="16" ry="32" fill="#c8a97e" stroke="#8b6343" stroke-width="2" transform="rotate(15,152,148)" onclick="colorear(this)"/>
+            <!-- Piernas -->
+            <ellipse id="cc-pierna-iz" cx="76" cy="200" rx="18" ry="22" fill="#c8a97e" stroke="#8b6343" stroke-width="2" onclick="colorear(this)"/>
+            <ellipse id="cc-pierna-de" cx="124" cy="200" rx="18" ry="22" fill="#c8a97e" stroke="#8b6343" stroke-width="2" onclick="colorear(this)"/>
+            <!-- Cara: ojos -->
+            <circle cx="87" cy="72" r="7" fill="#222"/>
+            <circle cx="113" cy="72" r="7" fill="#222"/>
+            <circle cx="89" cy="70" r="2.5" fill="#fff"/>
+            <circle cx="115" cy="70" r="2.5" fill="#fff"/>
+            <!-- Nariz -->
+            <ellipse id="cc-nariz" cx="100" cy="84" rx="9" ry="6" fill="#8b6343" onclick="colorear(this)"/>
+            <!-- Boca -->
+            <path d="M88 93 Q100 104 112 93" fill="none" stroke="#8b6343" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Vendita (toque hospital) -->
+            <rect id="cc-venda" x="82" y="98" width="36" height="10" rx="4" fill="#fff" stroke="#e8773a" stroke-width="1.5" onclick="colorear(this)"/>
+            <line x1="100" y1="98" x2="100" y2="108" stroke="#e8773a" stroke-width="1.5"/>
+            <!-- Corazón en la barriga -->
+            <path id="cc-corazon" d="M94 148 C94 144 88 140 88 145 C88 150 94 155 100 160 C106 155 112 150 112 145 C112 140 106 144 106 148 C106 144 100 140 100 148 Z" fill="#ef4444" onclick="colorear(this)"/>
+          </svg>
+          <button class="memoria-btn" style="margin-top:0.5rem" onclick="limpiarColorear()">🗑️ Limpiar colores</button>
+        </div>
+
+        <!-- JUEGO 4: Puzzle del osito -->
+        <div class="juego-panel" id="juego-puzzle">
+          <div class="puzzle-info">
+            <div class="puzzle-stat">🧩 Piezas: <span id="puzzle-colocadas">0</span>/6</div>
+            <button class="puzzle-reset-btn" onclick="iniciarPuzzle()">🔀 Mezclar</button>
+          </div>
+          <div class="puzzle-ganaste" id="puzzle-ganaste" style="display:none">
+            <span>🏆</span> ¡Armaste al osito!
+          </div>
+          <div class="puzzle-escena" id="puzzle-escena"></div>
+          <div class="puzzle-piezas" id="puzzle-piezas"></div>
+        </div>
+      </div>
+
+      <!-- SUB-SECCIÓN: CUENTO -->
+      <div class="ninos-subseccion" id="sub-cuento">
+        <div class="cuento-portada">
+          <span class="cuento-portada-icono">📖</span>
+          <div class="cuento-portada-titulo">Un cuento especial<br>para ti</div>
+        </div>
+        <div class="cuento-pagina activa" id="cuento-p0">
+          <span class="cuento-pagina-icono">✨</span>
+          <p class="cuento-pagina-texto">El cuento llegará muy pronto.<br><br>¡Vuelve a visitar esta sección!</p>
+        </div>
+        <div class="cuento-nav">
+          <button class="cuento-btn" onclick="cuentoAnterior()">&#8592; Anterior</button>
+          <span class="cuento-pagina-num" id="cuento-num">1 / 1</span>
+          <button class="cuento-btn cuento-btn-sig" onclick="cuentoSiguiente()">Siguiente &#8594;</button>
         </div>
       </div>
 
@@ -1438,12 +1638,6 @@
         { texto: 'Inhala...', dur: 4, c: ['#93c5fd','#3b82f6'], escala: 1.55 },
         { texto: 'Exhala...', dur: 6, c: ['#86efac','#22c55e'], escala: 1 }
       ],
-      cuadrada: [
-        { texto: 'Inhala', dur: 4, c: ['#93c5fd','#3b82f6'], escala: 1.55 },
-        { texto: 'Aguanta', dur: 4, c: ['#fde68a','#f59e0b'], escala: 1.55 },
-        { texto: 'Exhala', dur: 4, c: ['#86efac','#22c55e'], escala: 1 },
-        { texto: 'Aguanta', dur: 4, c: ['#fde68a','#f59e0b'], escala: 1 }
-      ],
       burbuja: [
         { texto: 'Inhala por la nariz', dur: 3, c: ['#c4b5fd','#8b5cf6'], escala: 1.55 },
         { texto: '¡Sopla la burbuja!', dur: 5, c: ['#fbcfe8','#ec4899'], escala: 1 }
@@ -1451,7 +1645,6 @@
     };
     var respDesc = {
       barriga: 'Pon una mano en la barriga. Cuando inhales, tu barriga sube. Cuando exhales, baja.',
-      cuadrada: 'Inhala 4 segundos, aguanta 4, exhala 4, aguanta 4. Es como dibujar un cuadrado.',
       burbuja: 'Imagina una varita de burbujas. Inhala fuerte y sopla muy, muy despacio.'
     };
 
@@ -1523,19 +1716,19 @@
       { nombre: 'Estrellita ¿dónde estás?', icono: '⭐', tipo: 'triangle',
         notas:    [523,523,784,784,880,880,784,698,698,659,659,587,587,523],
         durs:     [0.4,0.4,0.4,0.4,0.4,0.4,0.8,0.4,0.4,0.4,0.4,0.4,0.4,0.8],
-        letra: 'Estrellita, ¿dónde estás?\nMe pregunto qué serás.\nEn el cielo o en el mar,\nun diamante de verdad.\nEstrellita, ¿dónde estás?\nMe pregunto qué serás.' },
+        letra: '<b>Estrellita,</b> ¿dónde estás?<br>Me pregunto qué serás.<br><b>En el cielo</b> o en el mar,<br>un diamante de verdad.<br><b>Estrellita,</b> ¿dónde estás?<br>Me pregunto qué serás.' },
       { nombre: 'Los pollitos dicen', icono: '🐣', tipo: 'triangle',
         notas:    [392,392,440,440,392,392,349,349,330,330,294,294,262],
         durs:     [0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.7],
-        letra: 'Los pollitos dicen pío pío pío\ncuando tienen hambre,\ncuando tienen frío.\nLa gallina busca el maíz y el trigo,\nles da la comida\ny les presta abrigo.' },
+        letra: '<b>Los pollitos dicen</b> pío pío pío<br>cuando tienen hambre,<br>cuando tienen frío.<br><b>La gallina busca</b> el maíz y el trigo,<br>les da la comida<br>y les presta abrigo.' },
       { nombre: 'Duérmete mi niño', icono: '🌙', tipo: 'sine',
         notas:    [262,294,330,349,330,294,262,262,294,330,349,349],
         durs:     [0.55,0.55,0.55,0.55,0.55,0.55,1.1,0.55,0.55,0.55,0.55,1.1],
-        letra: 'Duérmete mi niño,\nduérmete sonriendo,\nque las estrellas\nte están mirando.\nCierra tus ojitos,\nduerme en paz,\nmañana el sol\nvolverá.' },
-      { nombre: 'Tonos de relajación', icono: '🌊', tipo: 'sine',
-        notas:    [220,246,262,294,330,294,262,246,220],
-        durs:     [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,1.8],
-        letra: '♪ Tonos suaves y repetitivos\npara calmar y relajar.\nIdeal para bebés y niños pequeños.\nPuedes tararear junto a los tonos.' }
+        letra: '<b>Duérmete</b> mi niño,<br>duérmete sonriendo,<br><b>que las estrellas</b><br>te están mirando.<br><b>Cierra tus ojitos,</b><br>duerme en paz,<br>mañana el sol<br>volverá.' },
+      { nombre: 'Tonos suaves (Mozart)', icono: '🎼', tipo: 'sine',
+        notas:    [264,297,330,352,396,352,330,297,264,220,264,330,396,440,396,330,264],
+        durs:     [0.5,0.5,0.5,0.5,1.0,0.5,0.5,0.5,0.5,1.0,0.5,0.5,0.5,0.5,1.0,0.5,1.0],
+        letra: '🎼 <b>Melodía instrumental suave</b><br><br>Toca ▶ y deja que los tonos suaves<br>acompañen a tu bebé.<br><br>Puedes tararear junto a la melodía<br>o simplemente escuchar en silencio.' }
     ];
 
     function getCtx() {
@@ -1739,6 +1932,150 @@
       if (sub) sub.textContent = mIntentos;
       if (el) el.classList.add('visible');
     }
+
+    // --- Tarjetas visuales bebés ---
+    var tvOverlay = null;
+    document.addEventListener('click', function(e) {
+      var tv = e.target.closest('.tarjeta-visual');
+      if (tv && !tv.classList.contains('expandida')) {
+        if (!tvOverlay) {
+          tvOverlay = document.createElement('div');
+          tvOverlay.className = 'tarjeta-visual-overlay';
+          document.body.appendChild(tvOverlay);
+          tvOverlay.addEventListener('click', function() {
+            document.querySelectorAll('.tarjeta-visual.expandida').forEach(function(t) { t.classList.remove('expandida'); });
+            tvOverlay.classList.remove('visible');
+          });
+        }
+        tv.classList.add('expandida');
+        tvOverlay.classList.add('visible');
+      }
+    });
+
+    // --- Juego: Colorear ---
+    var colorActual = '#ef4444';
+    window.elegirColor = function(color, btn) {
+      colorActual = color;
+      document.querySelectorAll('.color-btn').forEach(function(b) { b.classList.remove('activo'); });
+      if (btn) btn.classList.add('activo');
+    };
+    window.colorear = function(el) { if (el) el.style.fill = colorActual; };
+    window.limpiarColorear = function() {
+      var defaults = {
+        'cc-cuerpo':'#c8a97e','cc-barriga':'#e8d5b0','cc-cabeza':'#c8a97e',
+        'cc-oreja-iz':'#c8a97e','cc-oreja-de':'#c8a97e',
+        'cc-brazo-iz':'#c8a97e','cc-brazo-de':'#c8a97e',
+        'cc-pierna-iz':'#c8a97e','cc-pierna-de':'#c8a97e',
+        'cc-nariz':'#8b6343','cc-venda':'#ffffff','cc-corazon':'#ef4444'
+      };
+      Object.keys(defaults).forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.style.fill = defaults[id];
+      });
+    };
+
+    // --- Juego: Puzzle ---
+    var piezasDef = [
+      { id:'pz-cabeza',  label:'Cabeza',    color:'#c8a97e', w:90,  h:90,  x:55,  y:5  },
+      { id:'pz-cuerpo',  label:'Cuerpo',    color:'#c8a97e', w:100, h:110, x:50,  y:100},
+      { id:'pz-brazo-i', label:'Brazo izq', color:'#b8926e', w:35,  h:65,  x:8,   y:110},
+      { id:'pz-brazo-d', label:'Brazo der', color:'#b8926e', w:35,  h:65,  x:158, y:110},
+      { id:'pz-pierna-i',label:'Pierna izq',color:'#a87d5e', w:40,  h:50,  x:58,  y:168},
+      { id:'pz-pierna-d',label:'Pierna der',color:'#a87d5e', w:40,  h:50,  x:102, y:168}
+    ];
+    var pColocadas = 0;
+    var pArrastrando = null;
+
+    window.iniciarPuzzle = function() {
+      pColocadas = 0;
+      var escena = document.getElementById('puzzle-escena');
+      var piezas = document.getElementById('puzzle-piezas');
+      var ganaste = document.getElementById('puzzle-ganaste');
+      if (!escena || !piezas) return;
+      if (ganaste) ganaste.style.display = 'none';
+      escena.innerHTML = '';
+      piezas.innerHTML = '';
+      document.getElementById('puzzle-colocadas').textContent = '0';
+
+      // Crear slots en escena
+      piezasDef.forEach(function(p) {
+        var slot = document.createElement('div');
+        slot.className = 'puzzle-slot';
+        slot.id = 'slot-' + p.id;
+        slot.style.cssText = 'left:' + p.x + 'px;top:' + p.y + 'px;width:' + p.w + 'px;height:' + p.h + 'px;';
+        slot.dataset.target = p.id;
+        escena.appendChild(slot);
+        slot.addEventListener('dragover', function(e) { e.preventDefault(); });
+        slot.addEventListener('drop', function(e) {
+          e.preventDefault();
+          if (pArrastrando && pArrastrando.dataset.id === slot.dataset.target && !slot.classList.contains('lleno')) {
+            var pieza = document.createElement('div');
+            pieza.style.cssText = 'width:100%;height:100%;border-radius:8px;background:' + pArrastrando.dataset.color + ';display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:#fff;';
+            pieza.textContent = pArrastrando.dataset.label;
+            slot.innerHTML = ''; slot.appendChild(pieza); slot.classList.add('lleno');
+            if (pArrastrando.parentNode) pArrastrando.parentNode.removeChild(pArrastrando);
+            pColocadas++;
+            document.getElementById('puzzle-colocadas').textContent = pColocadas;
+            if (pColocadas === piezasDef.length) {
+              if (ganaste) ganaste.style.display = 'block';
+            }
+          }
+        });
+      });
+
+      // Crear piezas mezcladas
+      var mezcladas = piezasDef.slice().sort(function() { return Math.random() - 0.5; });
+      mezcladas.forEach(function(p) {
+        var pieza = document.createElement('div');
+        pieza.className = 'puzzle-pieza';
+        pieza.draggable = true;
+        pieza.dataset.id = p.id;
+        pieza.dataset.color = p.color;
+        pieza.dataset.label = p.label;
+        pieza.style.cssText = 'width:' + Math.min(p.w, 70) + 'px;height:' + Math.min(p.h, 55) + 'px;background:' + p.color + ';';
+        pieza.innerHTML = '<span style="font-size:0.65rem;font-weight:800;color:#fff;text-align:center;padding:2px">' + p.label + '</span>';
+        pieza.addEventListener('dragstart', function() { pArrastrando = pieza; });
+        // Touch support
+        pieza.addEventListener('touchstart', function(e) { pArrastrando = pieza; e.preventDefault(); }, { passive: false });
+        pieza.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          var touch = e.changedTouches[0];
+          var el = document.elementFromPoint(touch.clientX, touch.clientY);
+          var slot = el ? el.closest('.puzzle-slot') : null;
+          if (slot) slot.dispatchEvent(new Event('drop'));
+        }, { passive: false });
+        piezas.appendChild(pieza);
+      });
+    };
+
+    // --- Cuento ---
+    var cuentoPaginas = 1, cuentoActual = 0;
+    function actualizarCuento() {
+      document.querySelectorAll('.cuento-pagina').forEach(function(p, i) {
+        p.classList.toggle('activa', i === cuentoActual);
+      });
+      var num = document.getElementById('cuento-num');
+      if (num) num.textContent = (cuentoActual + 1) + ' / ' + cuentoPaginas;
+    }
+    window.cuentoSiguiente = function() {
+      if (cuentoActual < cuentoPaginas - 1) { cuentoActual++; actualizarCuento(); }
+    };
+    window.cuentoAnterior = function() {
+      if (cuentoActual > 0) { cuentoActual--; actualizarCuento(); }
+    };
+
+    // --- Actualizar verJuego para los nuevos juegos ---
+    var _verJuego = window.verJuego;
+    window.verJuego = function(id, btn) {
+      _verJuego(id, btn);
+      if (id === 'puzzle') iniciarPuzzle();
+    };
+
+    // --- Actualizar verSub para cuento ---
+    var _verSub = window.verSub;
+    window.verSub = function(id, btn) {
+      _verSub(id, btn);
+      if (id === 'cuento') { cuentoActual = 0; actualizarCuento(); }
+    };
 
     // --- Hook mostrar() ---
     var _mostrar = window.mostrar;
