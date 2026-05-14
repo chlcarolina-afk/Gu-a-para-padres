@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía UCI Quemados</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#e8773a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="UCI Guía">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --n:#e8773a;--no:#c45e22;--nc:#fdf0e8;
+  --az:#3a7ec4;--azc:#e8f2fd;
+  --vd:#3aaa6a;--vdc:#e8f8ee;
+  --rj:#c43a2a;--rjc:#fdecea;
+  --tx:#222;--ts:#555;--bg:#f0ebe4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Nunito",Arial,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#e8773a,#c45e22);padding:1.2rem 1.1rem 1rem;color:#fff}
+.hdr-top{display:flex;align-items:center;gap:.9rem;margin-bottom:.5rem}
+.hdr-avatar{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;border:2px solid rgba(255,255,255,.4)}
+.hdr-nombre{font-size:1.25rem;font-weight:800;line-height:1.2}
+.hdr-meta{font-size:.8rem;opacity:.85;margin-top:.15rem}
+.hdr-hoy{background:rgba(255,255,255,.18);border-radius:10px;padding:.55rem .9rem;font-size:.85rem;font-weight:600;line-height:1.4}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:2px solid #eee;position:sticky;top:0;z-index:100}
+.tab{flex:1;background:none;border:none;border-bottom:3px solid transparent;padding:.78rem .5rem;font-family:inherit;font-weight:700;font-size:.83rem;cursor:pointer;color:var(--ts);margin-bottom:-2px;transition:color .2s}
+.tab.on{border-bottom-color:var(--n);color:var(--n)}
+
+/* PANELS */
+.panel{display:none;padding:.9rem;max-width:680px;margin:0 auto;padding-bottom:5rem}
+.panel.on{display:block}
+
+/* LOADING / ERROR */
+.estado{text-align:center;padding:3rem 1rem}
+.estado .ico{font-size:3rem;margin-bottom:.7rem}
+.estado h2{font-size:1.1rem;font-weight:800;margin-bottom:.4rem}
+.estado p{font-size:.88rem;color:var(--ts);line-height:1.6}
+
+/* CARD */
+.card{background:#fff;border-radius:15px;padding:1.1rem;margin-bottom:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-tit{font-size:.95rem;font-weight:800;color:var(--no);margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem}
+
+/* TIMELINE */
+.tl-section{margin-bottom:1.1rem}
+.tl-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--ts);margin-bottom:.5rem;padding-left:.2rem}
+.tl-item{display:flex;gap:.75rem;margin-bottom:.6rem;align-items:flex-start}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;padding-top:3px}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.tl-dot.procedimiento{background:var(--n)}
+.tl-dot.visita{background:var(--az)}
+.tl-dot.alta{background:var(--vd)}
+.tl-dot.nota{background:#aaa}
+.tl-dot.otro{background:#9c3ac4}
+.tl-line{width:2px;flex:1;background:#eee;margin-top:4px;min-height:20px}
+.tl-body{flex:1;background:#fff;border-radius:12px;padding:.75rem .9rem;box-shadow:0 2px 7px rgba(0,0,0,.06);margin-bottom:0}
+.tl-body.hoy{border-left:3px solid var(--n);background:#fffaf7}
+.tl-body.pasado{opacity:.65}
+.tl-titulo{font-size:.9rem;font-weight:700;color:var(--tx)}
+.tl-fecha{font-size:.76rem;color:var(--ts);margin-top:.15rem}
+.tl-desc{font-size:.83rem;color:var(--ts);margin-top:.35rem;line-height:1.55}
+.tl-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:.15rem .5rem;border-radius:100px;margin-top:.35rem}
+.badge-hoy{background:var(--nc);color:var(--no)}
+.badge-manana{background:var(--azc);color:var(--az)}
+
+/* FOTOS */
+.foto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem}
+.foto-item{border-radius:11px;overflow:hidden;aspect-ratio:1;background:#ececec;cursor:pointer}
+.foto-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.foto-item:active img{transform:scale(1.05)}
+
+/* LIGHTBOX */
+.lbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999;display:flex;align-items:center;justify-content:center;padding:1rem}
+.lbox img{max-width:100%;max-height:100%;border-radius:10px;object-fit:contain}
+.lbox-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:38px;height:38px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* GUIA LINK */
+.guia-btn{display:flex;align-items:center;gap:.9rem;background:#fff;border-radius:14px;padding:1rem 1.1rem;text-decoration:none;color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:.8rem;transition:transform .15s}
+.guia-btn:active{transform:scale(.97)}
+.guia-ico{font-size:1.8rem;flex-shrink:0}
+.guia-txt h3{font-size:.93rem;font-weight:800;color:var(--no)}
+.guia-txt p{font-size:.78rem;color:var(--ts);margin-top:.1rem}
+.guia-arrow{margin-left:auto;color:var(--ts);font-size:1.1rem}
+
+/* ENCUESTA */
+.enc-banner{background:linear-gradient(135deg,#3a7ec4,#2a6aaa);border-radius:15px;padding:1.1rem;color:#fff;margin-bottom:.85rem;display:flex;gap:.9rem;align-items:flex-start}
+.enc-banner .ico{font-size:2rem;flex-shrink:0}
+.enc-banner h3{font-size:.95rem;font-weight:800;margin-bottom:.2rem}
+.enc-banner p{font-size:.8rem;opacity:.9;margin-bottom:.7rem;line-height:1.5}
+.btn-enc{background:#fff;color:var(--az);border:none;border-radius:10px;padding:.55rem 1.1rem;font-family:inherit;font-weight:800;font-size:.88rem;cursor:pointer}
+
+.enc-form .preg{margin-bottom:1.2rem}
+.enc-form .preg label{display:block;font-size:.88rem;font-weight:700;margin-bottom:.5rem;color:var(--tx)}
+.stars-row{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:.2rem}
+.stars-row input{display:none}
+.stars-row label{font-size:2rem;cursor:pointer;color:#ddd;transition:color .15s}
+.stars-row input:checked ~ label,.stars-row label:hover,.stars-row label:hover ~ label{color:#f5a623}
+.radio-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.radio-opt{position:relative}
+.radio-opt input{position:absolute;opacity:0;width:0;height:0}
+.radio-opt label{display:block;border:2px solid #e0e0e0;border-radius:9px;padding:.45rem .9rem;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--ts)}
+.radio-opt input:checked + label{border-color:var(--n);background:var(--nc);color:var(--no)}
+.enc-form textarea{width:100%;border:2px solid #e0e0e0;border-radius:10px;padding:.65rem .85rem;font-family:inherit;font-size:.88rem;outline:none;resize:vertical;min-height:80px;transition:border-color .2s}
+.enc-form textarea:focus{border-color:var(--n)}
+.btn-enviar{width:100%;background:var(--n);color:#fff;border:none;border-radius:12px;padding:.82rem;font-family:inherit;font-size:.97rem;font-weight:800;cursor:pointer;margin-top:.5rem}
+.btn-enviar:disabled{background:#ccc;cursor:not-allowed}
+
+.enc-ok{background:var(--vdc);border-radius:15px;padding:1.3rem;text-align:center}
+.enc-ok .ico{font-size:2.5rem;margin-bottom:.5rem}
+.enc-ok h3{font-size:1rem;font-weight:800;color:#2a7a4a;margin-bottom:.3rem}
+.enc-ok p{font-size:.85rem;color:#2a7a4a;line-height:1.6}
+
+/* INSTALAR */
+.install-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;box-shadow:0 -3px 16px rgba(0,0,0,.12);padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem;z-index:200}
+.install-bar .ico{font-size:1.6rem;flex-shrink:0}
+.install-bar .txt{flex:1}
+.install-bar .txt h4{font-size:.88rem;font-weight:800}
+.install-bar .txt p{font-size:.75rem;color:var(--ts)}
+.install-bar .btns{display:flex;gap:.4rem;flex-shrink:0}
+.btn-inst{background:var(--n);color:#fff;border:none;border-radius:9px;padding:.4rem .85rem;font-family:inherit;font-weight:700;font-size:.8rem;cursor:pointer}
+.btn-inst-no{background:none;border:none;color:var(--ts);font-family:inherit;font-size:.8rem;cursor:pointer;padding:.4rem}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="cargando" class="estado" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh">
+  <div class="ico">🐻</div>
+  <h2>Cargando...</h2>
+  <p>Un momento por favor</p>
+</div>
+
+<!-- ERROR -->
+<div id="error-wrap" style="display:none;min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem">
+  <div class="estado">
+    <div class="ico">😕</div>
+    <h2>Enlace no válido</h2>
+    <p>Este enlace no existe o ya no está activo.<br>Pide al equipo de la UCI un enlace nuevo.</p>
+  </div>
+</div>
+
+<!-- CONTENIDO (se muestra cuando el token es válido) -->
+<div id="contenido" style="display:none">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-avatar">🧒</div>
+      <div>
+        <div class="hdr-nombre" id="hdr-nombre">—</div>
+        <div class="hdr-meta" id="hdr-meta">UCI Quemados</div>
+      </div>
+    </div>
+    <div class="hdr-hoy" id="hdr-hoy">—</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab on" data-tab="calendario" onclick="showTab('calendario')">📅 Calendario</button>
+    <button class="tab" data-tab="fotos" onclick="showTab('fotos')">📸 Fotos</button>
+    <button class="tab" data-tab="guia" onclick="showTab('guia')">📖 Guía</button>
+    <button class="tab" data-tab="encuesta" onclick="showTab('encuesta')" id="tab-enc" style="display:none">📝 Encuesta</button>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div class="panel on" id="panel-calendario">
+    <div id="tl-hoy-wrap"></div>
+    <div id="tl-prox-wrap"></div>
+    <div id="tl-pasado-wrap"></div>
+    <div id="tl-vacio" style="display:none">
+      <div class="card" style="text-align:center;padding:2rem">
+        <div style="font-size:2rem;margin-bottom:.5rem">📅</div>
+        <p style="font-size:.88rem;color:var(--ts)">El equipo añadirá próximamente<br>los eventos del calendario de <span id="tl-nombre-vacio">tu hijo/a</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOTOS -->
+  <div class="panel" id="panel-fotos">
+    <div class="card">
+      <div class="card-tit">📸 Fotos</div>
+      <div class="foto-grid" id="foto-grid">
+        <p style="font-size:.85rem;color:var(--ts)">Cargando fotos...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIA -->
+  <div class="panel" id="panel-guia">
+    <div class="card" style="text-align:center;padding:1.5rem">
+      <div style="font-size:2.5rem;margin-bottom:.5rem">🐻</div>
+      <h2 style="font-size:1rem;font-weight:800;color:var(--no);margin-bottom:.4rem">Guía para familias</h2>
+      <p style="font-size:.85rem;color:var(--ts);line-height:1.6;margin-bottom:1.1rem">Toda la información sobre la UCI de Quemados: qué esperar, cómo ayudar a tu hijo/a, preguntas frecuentes y más.</p>
+      <a href="/" class="guia-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:.7rem;background:var(--n);color:#fff;padding:.75rem 1.3rem;border-radius:12px;font-weight:800;font-size:.92rem">
+        📖 Abrir guía completa
+      </a>
+    </div>
+    <a class="guia-btn" href="/#bienvenida">
+      <span class="guia-ico">👋</span>
+      <div class="guia-txt"><h3>Bienvenida a la UCI</h3><p>Qué es la UCI de Quemados, cómo funciona y qué puedes esperar</p></div>
+      <span class="guia-arrow">›</span>
+    </a>
+    <a class="guia-btn" href="/#rutina">
+      <span class="guia-ico">🕐</span>
+      <div class="guia-txt"><h3>Rutina diaria</h3><p>Horarios, visitas, informes médicos</p></div>
+      <span class="guia-arrow">›</span>
+    </a>
+    <a class="guia-btn" href="/#aparatos">
+      <span class="guia-ico">🩺</span>
+      <div class="guia-txt"><h3>Aparatos y tubos</h3><p>Para qué sirve cada aparato que verás</p></div>
+      <span class="guia-arrow">›</span>
+    </a>
+    <a class="guia-btn" href="/#emociones">
+      <span class="guia-ico">💙</span>
+      <div class="guia-txt"><h3>Emociones y apoyo</h3><p>Es normal sentir miedo. Cómo cuidarte tú también</p></div>
+      <span class="guia-arrow">›</span>
+    </a>
+  </div>
+
+  <!-- ENCUESTA -->
+  <div class="panel" id="panel-encuesta">
+    <div id="enc-contenido"></div>
+  </div>
+
+</div>
+
+<!-- INSTALL BAR (se muestra si el navegador lo permite) -->
+<div class="install-bar" id="install-bar" style="display:none">
+  <span class="ico">📱</span>
+  <div class="txt">
+    <h4>Instala esta app</h4>
+    <p>Tenla siempre a mano en tu móvil</p>
+  </div>
+  <div class="btns">
+    <button class="btn-inst" id="btn-instalar">Instalar</button>
+    <button class="btn-inst-no" id="btn-no-instalar">Ahora no</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lbox" id="lbox" style="display:none" onclick="cerrarLbox()">
+  <button class="lbox-close" onclick="cerrarLbox()">✕</button>
+  <img id="lbox-img" src="" alt="">
+</div>
+
+<script src="/__/firebase/8.10.1/firebase-app.js"></script>
+<script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
+<script src="/__/firebase/8.10.1/firebase-storage.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script>
+var db      = firebase.firestore();
+var storage = firebase.storage();
+var familiaData = null;
+var familiaId   = null;
+
+/* ── INIT ─────────────────────────────────────────────── */
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var token  = params.get('id');
+  if(!token){ mostrarError(); return; }
+  familiaId = token;
+
+  db.collection('familias').doc(token).get()
+    .then(function(doc){
+      if(!doc.exists || doc.data().activa === false){
+        mostrarError();
+        return;
+      }
+      familiaData = doc.data();
+      renderTodo();
+    })
+    .catch(function(){ mostrarError(); });
+})();
+
+function mostrarError(){
+  document.getElementById('cargando').style.display  = 'none';
+  document.getElementById('error-wrap').style.display = 'flex';
+  document.getElementById('contenido').style.display  = 'none';
+}
+
+function renderTodo(){
+  var d = familiaData;
+
+  /* Header */
+  var nombre = (d.nombreNino||'') + (d.apellidos ? ' '+d.apellidos : '');
+  document.title = nombre + ' — UCI Quemados';
+  document.getElementById('hdr-nombre').textContent = nombre;
+  document.getElementById('hdr-meta').textContent   = d.habitacion ? '🏥 '+d.habitacion : 'UCI de Quemados';
+  document.getElementById('hdr-hoy').textContent    = 'Hoy es '+fechaHoyLarga();
+
+  /* Calendario */
+  renderCalendario(d.eventos||[]);
+
+  /* Fotos */
+  cargarFotos();
+
+  /* Encuesta */
+  if(d.mostrarEncuesta){
+    document.getElementById('tab-enc').style.display = 'block';
+    renderEncuesta(d.encuesta||null);
+  }
+
+  /* Mostrar contenido */
+  document.getElementById('cargando').style.display  = 'none';
+  document.getElementById('contenido').style.display = 'block';
+}
+
+/* ── TABS ─────────────────────────────────────────────── */
+function showTab(t){
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on',b.dataset.tab===t); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById('panel-'+t).classList.add('on');
+  window.scrollTo(0,0);
+}
+
+/* ── CALENDARIO ───────────────────────────────────────── */
+var TIPOS_ICO = {procedimiento:'🩺',visita:'👨‍👩‍👧',alta:'🏠',nota:'📝',otro:'📌'};
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var DIAS  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+function renderCalendario(eventos){
+  var h = hoyStr();
+  var man = mananaStr();
+
+  var hoy=[], prox=[], pasado=[];
+  eventos.forEach(function(ev){
+    if(ev.fecha===h) hoy.push(ev);
+    else if(ev.fecha>h) prox.push(ev);
+    else pasado.push(ev);
+  });
+  prox.sort(function(a,b){return a.fecha<b.fecha?-1:1;});
+  pasado.sort(function(a,b){return a.fecha<b.fecha?1:-1;});
+
+  if(!hoy.length&&!prox.length&&!pasado.length){
+    document.getElementById('tl-vacio').style.display='block';
+    document.getElementById('tl-nombre-vacio').textContent=familiaData.nombreNino||'tu hijo/a';
+    return;
+  }
+
+  if(hoy.length){
+    var w=document.getElementById('tl-hoy-wrap');
+    w.innerHTML='<div class="tl-label">Hoy</div>';
+    hoy.forEach(function(ev){ w.appendChild(renderEvItem(ev,'hoy',false)); });
+  }
+  if(prox.length){
+    var w=document.getElementById('tl-prox-wrap');
+    w.innerHTML='<div class="tl-label">Próximos</div>';
+    prox.forEach(function(ev){ w.appendChild(renderEvItem(ev,ev.fecha===man?'manana':'prox',false)); });
+  }
+  if(pasado.length){
+    var w=document.getElementById('tl-pasado-wrap');
+    w.innerHTML='<div class="tl-label" style="margin-top:.8rem">Anteriores</div>';
+    pasado.forEach(function(ev){ w.appendChild(renderEvItem(ev,'pasado',true)); });
+  }
+}
+
+function renderEvItem(ev, tipo, pasado){
+  var div=document.createElement('div');
+  div.className='tl-item';
+  var badge='';
+  if(tipo==='hoy') badge='<span class="tl-badge badge-hoy">Hoy</span>';
+  if(tipo==='manana') badge='<span class="tl-badge badge-manana">Mañana</span>';
+  div.innerHTML=
+    '<div class="tl-dot-wrap"><div class="tl-dot '+ev.tipo+'"></div></div>'+
+    '<div class="tl-body'+(pasado?' pasado':'')+(tipo==='hoy'?' hoy':'')+'">'+
+      '<div class="tl-titulo">'+(TIPOS_ICO[ev.tipo]||'📌')+' '+escHtml(ev.titulo)+'</div>'+
+      '<div class="tl-fecha">'+formatFechaLarga(ev.fecha)+(ev.hora?' · '+ev.hora:'')+badge+'</div>'+
+      (ev.descripcion?'<div class="tl-desc">'+escHtml(ev.descripcion)+'</div>':'')+
+    '</div>';
+  return div;
+}
+
+/* ── FOTOS ─────────────────────────────────────────────── */
+function cargarFotos(){
+  var grid=document.getElementById('foto-grid');
+  storage.ref('fotos/'+familiaId).listAll()
+    .then(function(res){
+      if(!res.items.length){
+        grid.innerHTML='<p style="font-size:.85rem;color:var(--ts)">El equipo añadirá fotos aquí próximamente.</p>';
+        return;
+      }
+      grid.innerHTML='';
+      res.items.forEach(function(item){
+        item.getDownloadURL().then(function(url){
+          var d=document.createElement('div');d.className='foto-item';
+          d.onclick=function(){abrirLbox(url);};
+          d.innerHTML='<img src="'+url+'" loading="lazy" alt="Foto">';
+          grid.appendChild(d);
+        });
+      });
+    })
+    .catch(function(){
+      grid.innerHTML='<p style="font-size:.85rem;color:var(--ts)">Sin fotos disponibles aún.</p>';
+    });
+}
+
+function abrirLbox(url){
+  document.getElementById('lbox-img').src=url;
+  document.getElementById('lbox').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function cerrarLbox(){
+  document.getElementById('lbox').style.display='none';
+  document.body.style.overflow='';
+}
+
+/* ── ENCUESTA ─────────────────────────────────────────── */
+function renderEncuesta(encuesta){
+  var cont=document.getElementById('enc-contenido');
+  if(encuesta){
+    cont.innerHTML=
+      '<div class="enc-ok">'+
+        '<div class="ico">🙏</div>'+
+        '<h3>¡Gracias por tu valoración!</h3>'+
+        '<p>Tu opinión nos ayuda a mejorar la atención<br>a las familias en la UCI de Quemados.</p>'+
+      '</div>';
+    return;
+  }
+  cont.innerHTML=
+    '<div class="card">'+
+      '<div class="card-tit">📝 Encuesta de satisfacción</div>'+
+      '<p style="font-size:.85rem;color:var(--ts);margin-bottom:1.2rem;line-height:1.6">Tu opinión es muy importante para nosotros. Solo te llevará 2 minutos.</p>'+
+      '<form class="enc-form" id="enc-form" onsubmit="enviarEncuesta(event)">'+
+        renderPregEstrella('q1','atencionMedica','¿Cómo valoras la atención del personal médico?')+
+        renderPregEstrella('q2','atencionEnfermeria','¿Cómo valoras la atención de enfermería?')+
+        renderPregEstrella('q3','informacion','¿Cómo valoras la información recibida?')+
+        renderPregRadio('guiaUtil','¿Te fue útil la guía digital?')+
+        renderPregRadio('recomendaria','¿Recomendarías este servicio a otras familias?')+
+        '<div class="preg">'+
+          '<label>Comentarios o sugerencias (opcional)</label>'+
+          '<textarea id="r-comentarios" placeholder="Escribe aquí lo que quieras..."></textarea>'+
+        '</div>'+
+        '<button type="submit" class="btn-enviar" id="btn-enviar">Enviar valoración</button>'+
+      '</form>'+
+    '</div>';
+}
+
+function renderPregEstrella(id, campo, texto){
+  return '<div class="preg">'+
+    '<label>'+texto+'</label>'+
+    '<div class="stars-row">'+
+      [5,4,3,2,1].map(function(n){
+        return '<input type="radio" name="'+campo+'" id="'+id+'-'+n+'" value="'+n+'" required>'+
+               '<label for="'+id+'-'+n+'">★</label>';
+      }).join('')+
+    '</div>'+
+  '</div>';
+}
+
+function renderPregRadio(campo, texto){
+  return '<div class="preg">'+
+    '<label>'+texto+'</label>'+
+    '<div class="radio-row">'+
+      ['si','no','masomenos'].map(function(v){
+        var lbl=v==='si'?'✅ Sí':v==='no'?'❌ No':'➖ Más o menos';
+        return '<div class="radio-opt">'+
+          '<input type="radio" name="'+campo+'" id="'+campo+'-'+v+'" value="'+v+'" required>'+
+          '<label for="'+campo+'-'+v+'">'+lbl+'</label>'+
+        '</div>';
+      }).join('')+
+    '</div>'+
+  '</div>';
+}
+
+function enviarEncuesta(e){
+  e.preventDefault();
+  var form=document.getElementById('enc-form');
+  var btn=document.getElementById('btn-enviar');
+  var campos=['atencionMedica','atencionEnfermeria','informacion','guiaUtil','recomendaria'];
+  var datos={fecha:new Date().toISOString().split('T')[0],comentarios:document.getElementById('r-comentarios').value.trim()};
+  for(var i=0;i<campos.length;i++){
+    var el=form.querySelector('[name="'+campos[i]+"']:checked");
+    if(!el){alert('Por favor, responde todas las preguntas.');return;}
+    datos[campos[i]]=isNaN(parseInt(el.value))?el.value:parseInt(el.value);
+  }
+  btn.disabled=true;btn.textContent='Enviando...';
+  db.collection('familias').doc(familiaId).update({encuesta:datos})
+    .then(function(){
+      renderEncuesta(datos);
+    })
+    .catch(function(err){
+      btn.disabled=false;btn.textContent='Enviar valoración';
+      alert('Error al enviar: '+err.message);
+    });
+}
+
+/* ── PWA INSTALL ──────────────────────────────────────── */
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('install-bar').style.display='flex';
+  // Adjust panel bottom padding
+  document.querySelectorAll('.panel').forEach(function(p){p.style.paddingBottom='8rem';});
+});
+document.getElementById('btn-instalar').addEventListener('click',function(){
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(){ deferredPrompt=null; document.getElementById('install-bar').style.display='none'; });
+});
+document.getElementById('btn-no-instalar').addEventListener('click',function(){
+  document.getElementById('install-bar').style.display='none';
+  document.querySelectorAll('.panel').forEach(function(p){p.style.paddingBottom='5rem';});
+});
+
+/* ── UTILS ────────────────────────────────────────────── */
+function hoyStr(){ return new Date().toISOString().split('T')[0]; }
+function mananaStr(){ var d=new Date();d.setDate(d.getDate()+1);return d.toISOString().split('T')[0]; }
+function fechaHoyLarga(){
+  var d=new Date();
+  return DIAS[d.getDay()]+', '+d.getDate()+' de '+MESES[d.getMonth()]+' de '+d.getFullYear();
+}
+function formatFechaLarga(s){
+  if(!s) return '';
+  var p=s.split('-');
+  var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  return DIAS[d.getDay()]+' '+d.getDate()+' de '+MESES[d.getMonth()];
+}
+function escHtml(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── SERVICE WORKER ───────────────────────────────────── */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>

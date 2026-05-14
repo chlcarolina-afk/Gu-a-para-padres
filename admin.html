@@ -1,642 +1,723 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin — Guía UCI Quemados</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --naranja: #e8773a;
-      --naranja-claro: #fdf0e8;
-      --naranja-oscuro: #c45e22;
-      --azul: #3a7ec4;
-      --verde: #3aaa6a;
-      --verde-claro: #e8f8ee;
-      --rojo: #c43a2a;
-      --gris: #f5f5f5;
-      --texto: #222;
-      --texto-suave: #555;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "Nunito", Arial, sans-serif;
-      background: #f0ebe4;
-      color: var(--texto);
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — UCI Quemados</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --n:#e8773a; --no:#c45e22; --nc:#fdf0e8;
+  --az:#3a7ec4; --azc:#e8f2fd;
+  --vd:#3aaa6a; --vdc:#e8f8ee;
+  --rj:#c43a2a; --rjc:#fdecea;
+  --tx:#222; --ts:#555; --bg:#f0ebe4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Nunito",Arial,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
 
-    /* HEADER */
-    .header {
-      background: linear-gradient(135deg, #e8773a 0%, #c45e22 100%);
-      padding: 1.1rem 1.5rem;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .header h1 { font-size: 1.15rem; font-weight: 800; }
-    .header p { font-size: 0.78rem; opacity: 0.85; margin-top: 0.1rem; }
-    .btn-logout {
-      background: rgba(255,255,255,0.22);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      padding: 0.45rem 1rem;
-      font-family: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.83rem;
-      display: none;
-    }
-    .btn-logout:hover { background: rgba(255,255,255,0.35); }
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#e8773a,#c45e22);padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.hdr h1{font-size:1.1rem;font-weight:800}
+.hdr p{font-size:.75rem;opacity:.85}
+.btn-salir{background:rgba(255,255,255,.2);border:none;border-radius:8px;color:#fff;padding:.4rem .9rem;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;display:none}
+.btn-salir:hover{background:rgba(255,255,255,.35)}
 
-    /* LOGIN */
-    #login-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 66px);
-      padding: 1rem;
-    }
-    .login-card {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-    }
-    .login-card h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--naranja-oscuro);
-      margin-bottom: 0.25rem;
-    }
-    .login-card .sub {
-      font-size: 0.85rem;
-      color: var(--texto-suave);
-      margin-bottom: 1.5rem;
-    }
-    .campo { margin-bottom: 1rem; }
-    .campo label {
-      display: block;
-      font-size: 0.83rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      color: var(--texto);
-    }
-    .campo input {
-      width: 100%;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      padding: 0.72rem 1rem;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-    .campo input:focus { border-color: var(--naranja); }
-    .btn-primary {
-      width: 100%;
-      background: var(--naranja);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 0.85rem;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 0.4rem;
-    }
-    .btn-primary:hover { background: var(--naranja-oscuro); }
-    .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
-    .error-msg {
-      color: var(--rojo);
-      font-size: 0.84rem;
-      margin-top: 0.75rem;
-      text-align: center;
-      display: none;
-      font-weight: 600;
-    }
+/* LOGIN */
+#login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 62px);padding:1rem}
+.login-box{background:#fff;border-radius:20px;padding:1.8rem;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+.login-box h2{font-size:1.2rem;font-weight:800;color:var(--no);margin-bottom:.2rem}
+.login-box .sub{font-size:.83rem;color:var(--ts);margin-bottom:1.3rem}
+.campo{margin-bottom:.9rem}
+.campo label{display:block;font-size:.82rem;font-weight:700;margin-bottom:.25rem}
+.campo input{width:100%;border:2px solid #e0e0e0;border-radius:10px;padding:.68rem .9rem;font-family:inherit;font-size:.93rem;outline:none;transition:border-color .2s}
+.campo input:focus{border-color:var(--n)}
+.btn-prim{width:100%;background:var(--n);color:#fff;border:none;border-radius:12px;padding:.82rem;font-family:inherit;font-size:.97rem;font-weight:800;cursor:pointer;transition:background .2s;margin-top:.3rem}
+.btn-prim:hover{background:var(--no)}
+.btn-prim:disabled{background:#ccc;cursor:not-allowed}
+.err{color:var(--rj);font-size:.83rem;margin-top:.65rem;text-align:center;display:none;font-weight:600}
 
-    /* ADMIN PANEL */
-    #admin-section {
-      display: none;
-      padding: 1.1rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
+/* ADMIN */
+#admin-wrap{display:none}
+.tabs{display:flex;background:#fff;border-bottom:2px solid #eee;padding:0 1rem}
+.tab{background:none;border:none;border-bottom:3px solid transparent;padding:.85rem 1rem;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;color:var(--ts);margin-bottom:-2px}
+.tab.on{border-bottom-color:var(--n);color:var(--n)}
 
-    /* CARDS */
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 1.4rem;
-      margin-bottom: 1.1rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    }
-    .card-title {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--naranja-oscuro);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+/* PANELS */
+.panel{display:none;padding:1rem;max-width:860px;margin:0 auto}
+.panel.on{display:block}
 
-    /* UPLOAD ZONE */
-    .drop-zone {
-      border: 2.5px dashed var(--naranja);
-      border-radius: 14px;
-      padding: 2.2rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      background: var(--naranja-claro);
-      user-select: none;
-    }
-    .drop-zone:hover,
-    .drop-zone.drag-over { background: #fcd9bc; }
-    .drop-zone .drop-icon { font-size: 2.4rem; margin-bottom: 0.5rem; }
-    .drop-zone .drop-title { font-size: 0.92rem; font-weight: 700; color: var(--naranja-oscuro); margin-bottom: 0.25rem; }
-    .drop-zone .drop-hint { font-size: 0.78rem; color: #aaa; }
-    #file-input { display: none; }
+/* CARDS */
+.card{background:#fff;border-radius:16px;padding:1.3rem;margin-bottom:1rem;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card-tit{font-size:1rem;font-weight:800;color:var(--no);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
 
-    /* PROGRESS */
-    #upload-progress { display: none; margin-top: 1rem; }
-    .progress-label { font-size: 0.83rem; color: var(--texto-suave); margin-bottom: 0.4rem; }
-    .progress-bar-wrap {
-      background: #ececec;
-      border-radius: 100px;
-      height: 9px;
-      overflow: hidden;
-    }
-    .progress-bar {
-      background: var(--naranja);
-      height: 100%;
-      width: 0;
-      transition: width 0.25s;
-      border-radius: 100px;
-    }
+/* FAMILIA CARD */
+.fam-card{background:#fff;border-radius:14px;padding:1rem 1.1rem;margin-bottom:.7rem;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:.8rem}
+.fam-card.inactiva{opacity:.55}
+.fam-avatar{width:44px;height:44px;border-radius:50%;background:var(--nc);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.fam-info{flex:1;min-width:0}
+.fam-nombre{font-weight:800;font-size:.95rem;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fam-meta{font-size:.78rem;color:var(--ts);margin-top:.1rem}
+.fam-badge{font-size:.7rem;font-weight:700;padding:.2rem .55rem;border-radius:100px;white-space:nowrap}
+.fam-badge.act{background:var(--vdc);color:#2a7a4a}
+.fam-badge.ina{background:var(--rjc);color:var(--rj)}
+.fam-btns{display:flex;gap:.4rem;flex-shrink:0}
 
-    /* SUCCESS */
-    #upload-success {
-      display: none;
-      background: var(--verde-claro);
-      border-radius: 10px;
-      padding: 0.9rem 1rem;
-      margin-top: 1rem;
-    }
-    #upload-success .success-label {
-      font-size: 0.87rem;
-      font-weight: 700;
-      color: #2a7a4a;
-      margin-bottom: 0.5rem;
-    }
-    .url-copy { display: flex; gap: 0.4rem; }
-    .url-copy input {
-      flex: 1;
-      border: 1px solid #b0dfc0;
-      border-radius: 8px;
-      padding: 0.45rem 0.75rem;
-      font-size: 0.78rem;
-      background: white;
-      outline: none;
-      color: var(--texto);
-    }
-    .btn-copy {
-      background: var(--azul);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.45rem 0.9rem;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.78rem;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .btn-copy:hover { background: #2a6aaa; }
+/* BUTTONS */
+.btn{border:none;border-radius:9px;padding:.4rem .85rem;font-family:inherit;font-weight:700;font-size:.8rem;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.82}
+.btn-green{background:var(--vdc);color:#2a7a4a}
+.btn-blue{background:var(--azc);color:var(--az)}
+.btn-orange{background:var(--nc);color:var(--no)}
+.btn-red{background:var(--rjc);color:var(--rj)}
+.btn-main{background:var(--n);color:#fff;padding:.55rem 1.1rem;font-size:.88rem;border-radius:11px}
+.btn-back{background:none;border:none;color:var(--az);font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;padding:.3rem 0;display:flex;align-items:center;gap:.3rem;margin-bottom:.9rem}
 
-    /* GALLERY */
-    .gallery-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-    .btn-refresh {
-      background: var(--naranja-claro);
-      color: var(--naranja-oscuro);
-      border: none;
-      border-radius: 8px;
-      padding: 0.38rem 0.85rem;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    .btn-refresh:hover { background: #fcd9bc; }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 0.7rem;
-    }
-    .gallery-item {
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      background: #ececec;
-      aspect-ratio: 1;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .btn-icon {
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 7px;
-      color: white;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 700;
-      width: 100px;
-      text-align: center;
-    }
-    .btn-icon:hover { background: rgba(255,255,255,0.3); }
-    .btn-icon.red { background: rgba(196,58,42,0.75); border-color: rgba(255,100,80,0.5); }
-    .btn-icon.red:hover { background: rgba(196,58,42,0.95); }
-    .gallery-filename {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.55);
-      color: white;
-      font-size: 0.68rem;
-      padding: 0.25rem 0.4rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .gallery-msg {
-      text-align: center;
-      color: var(--texto-suave);
-      font-size: 0.88rem;
-      padding: 1.5rem;
-      grid-column: 1 / -1;
-    }
+/* FORM */
+.campo-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.campo-sm label{display:block;font-size:.8rem;font-weight:700;margin-bottom:.25rem}
+.campo-sm input,.campo-sm select,.campo-sm textarea{width:100%;border:2px solid #e0e0e0;border-radius:9px;padding:.6rem .8rem;font-family:inherit;font-size:.88rem;outline:none;transition:border-color .2s}
+.campo-sm input:focus,.campo-sm select:focus,.campo-sm textarea:focus{border-color:var(--n)}
+.campo-sm textarea{resize:vertical;min-height:60px}
+.toggle-row{display:flex;align-items:center;gap:.7rem;margin:.5rem 0}
+.toggle-row label{font-size:.85rem;font-weight:700}
+input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--n)}
 
-    /* TOAST */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      color: white;
-      padding: 0.6rem 1.3rem;
-      border-radius: 100px;
-      font-size: 0.84rem;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      z-index: 999;
-      white-space: nowrap;
-    }
-    .toast.show { opacity: 1; }
-  </style>
+/* EVENTOS */
+.ev-item{display:flex;align-items:center;gap:.7rem;padding:.6rem 0;border-bottom:1px solid #f0f0f0}
+.ev-item:last-child{border-bottom:none}
+.ev-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ev-dot.procedimiento{background:var(--n)}
+.ev-dot.visita{background:var(--az)}
+.ev-dot.alta{background:var(--vd)}
+.ev-dot.nota{background:#aaa}
+.ev-dot.otro{background:#9c3ac4}
+.ev-body{flex:1;min-width:0}
+.ev-tit{font-size:.88rem;font-weight:700;color:var(--tx)}
+.ev-meta{font-size:.76rem;color:var(--ts)}
+.ev-accs{display:flex;gap:.3rem;flex-shrink:0}
+.btn-xs{border:none;border-radius:6px;padding:.25rem .55rem;font-size:.72rem;cursor:pointer;font-family:inherit;font-weight:700}
+.btn-xs.edit{background:var(--azc);color:var(--az)}
+.btn-xs.del{background:var(--rjc);color:var(--rj)}
+
+/* UPLOAD */
+.drop{border:2.5px dashed var(--n);border-radius:13px;padding:1.8rem 1rem;text-align:center;cursor:pointer;background:var(--nc);transition:background .2s}
+.drop:hover,.drop.over{background:#fcd9bc}
+.drop .icon{font-size:2rem;margin-bottom:.4rem}
+.drop .tit{font-size:.88rem;font-weight:700;color:var(--no)}
+.drop .hint{font-size:.75rem;color:#aaa;margin-top:.2rem}
+.prog-wrap{background:#ececec;border-radius:100px;height:8px;overflow:hidden;margin:.5rem 0}
+.prog-bar{background:var(--n);height:100%;width:0;transition:width .25s;border-radius:100px}
+
+/* GALLERY */
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.6rem;margin-top:.8rem}
+.gal-item{border-radius:9px;overflow:hidden;position:relative;aspect-ratio:1;background:#ececec}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block}
+.gal-ov{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;gap:.4rem;opacity:0;transition:opacity .2s}
+.gal-item:hover .gal-ov{opacity:1}
+
+/* ENCUESTAS */
+.enc-card{background:#fff;border-radius:14px;padding:1rem 1.1rem;margin-bottom:.7rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.enc-nombre{font-weight:800;font-size:.95rem;margin-bottom:.3rem}
+.enc-fecha{font-size:.76rem;color:var(--ts);margin-bottom:.7rem}
+.enc-q{font-size:.82rem;color:var(--ts);margin-bottom:.15rem}
+.enc-r{font-weight:700;font-size:.88rem;color:var(--tx);margin-bottom:.5rem}
+.stars-val{color:#f5a623;font-size:1rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:.55rem 1.2rem;border-radius:100px;font-size:.82rem;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap}
+.toast.show{opacity:1}
+
+/* NUEVA FAM BTN */
+.nueva-btn-wrap{margin-bottom:1rem}
+</style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <h1>🐻 Panel Admin</h1>
-    <p>Guía UCI Quemados</p>
-  </div>
-  <button class="btn-logout" id="btn-logout">Cerrar sesión</button>
+<div class="hdr">
+  <div><h1>🐻 Panel Admin</h1><p>UCI Quemados</p></div>
+  <button class="btn-salir" id="btn-salir">Cerrar sesión</button>
 </div>
 
 <!-- LOGIN -->
-<div id="login-section">
-  <div class="login-card">
+<div id="login-wrap">
+  <div class="login-box">
     <h2>🔒 Acceso admin</h2>
-    <p class="sub">Introduce tus credenciales para continuar.</p>
-    <div class="campo">
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" placeholder="admin@ejemplo.com" autocomplete="username">
-    </div>
-    <div class="campo">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
-    </div>
-    <button class="btn-primary" id="btn-login">Entrar</button>
-    <p class="error-msg" id="error-msg"></p>
+    <p class="sub">Introduce tus credenciales.</p>
+    <div class="campo"><label>Correo</label><input type="email" id="email" placeholder="admin@ejemplo.com" autocomplete="username"></div>
+    <div class="campo"><label>Contraseña</label><input type="password" id="pwd" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="btn-prim" id="btn-login">Entrar</button>
+    <p class="err" id="err-login"></p>
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div id="admin-section">
+<!-- ADMIN -->
+<div id="admin-wrap">
+  <div class="tabs">
+    <button class="tab on" data-tab="familias" onclick="showTab('familias')">🧸 Familias</button>
+    <button class="tab" data-tab="encuestas" onclick="showTab('encuestas')">📋 Encuestas</button>
+    <button class="tab" data-tab="fotos" onclick="showTab('fotos')">🖼️ Fotos</button>
+  </div>
 
-  <!-- Subir foto -->
-  <div class="card">
-    <div class="card-title">📤 Subir foto</div>
-    <div class="drop-zone" id="drop-zone" role="button" tabindex="0"
-         onclick="document.getElementById('file-input').click()"
-         onkeydown="if(event.key==='Enter')document.getElementById('file-input').click()">
-      <div class="drop-icon">🖼️</div>
-      <div class="drop-title">Haz clic o arrastra una imagen aquí</div>
-      <div class="drop-hint">PNG, JPG, WEBP — máximo 10 MB</div>
-    </div>
-    <input type="file" id="file-input" accept="image/*">
+  <!-- ═══ FAMILIAS ═══ -->
+  <div class="panel on" id="panel-familias">
 
-    <div id="upload-progress">
-      <p class="progress-label" id="progress-label">Subiendo...</p>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" id="progress-bar"></div>
+    <!-- LISTA -->
+    <div id="view-lista">
+      <div class="nueva-btn-wrap">
+        <button class="btn btn-main" onclick="showNueva()">+ Nueva familia</button>
       </div>
+      <div id="fam-lista"><p style="color:var(--ts);font-size:.88rem">Cargando...</p></div>
     </div>
 
-    <div id="upload-success">
-      <div class="success-label">✅ Foto subida correctamente</div>
-      <div class="url-copy">
-        <input type="text" id="upload-url" readonly>
-        <button class="btn-copy" id="btn-copy-upload">Copiar URL</button>
+    <!-- DETALLE / EDICIÓN -->
+    <div id="view-detalle" style="display:none">
+      <button class="btn-back" onclick="volverLista()">← Volver</button>
+
+      <div class="card">
+        <div class="card-tit">👶 Datos de la familia</div>
+        <div class="campo-row" style="margin-bottom:.7rem">
+          <div class="campo-sm"><label>Nombre del niño/a *</label><input type="text" id="f-nombre" placeholder="Sofía"></div>
+          <div class="campo-sm"><label>Apellidos</label><input type="text" id="f-apellidos" placeholder="García López"></div>
+        </div>
+        <div class="campo-row" style="margin-bottom:.7rem">
+          <div class="campo-sm"><label>Habitación</label><input type="text" id="f-hab" placeholder="UCI-3"></div>
+          <div class="campo-sm"><label>Fecha de ingreso</label><input type="date" id="f-fecha"></div>
+        </div>
+        <div class="toggle-row">
+          <input type="checkbox" id="f-activa" checked>
+          <label for="f-activa">Familia activa (en UCI)</label>
+        </div>
+        <div class="toggle-row">
+          <input type="checkbox" id="f-encuesta">
+          <label for="f-encuesta">Mostrar encuesta de satisfacción al alta</label>
+        </div>
+        <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap">
+          <button class="btn btn-main" onclick="guardarFamilia()">💾 Guardar</button>
+          <button class="btn btn-green" id="btn-wa" onclick="enviarWhatsApp()" style="display:none">📲 Enviar por WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- EVENTOS -->
+      <div class="card">
+        <div class="card-tit">📅 Calendario de eventos</div>
+        <div id="ev-lista"></div>
+        <button class="btn btn-orange" style="margin-top:.8rem" onclick="mostrarFormEv(-1)">+ Añadir evento</button>
+
+        <!-- Formulario evento (oculto por defecto) -->
+        <div id="ev-form" style="display:none;margin-top:1rem;padding:1rem;background:var(--bg);border-radius:12px">
+          <input type="hidden" id="ev-idx" value="-1">
+          <div class="campo-row" style="margin-bottom:.6rem">
+            <div class="campo-sm"><label>Fecha *</label><input type="date" id="ev-fecha"></div>
+            <div class="campo-sm"><label>Hora</label><input type="time" id="ev-hora"></div>
+          </div>
+          <div class="campo-sm" style="margin-bottom:.6rem"><label>Título *</label><input type="text" id="ev-tit" placeholder="Cura de quemaduras"></div>
+          <div class="campo-sm" style="margin-bottom:.6rem"><label>Descripción</label><textarea id="ev-desc" placeholder="Detalles opcionales..."></textarea></div>
+          <div class="campo-sm" style="margin-bottom:.8rem">
+            <label>Tipo</label>
+            <select id="ev-tipo">
+              <option value="procedimiento">🩺 Procedimiento médico</option>
+              <option value="visita">👨‍👩‍👧 Horario de visitas</option>
+              <option value="alta">🏠 Alta / traslado</option>
+              <option value="nota">📝 Nota informativa</option>
+              <option value="otro">📌 Otro</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-main" onclick="guardarEvento()">Guardar evento</button>
+            <button class="btn btn-red" onclick="cancelarFormEv()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTOS DE LA FAMILIA -->
+      <div class="card">
+        <div class="card-tit" id="fotos-fam-tit">📸 Fotos de la familia</div>
+        <div class="drop" id="drop-fam" onclick="document.getElementById('file-fam').click()">
+          <div class="icon">🖼️</div>
+          <div class="tit">Haz clic o arrastra fotos aquí</div>
+          <div class="hint">PNG, JPG, WEBP — máx. 10 MB</div>
+        </div>
+        <input type="file" id="file-fam" accept="image/*" style="display:none">
+        <div id="prog-fam-wrap" style="display:none;margin-top:.7rem">
+          <p style="font-size:.8rem;color:var(--ts)" id="prog-fam-label">Subiendo...</p>
+          <div class="prog-wrap"><div class="prog-bar" id="prog-fam"></div></div>
+        </div>
+        <div class="gal-grid" id="gal-fam"></div>
       </div>
     </div>
   </div>
 
-  <!-- Galería -->
-  <div class="card">
-    <div class="gallery-toolbar">
-      <div class="card-title" style="margin-bottom:0">🖼️ Fotos subidas</div>
-      <button class="btn-refresh" id="btn-refresh">↻ Actualizar</button>
-    </div>
-    <div class="gallery-grid" id="gallery-grid">
-      <div class="gallery-msg">Cargando...</div>
-    </div>
+  <!-- ═══ ENCUESTAS ═══ -->
+  <div class="panel" id="panel-encuestas">
+    <div id="enc-lista"><p style="color:var(--ts);font-size:.88rem">Cargando...</p></div>
   </div>
 
+  <!-- ═══ FOTOS GENERALES ═══ -->
+  <div class="panel" id="panel-fotos">
+    <div class="card">
+      <div class="card-tit">📤 Subir foto general</div>
+      <div class="drop" id="drop-gen" onclick="document.getElementById('file-gen').click()">
+        <div class="icon">🖼️</div>
+        <div class="tit">Haz clic o arrastra una imagen aquí</div>
+        <div class="hint">PNG, JPG, WEBP — máx. 10 MB</div>
+      </div>
+      <input type="file" id="file-gen" accept="image/*" style="display:none">
+      <div id="prog-gen-wrap" style="display:none;margin-top:.7rem">
+        <p style="font-size:.8rem;color:var(--ts)" id="prog-gen-label">Subiendo...</p>
+        <div class="prog-wrap"><div class="prog-bar" id="prog-gen"></div></div>
+      </div>
+      <div id="url-gen-wrap" style="display:none;margin-top:.8rem;background:var(--vdc);border-radius:10px;padding:.8rem">
+        <p style="font-size:.82rem;font-weight:700;color:#2a7a4a;margin-bottom:.4rem">✅ Subida correctamente</p>
+        <div style="display:flex;gap:.4rem">
+          <input type="text" id="url-gen" readonly style="flex:1;border:1px solid #b0dfc0;border-radius:8px;padding:.4rem .7rem;font-size:.76rem;background:#fff;outline:none">
+          <button class="btn btn-blue" onclick="copiarTexto(document.getElementById('url-gen').value,'URL copiada')">Copiar</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+        <div class="card-tit" style="margin-bottom:0">🖼️ Fotos generales</div>
+        <button class="btn btn-orange" onclick="cargarGalGen()">↻ Actualizar</button>
+      </div>
+      <div class="gal-grid" id="gal-gen"></div>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK via Firebase Hosting reserved URLs (no API key needed) -->
 <script src="/__/firebase/8.10.1/firebase-app.js"></script>
 <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
 <script src="/__/firebase/8.10.1/firebase-storage.js"></script>
+<script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
 <script src="/__/firebase/init.js"></script>
-
 <script>
-  var auth = firebase.auth();
-  var storage = firebase.storage();
-  var storageRef = storage.ref('fotos');
+var auth = firebase.auth();
+var db   = firebase.firestore();
+var storage = firebase.storage();
 
-  // ── Auth state ──────────────────────────────────────────────────────────────
-  auth.onAuthStateChanged(function(user) {
-    if (user) {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('admin-section').style.display = 'block';
-      document.getElementById('btn-logout').style.display = 'block';
-      loadGallery();
-    } else {
-      document.getElementById('login-section').style.display = 'flex';
-      document.getElementById('admin-section').style.display = 'none';
-      document.getElementById('btn-logout').style.display = 'none';
-    }
-  });
+var famData = {};        // token → data
+var currentId = null;   // familia en edición
+var currentEvs = [];    // eventos locales
 
-  // ── Login ───────────────────────────────────────────────────────────────────
-  document.getElementById('btn-login').addEventListener('click', doLogin);
-  document.getElementById('password').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') doLogin();
-  });
-
-  function doLogin() {
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value;
-    var btn = document.getElementById('btn-login');
-    var errEl = document.getElementById('error-msg');
-
-    errEl.style.display = 'none';
-    btn.disabled = true;
-    btn.textContent = 'Entrando...';
-
-    auth.signInWithEmailAndPassword(email, password)
-      .catch(function(err) {
-        errEl.style.display = 'block';
-        if (err.code === 'auth/too-many-requests') {
-          errEl.textContent = 'Demasiados intentos fallidos. Inténtalo más tarde.';
-        } else {
-          errEl.textContent = 'Correo o contraseña incorrectos.';
-        }
-      })
-      .finally(function() {
-        btn.disabled = false;
-        btn.textContent = 'Entrar';
-      });
+/* ── AUTH ────────────────────────────────────────────── */
+auth.onAuthStateChanged(function(u){
+  if(u){
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('admin-wrap').style.display = 'block';
+    document.getElementById('btn-salir').style.display = 'block';
+    cargarFamilias();
+  } else {
+    document.getElementById('login-wrap').style.display = 'flex';
+    document.getElementById('admin-wrap').style.display = 'none';
+    document.getElementById('btn-salir').style.display = 'none';
   }
+});
 
-  // ── Logout ──────────────────────────────────────────────────────────────────
-  document.getElementById('btn-logout').addEventListener('click', function() {
-    auth.signOut();
-  });
+document.getElementById('btn-login').addEventListener('click', doLogin);
+document.getElementById('pwd').addEventListener('keypress', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('btn-salir').addEventListener('click', function(){ auth.signOut(); });
 
-  // ── Drag & drop ─────────────────────────────────────────────────────────────
-  var dropZone = document.getElementById('drop-zone');
+function doLogin(){
+  var email = document.getElementById('email').value.trim();
+  var pwd   = document.getElementById('pwd').value;
+  var btn   = document.getElementById('btn-login');
+  var err   = document.getElementById('err-login');
+  err.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Entrando...';
+  auth.signInWithEmailAndPassword(email, pwd)
+    .catch(function(e){
+      err.style.display = 'block';
+      err.textContent = e.code === 'auth/too-many-requests'
+        ? 'Demasiados intentos. Espera unos minutos.'
+        : 'Correo o contraseña incorrectos.';
+    })
+    .finally(function(){ btn.disabled=false; btn.textContent='Entrar'; });
+}
 
-  dropZone.addEventListener('dragover', function(e) {
-    e.preventDefault();
-    dropZone.classList.add('drag-over');
-  });
-  dropZone.addEventListener('dragleave', function() {
-    dropZone.classList.remove('drag-over');
-  });
-  dropZone.addEventListener('drop', function(e) {
-    e.preventDefault();
-    dropZone.classList.remove('drag-over');
-    var files = e.dataTransfer.files;
-    if (files.length) uploadFile(files[0]);
-  });
+/* ── TABS ─────────────────────────────────────────────── */
+function showTab(t){
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.tab===t); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById('panel-'+t).classList.add('on');
+  if(t==='encuestas') cargarEncuestas();
+  if(t==='fotos') cargarGalGen();
+}
 
-  document.getElementById('file-input').addEventListener('change', function(e) {
-    if (e.target.files.length) uploadFile(e.target.files[0]);
-    e.target.value = '';
-  });
-
-  // ── Upload ──────────────────────────────────────────────────────────────────
-  function uploadFile(file) {
-    if (!file.type.startsWith('image/')) {
-      alert('Solo se permiten imágenes (PNG, JPG, WEBP…).');
-      return;
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      alert('El archivo es demasiado grande (máx. 10 MB).');
-      return;
-    }
-
-    var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    var fileName = Date.now() + '_' + safeName;
-    var fileRef = storageRef.child(fileName);
-    var task = fileRef.put(file);
-
-    document.getElementById('upload-progress').style.display = 'block';
-    document.getElementById('upload-success').style.display = 'none';
-    document.getElementById('progress-bar').style.width = '0%';
-
-    task.on('state_changed',
-      function(snapshot) {
-        var pct = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-        document.getElementById('progress-bar').style.width = pct + '%';
-        document.getElementById('progress-label').textContent = 'Subiendo… ' + pct + '%';
-      },
-      function(err) {
-        document.getElementById('upload-progress').style.display = 'none';
-        alert('Error al subir la foto: ' + err.message);
-      },
-      function() {
-        task.snapshot.ref.getDownloadURL().then(function(url) {
-          document.getElementById('upload-progress').style.display = 'none';
-          document.getElementById('upload-success').style.display = 'block';
-          document.getElementById('upload-url').value = url;
-          loadGallery();
-        });
+/* ── FAMILIAS LIST ────────────────────────────────────── */
+function cargarFamilias(){
+  var lista = document.getElementById('fam-lista');
+  lista.innerHTML = '<p style="color:var(--ts);font-size:.88rem">Cargando...</p>';
+  db.collection('familias').orderBy('creadoEn','desc').get()
+    .then(function(snap){
+      famData = {};
+      if(snap.empty){
+        lista.innerHTML = '<p style="color:var(--ts);font-size:.88rem">No hay familias. Crea la primera.</p>';
+        return;
       }
-    );
-  }
+      lista.innerHTML = '';
+      snap.forEach(function(doc){
+        famData[doc.id] = doc.data();
+        lista.appendChild(renderFamCard(doc.id, doc.data()));
+      });
+    })
+    .catch(function(e){ lista.innerHTML = '<p style="color:var(--rj)">Error: '+e.message+'</p>'; });
+}
 
-  document.getElementById('btn-copy-upload').addEventListener('click', function() {
-    copyText(document.getElementById('upload-url').value, 'URL copiada');
+function renderFamCard(id, d){
+  var div = document.createElement('div');
+  div.className = 'fam-card' + (d.activa===false?' inactiva':'');
+  var act = d.activa !== false;
+  div.innerHTML =
+    '<div class="fam-avatar">🧒</div>' +
+    '<div class="fam-info">' +
+      '<div class="fam-nombre">'+(d.nombreNino||'Sin nombre')+' '+(d.apellidos||'')+'</div>' +
+      '<div class="fam-meta">'+(d.habitacion?'🏥 '+d.habitacion+' · ':'')+formatFecha(d.fechaIngreso)+'</div>' +
+    '</div>' +
+    '<span class="fam-badge '+(act?'act':'ina')+'">'+(act?'Activa':'Inactiva')+'</span>' +
+    '<div class="fam-btns">' +
+      '<button class="btn btn-blue" onclick="abrirDetalle(\''+id+'\')">✏️ Editar</button>' +
+    '</div>';
+  return div;
+}
+
+/* ── FAMILIA DETALLE ──────────────────────────────────── */
+function showNueva(){
+  currentId = null;
+  document.getElementById('f-nombre').value = '';
+  document.getElementById('f-apellidos').value = '';
+  document.getElementById('f-hab').value = '';
+  document.getElementById('f-fecha').value = hoy();
+  document.getElementById('f-activa').checked = true;
+  document.getElementById('f-encuesta').checked = false;
+  document.getElementById('btn-wa').style.display = 'none';
+  currentEvs = [];
+  renderEvs();
+  document.getElementById('gal-fam').innerHTML = '';
+  document.getElementById('view-lista').style.display = 'none';
+  document.getElementById('view-detalle').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function abrirDetalle(id){
+  currentId = id;
+  var d = famData[id];
+  document.getElementById('f-nombre').value   = d.nombreNino||'';
+  document.getElementById('f-apellidos').value = d.apellidos||'';
+  document.getElementById('f-hab').value       = d.habitacion||'';
+  document.getElementById('f-fecha').value     = d.fechaIngreso||'';
+  document.getElementById('f-activa').checked  = d.activa !== false;
+  document.getElementById('f-encuesta').checked = !!d.mostrarEncuesta;
+  document.getElementById('btn-wa').style.display = 'inline-block';
+  document.getElementById('fotos-fam-tit').textContent = '📸 Fotos de '+(d.nombreNino||'la familia');
+  currentEvs = (d.eventos||[]).slice();
+  renderEvs();
+  cargarGalFam(id);
+  document.getElementById('view-lista').style.display = 'none';
+  document.getElementById('view-detalle').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function volverLista(){
+  currentId = null;
+  document.getElementById('view-detalle').style.display = 'none';
+  document.getElementById('view-lista').style.display = 'block';
+  document.getElementById('ev-form').style.display = 'none';
+  cargarFamilias();
+}
+
+function guardarFamilia(){
+  var nombre = document.getElementById('f-nombre').value.trim();
+  if(!nombre){ alert('Escribe el nombre del niño/a.'); return; }
+  var data = {
+    nombreNino:     nombre,
+    apellidos:      document.getElementById('f-apellidos').value.trim(),
+    habitacion:     document.getElementById('f-hab').value.trim(),
+    fechaIngreso:   document.getElementById('f-fecha').value,
+    activa:         document.getElementById('f-activa').checked,
+    mostrarEncuesta:document.getElementById('f-encuesta').checked,
+    eventos:        currentEvs
+  };
+  var p;
+  if(currentId){
+    p = db.collection('familias').doc(currentId).update(data);
+  } else {
+    var token = genToken();
+    currentId = token;
+    data.creadoEn = firebase.firestore.FieldValue.serverTimestamp();
+    p = db.collection('familias').doc(token).set(data);
+  }
+  p.then(function(){
+    famData[currentId] = data;
+    document.getElementById('btn-wa').style.display = 'inline-block';
+    document.getElementById('fotos-fam-tit').textContent = '📸 Fotos de '+(nombre||'la familia');
+    mostrarToast('✅ Guardado correctamente');
+  }).catch(function(e){ alert('Error al guardar: '+e.message); });
+}
+
+function enviarWhatsApp(){
+  if(!currentId) return;
+  var nombre = (famData[currentId]||{}).nombreNino || 'tu hijo/a';
+  var link = 'https://padres-uci.web.app/familia?id='+currentId;
+  var msg = '¡Hola! 👋\n\nAquí tienes el acceso personalizado de *'+nombre+'* en la UCI de Quemados 🐻\n\n👉 '+link+'\n\nCon este enlace podrás ver el calendario, las fotos y la guía de tu hijo/a en cualquier momento. Puedes guardarlo en tu móvil 📱';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ── EVENTOS ──────────────────────────────────────────── */
+var TIPOS = {procedimiento:'🩺 Procedimiento',visita:'👨‍👩‍👧 Visitas',alta:'🏠 Alta/traslado',nota:'📝 Nota',otro:'📌 Otro'};
+
+function renderEvs(){
+  var lista = document.getElementById('ev-lista');
+  var evs = currentEvs.slice().sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
+  if(!evs.length){
+    lista.innerHTML = '<p style="font-size:.83rem;color:var(--ts);padding:.5rem 0">Sin eventos. Añade el primero.</p>';
+    return;
+  }
+  lista.innerHTML = '';
+  evs.forEach(function(ev, i){
+    var origIdx = currentEvs.indexOf(ev);
+    var div = document.createElement('div');
+    div.className = 'ev-item';
+    div.innerHTML =
+      '<div class="ev-dot '+ev.tipo+'"></div>' +
+      '<div class="ev-body">' +
+        '<div class="ev-tit">'+escHtml(ev.titulo)+'</div>' +
+        '<div class="ev-meta">'+formatFechaLarga(ev.fecha)+(ev.hora?' · '+ev.hora:'')+'  —  '+(TIPOS[ev.tipo]||ev.tipo)+'</div>' +
+      '</div>' +
+      '<div class="ev-accs">' +
+        '<button class="btn-xs edit" onclick="mostrarFormEv('+origIdx+')">✏️</button>' +
+        '<button class="btn-xs del" onclick="eliminarEv('+origIdx+')">🗑️</button>' +
+      '</div>';
+    lista.appendChild(div);
   });
+}
 
-  // ── Gallery ─────────────────────────────────────────────────────────────────
-  document.getElementById('btn-refresh').addEventListener('click', loadGallery);
-
-  function loadGallery() {
-    var grid = document.getElementById('gallery-grid');
-    grid.innerHTML = '<div class="gallery-msg">Cargando fotos...</div>';
-
-    storageRef.listAll()
-      .then(function(result) {
-        if (!result.items.length) {
-          grid.innerHTML = '<div class="gallery-msg">No hay fotos todavía. ¡Sube la primera!</div>';
-          return;
-        }
-        grid.innerHTML = '';
-        var promises = result.items.map(function(item) {
-          return item.getDownloadURL().then(function(url) {
-            return { item: item, url: url };
-          });
-        });
-        return Promise.all(promises);
-      })
-      .then(function(entries) {
-        if (!entries) return;
-        var grid = document.getElementById('gallery-grid');
-        entries.forEach(function(entry) {
-          var div = document.createElement('div');
-          div.className = 'gallery-item';
-          var imgEl = document.createElement('img');
-          imgEl.src = entry.url;
-          imgEl.alt = entry.item.name;
-          imgEl.loading = 'lazy';
-
-          var overlay = document.createElement('div');
-          overlay.className = 'gallery-overlay';
-
-          var btnCopy = document.createElement('button');
-          btnCopy.className = 'btn-icon';
-          btnCopy.textContent = '📋 Copiar URL';
-          btnCopy.addEventListener('click', function(e) {
-            e.stopPropagation();
-            copyText(entry.url, 'URL copiada');
-          });
-
-          var btnDel = document.createElement('button');
-          btnDel.className = 'btn-icon red';
-          btnDel.textContent = '🗑️ Eliminar';
-          btnDel.addEventListener('click', function(e) {
-            e.stopPropagation();
-            deletePhoto(entry.item, div);
-          });
-
-          overlay.appendChild(btnCopy);
-          overlay.appendChild(btnDel);
-
-          var nameEl = document.createElement('div');
-          nameEl.className = 'gallery-filename';
-          nameEl.textContent = entry.item.name;
-
-          div.appendChild(imgEl);
-          div.appendChild(overlay);
-          div.appendChild(nameEl);
-          grid.appendChild(div);
-        });
-      })
-      .catch(function(err) {
-        document.getElementById('gallery-grid').innerHTML =
-          '<div class="gallery-msg">Error al cargar las fotos: ' + err.message + '</div>';
-      });
+function mostrarFormEv(idx){
+  document.getElementById('ev-idx').value = idx;
+  if(idx >= 0){
+    var ev = currentEvs[idx];
+    document.getElementById('ev-fecha').value = ev.fecha;
+    document.getElementById('ev-hora').value  = ev.hora||'';
+    document.getElementById('ev-tit').value   = ev.titulo;
+    document.getElementById('ev-desc').value  = ev.descripcion||'';
+    document.getElementById('ev-tipo').value  = ev.tipo;
+  } else {
+    document.getElementById('ev-fecha').value = hoy();
+    document.getElementById('ev-hora').value  = '';
+    document.getElementById('ev-tit').value   = '';
+    document.getElementById('ev-desc').value  = '';
+    document.getElementById('ev-tipo').value  = 'procedimiento';
   }
+  var f = document.getElementById('ev-form');
+  f.style.display = 'block';
+  f.scrollIntoView({behavior:'smooth'});
+}
 
-  function deletePhoto(item, divEl) {
-    if (!confirm('¿Eliminar esta foto?\n\n' + item.name)) return;
-    item.delete()
-      .then(function() {
-        divEl.remove();
-        showToast('Foto eliminada');
-      })
-      .catch(function(err) {
-        alert('Error al eliminar: ' + err.message);
+function guardarEvento(){
+  var tit   = document.getElementById('ev-tit').value.trim();
+  var fecha = document.getElementById('ev-fecha').value;
+  if(!tit||!fecha){ alert('Título y fecha son obligatorios.'); return; }
+  var ev = {
+    fecha:       fecha,
+    hora:        document.getElementById('ev-hora').value,
+    titulo:      tit,
+    descripcion: document.getElementById('ev-desc').value.trim(),
+    tipo:        document.getElementById('ev-tipo').value
+  };
+  var idx = parseInt(document.getElementById('ev-idx').value);
+  if(idx>=0) currentEvs[idx] = ev; else currentEvs.push(ev);
+  renderEvs();
+  document.getElementById('ev-form').style.display = 'none';
+}
+
+function cancelarFormEv(){ document.getElementById('ev-form').style.display = 'none'; }
+
+function eliminarEv(idx){
+  if(!confirm('¿Eliminar este evento?')) return;
+  currentEvs.splice(idx,1);
+  renderEvs();
+}
+
+/* ── FOTOS FAMILIA ────────────────────────────────────── */
+function setupDropFam(){
+  var drop = document.getElementById('drop-fam');
+  var inp  = document.getElementById('file-fam');
+  drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',function(){drop.classList.remove('over');});
+  drop.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('over');if(e.dataTransfer.files[0])subirFotoFam(e.dataTransfer.files[0]);});
+  inp.addEventListener('change',function(e){if(e.target.files[0])subirFotoFam(e.target.files[0]);inp.value='';});
+}
+
+function subirFotoFam(file){
+  if(!currentId){ alert('Guarda primero la familia.'); return; }
+  if(!file.type.startsWith('image/')){ alert('Solo imágenes.'); return; }
+  if(file.size>10*1024*1024){ alert('Máx. 10 MB.'); return; }
+  var ref = storage.ref('fotos/'+currentId+'/'+Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_'));
+  var task = ref.put(file);
+  document.getElementById('prog-fam-wrap').style.display = 'block';
+  task.on('state_changed',
+    function(s){ var p=Math.round(s.bytesTransferred/s.totalBytes*100); document.getElementById('prog-fam').style.width=p+'%'; document.getElementById('prog-fam-label').textContent='Subiendo… '+p+'%'; },
+    function(e){ document.getElementById('prog-fam-wrap').style.display='none'; alert('Error: '+e.message); },
+    function(){ document.getElementById('prog-fam-wrap').style.display='none'; cargarGalFam(currentId); mostrarToast('Foto subida'); }
+  );
+}
+
+function cargarGalFam(id){
+  var gal = document.getElementById('gal-fam');
+  gal.innerHTML = '<p style="font-size:.78rem;color:var(--ts)">Cargando...</p>';
+  storage.ref('fotos/'+id).listAll()
+    .then(function(res){
+      if(!res.items.length){ gal.innerHTML='<p style="font-size:.78rem;color:var(--ts)">Sin fotos aún.</p>'; return; }
+      gal.innerHTML='';
+      res.items.forEach(function(item){
+        item.getDownloadURL().then(function(url){
+          var d=document.createElement('div'); d.className='gal-item';
+          d.innerHTML='<img src="'+url+'" loading="lazy"><div class="gal-ov"><button class="btn-xs del" onclick="eliminarFotoFam(this)" data-path="'+item.fullPath+'">🗑️</button></div>';
+          gal.appendChild(d);
+        });
       });
-  }
+    })
+    .catch(function(){ gal.innerHTML='<p style="font-size:.78rem;color:var(--ts)">Sin fotos.</p>'; });
+}
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
-  function copyText(text, msg) {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(function() { showToast(msg); });
-    } else {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      showToast(msg);
+function eliminarFotoFam(btn){
+  if(!confirm('¿Eliminar esta foto?')) return;
+  storage.ref(btn.dataset.path).delete()
+    .then(function(){ btn.closest('.gal-item').remove(); mostrarToast('Foto eliminada'); })
+    .catch(function(e){ alert('Error: '+e.message); });
+}
+
+/* ── ENCUESTAS ────────────────────────────────────────── */
+function cargarEncuestas(){
+  var lista = document.getElementById('enc-lista');
+  lista.innerHTML = '<p style="color:var(--ts);font-size:.88rem">Cargando...</p>';
+  db.collection('familias').where('encuesta','!=',null).get()
+    .then(function(snap){
+      if(snap.empty){ lista.innerHTML='<p style="color:var(--ts);font-size:.88rem">Todavía no hay encuestas rellenadas.</p>'; return; }
+      lista.innerHTML='';
+      snap.forEach(function(doc){
+        var d=doc.data(); var e=d.encuesta;
+        if(!e) return;
+        var card=document.createElement('div'); card.className='enc-card';
+        card.innerHTML=
+          '<div class="enc-nombre">'+escHtml((d.nombreNino||'')+(d.apellidos?' '+d.apellidos:''))+'</div>'+
+          '<div class="enc-fecha">Rellenada: '+formatFechaLarga(e.fecha instanceof Object ? e.fecha.toDate().toISOString().split('T')[0] : e.fecha)+'</div>'+
+          renderPreguntasAdmin(e);
+        lista.appendChild(card);
+      });
+    })
+    .catch(function(e){ lista.innerHTML='<p style="color:var(--rj)">Error: '+e.message+'</p>'; });
+}
+
+function renderPreguntasAdmin(e){
+  var h='';
+  var preguntas=[
+    {k:'atencionMedica',label:'Atención médica'},
+    {k:'atencionEnfermeria',label:'Atención de enfermería'},
+    {k:'informacion',label:'Información recibida'},
+    {k:'guiaUtil',label:'¿Fue útil la guía?'},
+    {k:'recomendaria',label:'¿Recomendarías el servicio?'}
+  ];
+  preguntas.forEach(function(q){
+    if(e[q.k]===undefined) return;
+    h+='<div class="enc-q">'+q.label+'</div>';
+    var val=e[q.k];
+    if(typeof val==='number') h+='<div class="enc-r"><span class="stars-val">'+('★').repeat(val)+('☆').repeat(5-val)+'</span> ('+val+'/5)</div>';
+    else h+='<div class="enc-r">'+(val==='si'?'✅ Sí':val==='no'?'❌ No':'➖ Más o menos')+'</div>';
+  });
+  if(e.comentarios) h+='<div class="enc-q">Comentarios</div><div class="enc-r" style="font-style:italic">«'+escHtml(e.comentarios)+'»</div>';
+  return h;
+}
+
+/* ── FOTOS GENERALES ──────────────────────────────────── */
+function setupDropGen(){
+  var drop=document.getElementById('drop-gen');
+  var inp=document.getElementById('file-gen');
+  drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',function(){drop.classList.remove('over');});
+  drop.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('over');if(e.dataTransfer.files[0])subirFotoGen(e.dataTransfer.files[0]);});
+  inp.addEventListener('change',function(e){if(e.target.files[0])subirFotoGen(e.target.files[0]);inp.value='';});
+}
+
+function subirFotoGen(file){
+  if(!file.type.startsWith('image/')){ alert('Solo imágenes.'); return; }
+  if(file.size>10*1024*1024){ alert('Máx. 10 MB.'); return; }
+  var ref=storage.ref('fotos/general/'+Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_'));
+  var task=ref.put(file);
+  var pw=document.getElementById('prog-gen-wrap');
+  var pb=document.getElementById('prog-gen');
+  pw.style.display='block';
+  document.getElementById('url-gen-wrap').style.display='none';
+  task.on('state_changed',
+    function(s){pb.style.width=Math.round(s.bytesTransferred/s.totalBytes*100)+'%'; document.getElementById('prog-gen-label').textContent='Subiendo… '+Math.round(s.bytesTransferred/s.totalBytes*100)+'%';},
+    function(e){pw.style.display='none';alert('Error: '+e.message);},
+    function(){
+      pw.style.display='none';
+      task.snapshot.ref.getDownloadURL().then(function(url){
+        document.getElementById('url-gen-wrap').style.display='block';
+        document.getElementById('url-gen').value=url;
+        cargarGalGen();
+      });
     }
-  }
+  );
+}
 
-  var toastTimer;
-  function showToast(msg) {
-    var el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2500);
-  }
+function cargarGalGen(){
+  var gal=document.getElementById('gal-gen');
+  gal.innerHTML='<p style="font-size:.78rem;color:var(--ts)">Cargando...</p>';
+  storage.ref('fotos/general').listAll()
+    .then(function(res){
+      if(!res.items.length){gal.innerHTML='<p style="font-size:.78rem;color:var(--ts)">Sin fotos.</p>';return;}
+      gal.innerHTML='';
+      res.items.forEach(function(item){
+        item.getDownloadURL().then(function(url){
+          var d=document.createElement('div');d.className='gal-item';
+          d.innerHTML='<img src="'+url+'" loading="lazy"><div class="gal-ov"><button class="btn-xs" style="background:rgba(255,255,255,.2);color:#fff" onclick="copiarTexto(\''+url+'\',\'URL copiada\')">📋</button><button class="btn-xs del" onclick="eliminarFotoGen(this)" data-path="'+item.fullPath+'">🗑️</button></div>';
+          gal.appendChild(d);
+        });
+      });
+    })
+    .catch(function(){gal.innerHTML='<p style="font-size:.78rem;color:var(--ts)">Sin fotos.</p>';});
+}
+
+function eliminarFotoGen(btn){
+  if(!confirm('¿Eliminar?')) return;
+  storage.ref(btn.dataset.path).delete()
+    .then(function(){btn.closest('.gal-item').remove();mostrarToast('Eliminada');})
+    .catch(function(e){alert('Error: '+e.message);});
+}
+
+/* ── UTILS ────────────────────────────────────────────── */
+function genToken(){
+  var c='abcdefghijklmnopqrstuvwxyz0123456789',t='';
+  for(var i=0;i<8;i++) t+=c[Math.floor(Math.random()*c.length)];
+  return t;
+}
+function hoy(){ return new Date().toISOString().split('T')[0]; }
+function formatFecha(s){
+  if(!s) return '—';
+  var p=s.split('-');
+  var meses=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return parseInt(p[2])+' '+meses[parseInt(p[1])-1];
+}
+function formatFechaLarga(s){
+  if(!s) return '—';
+  var p=s.split('-');
+  var meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return parseInt(p[2])+' de '+meses[parseInt(p[1])-1]+' de '+p[0];
+}
+function escHtml(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function copiarTexto(t,msg){
+  if(navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){mostrarToast(msg);}); }
+  else { var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);mostrarToast(msg); }
+}
+var _toastTimer;
+function mostrarToast(msg){ var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(function(){el.classList.remove('show');},2500); }
+
+/* ── INIT ─────────────────────────────────────────────── */
+setupDropFam();
+setupDropGen();
 </script>
 </body>
 </html>
