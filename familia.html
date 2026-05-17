@@ -117,6 +117,21 @@ body{font-family:"Nunito",Arial,sans-serif;background:var(--bg);color:var(--tx);
 .enc-ok h3{font-size:1rem;font-weight:800;color:#2a7a4a;margin-bottom:.3rem}
 .enc-ok p{font-size:.85rem;color:#2a7a4a;line-height:1.6}
 
+/* LOGIN */
+#login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem;background:var(--bg)}
+.login-box{background:#fff;border-radius:20px;padding:1.8rem 1.5rem;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+.login-box .osito{font-size:2.5rem;margin-bottom:.5rem}
+.login-box h2{font-size:1.1rem;font-weight:800;color:var(--no);margin-bottom:.2rem}
+.login-box .bienvenida{font-size:.83rem;color:var(--ts);margin-bottom:1.4rem;line-height:1.5}
+.login-email-chip{background:var(--nc);border-radius:10px;padding:.55rem .85rem;font-size:.85rem;font-weight:700;color:var(--no);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;word-break:break-all}
+.campo-login label{display:block;font-size:.82rem;font-weight:700;margin-bottom:.3rem}
+.campo-login input{width:100%;border:2px solid #e0e0e0;border-radius:10px;padding:.72rem .9rem;font-family:inherit;font-size:1rem;outline:none;transition:border-color .2s;letter-spacing:.08em}
+.campo-login input:focus{border-color:var(--n)}
+.btn-login{width:100%;background:var(--n);color:#fff;border:none;border-radius:12px;padding:.82rem;font-family:inherit;font-size:.97rem;font-weight:800;cursor:pointer;margin-top:.9rem;transition:background .2s}
+.btn-login:hover{background:var(--no)}
+.btn-login:disabled{background:#ccc;cursor:not-allowed}
+.login-err{color:var(--rj);font-size:.82rem;margin-top:.65rem;text-align:center;font-weight:600;display:none}
+
 /* INSTALAR */
 .install-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;box-shadow:0 -3px 16px rgba(0,0,0,.12);padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem;z-index:200}
 .install-bar .ico{font-size:1.6rem;flex-shrink:0}
@@ -129,6 +144,22 @@ body{font-family:"Nunito",Arial,sans-serif;background:var(--bg);color:var(--tx);
 </style>
 </head>
 <body>
+
+<!-- LOGIN (solo se muestra cuando el link trae ?e=correo) -->
+<div id="login-wrap" style="display:none">
+  <div class="login-box">
+    <div class="osito">🐻</div>
+    <h2>UCI de Quemados</h2>
+    <p class="bienvenida">Bienvenido/a. Introduce tu contraseña para acceder a la información de tu hijo/a.</p>
+    <div class="login-email-chip">✉️ <span id="login-email-chip"></span></div>
+    <div class="campo-login">
+      <label for="login-pwd">Contraseña</label>
+      <input type="password" id="login-pwd" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-login" id="btn-login">Entrar</button>
+    <p class="login-err" id="login-err">Contraseña incorrecta. Inténtalo de nuevo.</p>
+  </div>
+</div>
 
 <!-- LOADING -->
 <div id="cargando" class="estado" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh">
@@ -251,10 +282,12 @@ body{font-family:"Nunito",Arial,sans-serif;background:var(--bg);color:var(--tx);
 </div>
 
 <script src="/__/firebase/8.10.1/firebase-app.js"></script>
+<script src="/__/firebase/8.10.1/firebase-auth.js"></script>
 <script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
 <script src="/__/firebase/8.10.1/firebase-storage.js"></script>
 <script src="/__/firebase/init.js"></script>
 <script>
+var auth    = firebase.auth();
 var db      = firebase.firestore();
 var storage = firebase.storage();
 var familiaData = null;
@@ -264,19 +297,79 @@ var familiaId   = null;
 (function(){
   var params = new URLSearchParams(window.location.search);
   var token  = params.get('id');
-  if(!token){ mostrarError(); return; }
-  familiaId = token;
+  var email  = params.get('e') ? decodeURIComponent(params.get('e')) : null;
 
-  db.collection('familias').doc(token).get()
-    .then(function(doc){
-      if(!doc.exists || doc.data().activa === false){
-        mostrarError();
-        return;
+  if(token){
+    // Modo token: acceso directo sin contraseña
+    familiaId = token;
+    db.collection('familias').doc(token).get()
+      .then(function(doc){
+        if(!doc.exists || doc.data().activa === false){ mostrarError(); return; }
+        familiaData = doc.data();
+        renderTodo();
+      })
+      .catch(function(){ mostrarError(); });
+
+  } else if(email){
+    // Modo email: mostrar solo campo de contraseña
+    document.getElementById('cargando').style.display = 'none';
+    document.getElementById('login-email-chip').textContent = email;
+    document.getElementById('login-wrap').style.display = 'flex';
+
+    var btnLogin = document.getElementById('btn-login');
+    var pwd      = document.getElementById('login-pwd');
+    var errEl    = document.getElementById('login-err');
+
+    function doLogin(){
+      errEl.style.display = 'none';
+      btnLogin.disabled = true;
+      btnLogin.textContent = 'Entrando…';
+      auth.signInWithEmailAndPassword(email, pwd.value)
+        .then(function(){
+          document.getElementById('login-wrap').style.display = 'none';
+          document.getElementById('cargando').style.display = 'flex';
+          return db.collection('familias').where('email','==',email).where('activa','==',true).limit(1).get();
+        })
+        .then(function(snap){
+          if(snap.empty){ mostrarError(); return; }
+          var doc = snap.docs[0];
+          familiaId   = doc.id;
+          familiaData = doc.data();
+          renderTodo();
+        })
+        .catch(function(err){
+          btnLogin.disabled = false;
+          btnLogin.textContent = 'Entrar';
+          errEl.style.display = 'block';
+          errEl.textContent = err.code === 'auth/too-many-requests'
+            ? 'Demasiados intentos. Espera unos minutos.'
+            : 'Contraseña incorrecta. Inténtalo de nuevo.';
+        });
+    }
+
+    btnLogin.addEventListener('click', doLogin);
+    pwd.addEventListener('keypress', function(e){ if(e.key==='Enter') doLogin(); });
+
+    // Si ya estaba autenticado con este correo, entrar directo
+    auth.onAuthStateChanged(function(user){
+      if(user && user.email === email){
+        document.getElementById('login-wrap').style.display = 'none';
+        document.getElementById('cargando').style.display = 'flex';
+        db.collection('familias').where('email','==',email).where('activa','==',true).limit(1).get()
+          .then(function(snap){
+            if(snap.empty){ mostrarError(); return; }
+            var doc = snap.docs[0];
+            familiaId   = doc.id;
+            familiaData = doc.data();
+            renderTodo();
+          })
+          .catch(function(){ mostrarError(); });
       }
-      familiaData = doc.data();
-      renderTodo();
-    })
-    .catch(function(){ mostrarError(); });
+    });
+
+  } else {
+    mostrarError();
+  }
 })();
 
 function mostrarError(){

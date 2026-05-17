@@ -180,6 +180,7 @@ input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--n)
           <div class="campo-sm"><label>Nombre del niño/a *</label><input type="text" id="f-nombre" placeholder="Sofía"></div>
           <div class="campo-sm"><label>Apellidos</label><input type="text" id="f-apellidos" placeholder="García López"></div>
         </div>
+        <div class="campo-sm" style="margin-bottom:.7rem"><label>Correo de los padres *</label><input type="email" id="f-email" placeholder="familia@correo.com" autocomplete="off"></div>
         <div class="campo-row" style="margin-bottom:.7rem">
           <div class="campo-sm"><label>Habitación</label><input type="text" id="f-hab" placeholder="UCI-3"></div>
           <div class="campo-sm"><label>Fecha de ingreso</label><input type="date" id="f-fecha"></div>
@@ -373,7 +374,7 @@ function renderFamCard(id, d){
     '<div class="fam-avatar">🧒</div>' +
     '<div class="fam-info">' +
       '<div class="fam-nombre">'+(d.nombreNino||'Sin nombre')+' '+(d.apellidos||'')+'</div>' +
-      '<div class="fam-meta">'+(d.habitacion?'🏥 '+d.habitacion+' · ':'')+formatFecha(d.fechaIngreso)+'</div>' +
+      '<div class="fam-meta">'+(d.habitacion?'🏥 '+d.habitacion+' · ':'')+formatFecha(d.fechaIngreso)+(d.email?'<br>✉️ '+d.email:'')+'</div>' +
     '</div>' +
     '<span class="fam-badge '+(act?'act':'ina')+'">'+(act?'Activa':'Inactiva')+'</span>' +
     '<div class="fam-btns">' +
@@ -387,6 +388,7 @@ function showNueva(){
   currentId = null;
   document.getElementById('f-nombre').value = '';
   document.getElementById('f-apellidos').value = '';
+  document.getElementById('f-email').value = '';
   document.getElementById('f-hab').value = '';
   document.getElementById('f-fecha').value = hoy();
   document.getElementById('f-activa').checked = true;
@@ -405,6 +407,7 @@ function abrirDetalle(id){
   var d = famData[id];
   document.getElementById('f-nombre').value   = d.nombreNino||'';
   document.getElementById('f-apellidos').value = d.apellidos||'';
+  document.getElementById('f-email').value     = d.email||'';
   document.getElementById('f-hab').value       = d.habitacion||'';
   document.getElementById('f-fecha').value     = d.fechaIngreso||'';
   document.getElementById('f-activa').checked  = d.activa !== false;
@@ -433,6 +436,7 @@ function guardarFamilia(){
   var data = {
     nombreNino:     nombre,
     apellidos:      document.getElementById('f-apellidos').value.trim(),
+    email:          document.getElementById('f-email').value.trim().toLowerCase(),
     habitacion:     document.getElementById('f-hab').value.trim(),
     fechaIngreso:   document.getElementById('f-fecha').value,
     activa:         document.getElementById('f-activa').checked,
@@ -458,9 +462,13 @@ function guardarFamilia(){
 
 function enviarWhatsApp(){
   if(!currentId) return;
-  var nombre = (famData[currentId]||{}).nombreNino || 'tu hijo/a';
-  var link = 'https://padres-uci.web.app/familia?id='+currentId;
-  var msg = '¡Hola! 👋\n\nAquí tienes el acceso personalizado de *'+nombre+'* en la UCI de Quemados 🐻\n\n👉 '+link+'\n\nCon este enlace podrás ver el calendario, las fotos y la guía de tu hijo/a en cualquier momento. Puedes guardarlo en tu móvil 📱';
+  var d      = famData[currentId] || {};
+  var nombre = d.nombreNino || 'tu hijo/a';
+  var email  = d.email || '';
+  var link   = email
+    ? 'https://padres-uci.web.app/familia?e='+encodeURIComponent(email)
+    : 'https://padres-uci.web.app/familia?id='+currentId;
+  var msg = '¡Hola! 👋\n\nAquí tienes el acceso a la guía personalizada de *'+nombre+'* en la UCI de Quemados 🐻\n\n👉 '+link+'\n\nAbre el enlace e introduce tu contraseña. Solo necesitas hacerlo una vez — después entrará directo 📱';
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 }
 
