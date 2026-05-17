@@ -296,66 +296,39 @@ var familiaId   = null;
 /* ── INIT ─────────────────────────────────────────────── */
 (function(){
   var params = new URLSearchParams(window.location.search);
-  var token  = params.get('id');
   var email  = params.get('e') ? decodeURIComponent(params.get('e')) : null;
 
-  if(token){
-    // Modo token: acceso directo sin contraseña
-    familiaId = token;
-    db.collection('familias').doc(token).get()
-      .then(function(doc){
-        if(!doc.exists || doc.data().activa === false){ mostrarError(); return; }
-        familiaData = doc.data();
-        renderTodo();
-      })
-      .catch(function(){ mostrarError(); });
+  if(!email){ mostrarError(); return; }
 
-  } else if(email){
-    // Modo email: mostrar solo campo de contraseña
-    document.getElementById('cargando').style.display = 'none';
-    document.getElementById('login-email-chip').textContent = email;
-    document.getElementById('login-wrap').style.display = 'flex';
+  // Usar persistencia de sesión: se borra al cerrar el navegador
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(function(){
+      // Cerrar cualquier sesión previa (p.ej. admin en el mismo navegador)
+      return auth.signOut();
+    })
+    .then(function(){
+      // Mostrar formulario de login con correo pre-relleno
+      document.getElementById('cargando').style.display = 'none';
+      document.getElementById('login-email-chip').textContent = email;
+      document.getElementById('login-wrap').style.display = 'flex';
 
-    var btnLogin = document.getElementById('btn-login');
-    var pwd      = document.getElementById('login-pwd');
-    var errEl    = document.getElementById('login-err');
+      var btnLogin = document.getElementById('btn-login');
+      var pwd      = document.getElementById('login-pwd');
+      var errEl    = document.getElementById('login-err');
 
-    function doLogin(){
-      errEl.style.display = 'none';
-      btnLogin.disabled = true;
-      btnLogin.textContent = 'Entrando…';
-      auth.signInWithEmailAndPassword(email, pwd.value)
-        .then(function(){
-          document.getElementById('login-wrap').style.display = 'none';
-          document.getElementById('cargando').style.display = 'flex';
-          return db.collection('familias').where('email','==',email).where('activa','==',true).limit(1).get();
-        })
-        .then(function(snap){
-          if(snap.empty){ mostrarError(); return; }
-          var doc = snap.docs[0];
-          familiaId   = doc.id;
-          familiaData = doc.data();
-          renderTodo();
-        })
-        .catch(function(err){
-          btnLogin.disabled = false;
-          btnLogin.textContent = 'Entrar';
-          errEl.style.display = 'block';
-          errEl.textContent = err.code === 'auth/too-many-requests'
-            ? 'Demasiados intentos. Espera unos minutos.'
-            : 'Contraseña incorrecta. Inténtalo de nuevo.';
-        });
-    }
-
-    btnLogin.addEventListener('click', doLogin);
-    pwd.addEventListener('keypress', function(e){ if(e.key==='Enter') doLogin(); });
-
-    // Si ya estaba autenticado con este correo, entrar directo
-    auth.onAuthStateChanged(function(user){
-      if(user && user.email === email){
-        document.getElementById('login-wrap').style.display = 'none';
-        document.getElementById('cargando').style.display = 'flex';
-        db.collection('familias').where('email','==',email).where('activa','==',true).limit(1).get()
+      function doLogin(){
+        errEl.style.display = 'none';
+        btnLogin.disabled = true;
+        btnLogin.textContent = 'Entrando…';
+        auth.signInWithEmailAndPassword(email, pwd.value)
+          .then(function(){
+            document.getElementById('login-wrap').style.display = 'none';
+            document.getElementById('cargando').style.display = 'flex';
+            return db.collection('familias')
+              .where('email','==',email)
+              .where('activa','==',true)
+              .limit(1).get();
+          })
           .then(function(snap){
             if(snap.empty){ mostrarError(); return; }
             var doc = snap.docs[0];
@@ -363,13 +336,19 @@ var familiaId   = null;
             familiaData = doc.data();
             renderTodo();
           })
-          .catch(function(){ mostrarError(); });
+          .catch(function(err){
+            btnLogin.disabled = false;
+            btnLogin.textContent = 'Entrar';
+            errEl.style.display = 'block';
+            errEl.textContent = err.code === 'auth/too-many-requests'
+              ? 'Demasiados intentos. Espera unos minutos.'
+              : 'Contraseña incorrecta. Inténtalo de nuevo.';
+          });
       }
-    });
 
-  } else {
-    mostrarError();
-  }
+      btnLogin.addEventListener('click', doLogin);
+      pwd.addEventListener('keypress', function(e){ if(e.key==='Enter') doLogin(); });
+    });
 })();
 
 function mostrarError(){

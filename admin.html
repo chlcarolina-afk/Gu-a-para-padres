@@ -464,11 +464,13 @@ function enviarWhatsApp(){
   if(!currentId) return;
   var d      = famData[currentId] || {};
   var nombre = d.nombreNino || 'tu hijo/a';
-  var email  = d.email || '';
-  var link   = email
-    ? 'https://padres-uci.web.app/familia?e='+encodeURIComponent(email)
-    : 'https://padres-uci.web.app/familia?id='+currentId;
-  var msg = '¡Hola! 👋\n\nAquí tienes el acceso a la guía personalizada de *'+nombre+'* en la UCI de Quemados 🐻\n\n👉 '+link+'\n\nAbre el enlace e introduce tu contraseña. Solo necesitas hacerlo una vez — después entrará directo 📱';
+  var email  = (d.email || '').trim();
+  if(!email){
+    alert('Añade el correo de la familia antes de enviar el link. Guarda los cambios y vuelve a intentarlo.');
+    return;
+  }
+  var link = 'https://padres-uci.web.app/familia?e='+encodeURIComponent(email);
+  var msg  = '¡Hola! 👋\n\nAquí tienes el acceso a la guía personalizada de *'+nombre+'* en la UCI de Quemados 🐻\n\n👉 '+link+'\n\nAbre el enlace e introduce tu contraseña para entrar.';
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 }
 
