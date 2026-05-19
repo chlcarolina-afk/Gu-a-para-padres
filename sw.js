@@ -1,4 +1,4 @@
-var CACHE = 'uci-v1';
+var CACHE = 'uci-v2';
 var PRECACHE = ['/familia', '/manifest.json'];
 
 self.addEventListener('install', function(e) {
